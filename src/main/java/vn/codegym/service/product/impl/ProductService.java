@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import vn.codegym.dto.product.ProductDTO;
+import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
 import vn.codegym.entity.product.ProductType;
@@ -25,10 +26,36 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
-    public Page<ProductDTO> findAllProducts(Pageable pageable) {
+    /**
+     * Created by : QuanTVA
+     * @param id
+     * @return : List<ProductDetailDTO>
+     *  Function : findAllByIdProduct
+     */
+    @Override
+    public List<ProductDetailDTO> findAllByProductId(int id) {
+        return productRepository.findAllByIdProduct(id);
+    }
+
+    /**
+     * created by : QuanTVA
+     * @param pageable
+     * @return : Page<Product>
+     *     function : findAllProduct
+     */
+    public Page<Product> findAllProducts(Pageable pageable) {
         return productRepository.findAllProducts(pageable);
     }
 
+    /**
+     *created by : QuanTVA
+     * @param productName
+     * @param "productSizeList"
+     * @param productTypeId
+     * @param pageable
+     * @return Page<ProductDTO>
+     *     Function : search
+     */
     public Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable) {
         List<String> productSizeList = null;
         if (productSizes != null) {
@@ -38,6 +65,16 @@ public class ProductService implements IProductService {
         return productRepository.search(productName, productSizeList, productTypeId, pageable);
     }
 
+    /**
+     * Created by : QuanTVA
+     * @param productCode
+     * @param productName
+     * @param productImg
+     * @param productQrImg
+     * @param productEntryPrice
+     * @param "productTypeId"
+     * function : addProduct
+     */
     public void addProduct(String productCode, String productName, Double productEntryPrice, ProductType productType, MultipartFile productImg, String productQrImg, Set<ProductSize> productSizes) throws IOException {
         // Save product
         Product product = new Product();
