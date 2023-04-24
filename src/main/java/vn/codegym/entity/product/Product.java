@@ -1,5 +1,6 @@
 package vn.codegym.entity.product;
 
+import vn.codegym.entity.data_entry.DataEntryProduct;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -34,6 +35,18 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<InvoiceDetail> invoiceDetails;
+
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    private Set<DataEntryProduct> dataEntryProductSet;
+
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
+    }
+
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProductSet) {
+        this.dataEntryProductSet = dataEntryProductSet;
+    }
 
     public Product() {
     }
