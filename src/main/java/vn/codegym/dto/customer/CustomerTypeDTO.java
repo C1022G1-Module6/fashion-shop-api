@@ -11,9 +11,6 @@ public class CustomerTypeDTO {
     private Integer bonusPoint;
     private Set<CustomerDTO> customerDTOS;
 
-    public CustomerTypeDTO() {
-    }
-
     public Integer getId() {
         return id;
     }
