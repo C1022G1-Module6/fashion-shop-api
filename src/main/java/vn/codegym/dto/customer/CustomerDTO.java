@@ -1,38 +1,24 @@
-package vn.codegym.entity.customer;
+package vn.codegym.dto.customer;
 
-import vn.codegym.entity.invoice.Invoice;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import vn.codegym.dto.invoice.InvoiceDTO;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "customer")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CustomerDTO {
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
     private String code;
     private String name;
     private boolean gender;
-    @Column(name = "date_of_birth")
     private String dateOfBirth;
     private String address;
     private String email;
-    @Column(name = "phone_number")
     private String phoneNumber;
     private Integer point = 0;
-    @ManyToOne
-    @JoinColumn(name = "customer_type_id")
-    @JsonBackReference
-    private CustomerType customerType;
-    @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
-    private Set<Invoice> invoices;
+    private CustomerTypeDTO customerTypeDTO;
+    private Set<InvoiceDTO> invoiceDTOS;
+    private Boolean isDelete = false;
 
-    public Customer() {
+    public CustomerDTO() {
     }
 
     public Integer getId() {
@@ -49,6 +35,14 @@ public class Customer {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isGender() {
@@ -99,27 +93,27 @@ public class Customer {
         this.point = point;
     }
 
-    public CustomerType getCustomerType() {
-        return customerType;
+    public CustomerTypeDTO getCustomerTypeDTO() {
+        return customerTypeDTO;
     }
 
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
+    public void setCustomerTypeDTO(CustomerTypeDTO customerTypeDTO) {
+        this.customerTypeDTO = customerTypeDTO;
     }
 
-    public Set<Invoice> getInvoices() {
-        return invoices;
+    public Set<InvoiceDTO> getInvoiceDTOS() {
+        return invoiceDTOS;
     }
 
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
+    public void setInvoiceDTOS(Set<InvoiceDTO> invoiceDTOS) {
+        this.invoiceDTOS = invoiceDTOS;
     }
 
-    public String getName() {
-        return name;
+    public Boolean getDelete() {
+        return isDelete;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }
