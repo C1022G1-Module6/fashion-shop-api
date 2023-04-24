@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "customer_type")
 public class CustomerType {

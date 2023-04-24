@@ -1,22 +1,47 @@
 package vn.codegym.dto.customer;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import vn.codegym.dto.invoice.InvoiceDTO;
+import vn.codegym.entity.customer.CustomerType;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
-public class CustomerDTO {
+public class CustomerDTO implements Validator {
     private Integer id;
+
     private String code;
+
+    @NotBlank(message = "Tên không đươc để trống.")
+    @Pattern(regexp = "^[a-zA-ZÀ-ỹ\\s ]*$", message = "Tên không được nhập số và ký tự đặc biệt.")
     private String name;
+
     private boolean gender;
+
+    @NotBlank(message = "Ngày sinh không đươc để trống")
+    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])$",
+            message = "Ngày sinh phải đúng định dạng DD/MM/YYYY.")
     private String dateOfBirth;
+
+    @NotBlank(message = "Address cannot be left blank ")
+    @Pattern(regexp = "^\\p{Lu}\\p{Ll}+(\\s\\p{Lu}\\p{Ll}+)*$",message = "Vui lòng nhập đúng địa chỉ")
     private String address;
+
+    @NotBlank(message = "Email không được để trống.")
+    @Pattern(message = "Email không đúng định dạng.", regexp = "[\\w]+[@][\\w]+.[\\w]+")
     private String email;
+
+    @NotBlank(message = "Số điện thoại không được để trống.")
+    @Pattern(message = "Số điện thoại không đúng định dạng.", regexp = "^(((\\\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})$")
     private String phoneNumber;
+
     private Integer point = 0;
-    private CustomerTypeDTO customerTypeDTO;
-    private Set<InvoiceDTO> invoiceDTOS;
+
     private Boolean isDelete = false;
+
+    private CustomerType customerType;
 
     public CustomerDTO() {
     }
@@ -93,27 +118,29 @@ public class CustomerDTO {
         this.point = point;
     }
 
-    public CustomerTypeDTO getCustomerTypeDTO() {
-        return customerTypeDTO;
-    }
-
-    public void setCustomerTypeDTO(CustomerTypeDTO customerTypeDTO) {
-        this.customerTypeDTO = customerTypeDTO;
-    }
-
-    public Set<InvoiceDTO> getInvoiceDTOS() {
-        return invoiceDTOS;
-    }
-
-    public void setInvoiceDTOS(Set<InvoiceDTO> invoiceDTOS) {
-        this.invoiceDTOS = invoiceDTOS;
-    }
-
     public Boolean getDelete() {
         return isDelete;
     }
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDTO customerDTO = (CustomerDTO) target;
     }
 }

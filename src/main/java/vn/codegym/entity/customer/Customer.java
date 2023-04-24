@@ -24,6 +24,7 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
     private Integer point = 0;
+    private Boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
     @JsonBackReference
@@ -121,5 +122,13 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }
