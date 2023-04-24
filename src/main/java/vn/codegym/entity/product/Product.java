@@ -21,6 +21,8 @@ public class Product {
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
+
+    private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
@@ -124,5 +126,13 @@ public class Product {
 
     public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }
