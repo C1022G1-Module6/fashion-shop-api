@@ -29,6 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationFilter jwtTokenFilter(){
         return new JwtAuthenticationFilter();
     }
+
+    /**
+     *This is a method in the Spring Security configuration class, used to configure user authentication management.
+     * @param authenticationManagerBuilder the {@link AuthenticationManagerBuilder} to use
+     * @throws Exception
+     */
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
@@ -42,6 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
+    /**
+     *This method is called when the application is started to configure the security of the Spring Security application.
+     * @param httpSecurity the {@link HttpSecurity} to modify
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()

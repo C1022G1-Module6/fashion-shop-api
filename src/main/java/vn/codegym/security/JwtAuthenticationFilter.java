@@ -53,9 +53,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     /**
-     *
+     * QuanNLA
+     * DATE 24/04/2023
+     * Method to use to get the JWT from the Authorization field of the HTTP request header.
      * @param request
      * @return
+     * If the Authorization field has no value or does not begin with "Bearer", the method returns null, else return jwt
      */
     private String getJwt(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");
