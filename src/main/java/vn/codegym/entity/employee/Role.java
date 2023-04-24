@@ -1,4 +1,4 @@
-package vn.codegym.entity.employee;
+package com.example.project_module6.entity.employee;
 
 import javax.persistence.*;
 
