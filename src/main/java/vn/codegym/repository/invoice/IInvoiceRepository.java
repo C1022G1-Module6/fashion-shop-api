@@ -10,6 +10,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
+    /**
+     * This function applied to add new invoice instance to the db with params below
+     * @param bonusPoint
+     * @param code
+     * @param date
+     * @param employeeName
+     * @param payment
+     * @param total
+     * @param customerId
+     */
     @Modifying
     @Transactional
     @Query(value = "insert into invoice (bonus_point, code,`date`, employee_name, payment, total, customer_id) " +
@@ -21,11 +31,25 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
                      @Param("payment") Double payment,
                      @Param("total") Double total,
                      @Param("customer") Integer customerId);
-    //    @Query(value = "select * from invoice where id = :id", nativeQuery = true)
-//    Invoice findDetailById(@Param("id") Integer id);
+
+    /**
+     * This function get all Invoice and return a list of invoice instances
+     * @return
+     */
     @Query(value = "select * from invoice", nativeQuery = true)
     List<Invoice> listAllInvoice();
 
+    /**
+     * This method applied to update the values of invoice instance with params below
+     * @param bonusPoint
+     * @param code
+     * @param date
+     * @param employeeName
+     * @param payment
+     * @param total
+     * @param customerId
+     * @param id
+     */
     @Modifying
     @Transactional
     @Query(value = "update invoice set bonus_point = :bonusPoint, code = :code, `date` = :date, " +

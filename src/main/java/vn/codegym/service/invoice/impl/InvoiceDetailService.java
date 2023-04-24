@@ -11,7 +11,6 @@ import vn.codegym.repository.product.IProductRepository;
 import vn.codegym.service.invoice.IInvoiceDetailService;
 import org.springframework.stereotype.Service;
 import vn.codegym.service.invoice.IInvoiceService;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,8 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
                 invoiceDetail.getTotal(),
                 invoiceDetail.getInvoice().getId(),
-                invoiceDetail.getProduct().getId());
+                invoiceDetail.getProduct().getId(),
+                invoiceDetail.getDelete());
         count++;
     }
     public void resetCount() {
