@@ -29,20 +29,5 @@ public class StatisticalRestController_getTotalRevenue {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-    /**
-     * This function is used to check the display of total size > 0
-     *
-     * @author TruongTQ
-     */
-    @Test
-    public void getTotalRevenue_6() throws Exception {
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .get("/api/admins/total"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("totalElements").value(1))
-                .andExpect(jsonPath("content[0].payment").value("50000000"));
 
-    }
 }

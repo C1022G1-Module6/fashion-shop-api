@@ -36,35 +36,35 @@ public class StatisticalRestController {
         }
     }
 
-//    @GetMapping("")
-//    public ResponseEntity<List<INumberOfOrdersProjection>> getNumberOfOrders() {
-//        List<INumberOfOrdersProjection> iNumberOfOrdersProjections = iCustomerService.findNumberOfCustomer();
-//        if (iNumberOfOrdersProjections == null) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(iNumberOfOrdersProjections, HttpStatus.OK);
-//        }
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<List<ITopEmployeesProjection>> getTopEmployees() {
-//        List<ITopEmployeesProjection> iTopEmployeesProjections = iCustomerService.findNumberOfCustomer();
-//        if (iTopEmployeesProjections == null) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(iTopEmployeesProjections, HttpStatus.OK);
-//        }
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<List<ITopOrdersProjection>> getTopOrders() {
-//        List<ITopOrdersProjection> iTopOrdersProjections = iCustomerService.findNumberOfCustomer();
-//        if (iTopOrdersProjections == null) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(iTopOrdersProjections, HttpStatus.OK);
-//        }
-//    }
+    @GetMapping("/order")
+    public ResponseEntity<List<INumberOfOrdersProjection>> getNumberOfOrders() {
+        List<INumberOfOrdersProjection> iNumberOfOrdersProjections = iCustomerService.findNumberOfCustomer();
+        if (iNumberOfOrdersProjections == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(iNumberOfOrdersProjections, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("top-selling")
+    public ResponseEntity<List<ITopEmployeesProjection>> getTopEmployees() {
+        List<ITopEmployeesProjection> iTopEmployeesProjections = iCustomerService.findNumberOfCustomer();
+        if (iTopEmployeesProjections == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(iTopEmployeesProjections, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("top-order")
+    public ResponseEntity<List<ITopOrdersProjection>> getTopOrders() {
+        List<ITopOrdersProjection> iTopOrdersProjections = iCustomerService.findNumberOfCustomer();
+        if (iTopOrdersProjections == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(iTopOrdersProjections, HttpStatus.OK);
+        }
+    }
     @GetMapping("/total")
     public Double getTotalRevenue(@RequestParam("startDate") String startDate,
                                   @RequestParam("endDate") String endDate) {

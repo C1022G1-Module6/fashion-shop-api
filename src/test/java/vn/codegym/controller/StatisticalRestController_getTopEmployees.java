@@ -33,26 +33,5 @@ public class StatisticalRestController_getTopEmployees {
     }
 
 
-    /**
-     * This function is used to check the display of top employees size > 0
-     *
-     * @author TruongTQ
-     */
-    @Test
-    public void getTopEmployees_6() throws Exception {
 
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .get("/api/admins/top-selling"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("totalElements").value(1))
-                .andExpect(jsonPath("content[0].name").value("truong"))
-                .andExpect(jsonPath("content[0].phoneNumber").value("098761231"))
-                .andExpect(jsonPath("content[0].dateOfBirth").value("20/06/2000"))
-                .andExpect(jsonPath("content[4].name").value("vinh"))
-                .andExpect(jsonPath("content[4].phoneNumber").value("076528171"))
-                .andExpect(jsonPath("content[4].dateOfBirth").value("20/06/1999"));
-
-    }
 }

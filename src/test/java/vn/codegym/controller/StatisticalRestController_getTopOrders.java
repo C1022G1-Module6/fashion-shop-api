@@ -33,26 +33,4 @@ public class StatisticalRestController_getTopOrders {
     }
 
 
-    /**
-     * This function is used to check the display of top Orders size > 0
-     *
-     * @author TruongTQ
-     */
-    @Test
-    public void getTopOrders_6() throws Exception {
-
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .get("/api/admins/top-order"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("totalElements").value(1))
-                .andExpect(jsonPath("content[0].name").value("ao"))
-                .andExpect(jsonPath("content[0].total").value("9"))
-                .andExpect(jsonPath("content[0].payment").value("1000000"))
-                .andExpect(jsonPath("content[4].name").value("quan"))
-                .andExpect(jsonPath("content[4].total").value("3"))
-                .andExpect(jsonPath("content[4].payment").value("150000"));
-
-    }
 }

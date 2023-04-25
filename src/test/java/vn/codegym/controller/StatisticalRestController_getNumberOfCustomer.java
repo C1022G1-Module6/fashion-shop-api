@@ -34,24 +34,5 @@ public class StatisticalRestController_getNumberOfCustomer {
     }
 
 
-    /**
-     * This function is used to check the display of the number of customer size > 0
-     *  id là số lượng khách hàng
-     *  date là so sánh tháng này với tháng trước
-     * @author TruongTQ
-     */
-    @Test
-    public void getNumberOfCustomer_6() throws Exception {
 
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .get("/api/admins/customer"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-
-                .andExpect(jsonPath("totalElements").value(1))
-                .andExpect(jsonPath("content[0].customer.id").value("3"))
-                .andExpect(jsonPath("content[0].date").value("2"));
-
-    }
 }

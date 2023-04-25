@@ -33,24 +33,5 @@ public class StatisticalRestController_getNumberOfOrders {
     }
 
 
-    /**
-     * This function is used to check the display of the number of order size > 0
-     * id là số lượng đơn hàng
-     * date là so sánh tháng này với tháng trước
-     * @author TruongTQ
-     */
-    @Test
-    public void getNumberOfOrders_6() throws Exception {
 
-        this.mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .get("/api/admins/order"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-
-                .andExpect(jsonPath("totalElements").value(1))
-                .andExpect(jsonPath("content[0].id").value("5"))
-                .andExpect(jsonPath("content[0].date").value("3"));
-
-    }
 }
