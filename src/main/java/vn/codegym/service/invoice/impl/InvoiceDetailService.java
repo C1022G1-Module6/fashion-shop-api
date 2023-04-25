@@ -1,5 +1,4 @@
 package vn.codegym.service.invoice.impl;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.codegym.dto.invoice.InvoiceDTO;
@@ -7,10 +6,13 @@ import vn.codegym.dto.invoice.InvoiceDetailDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import vn.codegym.repository.invoice.IInvoiceDetailRepository;
+import vn.codegym.repository.invoice.IInvoiceRepository;
 import vn.codegym.repository.product.IProductRepository;
 import vn.codegym.service.invoice.IInvoiceDetailService;
 import org.springframework.stereotype.Service;
 import vn.codegym.service.invoice.IInvoiceService;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     private IInvoiceDetailRepository invoiceDetailRepository;
     @Autowired
     private IInvoiceService invoiceService;
+    @Autowired
+    private IInvoiceRepository invoiceRepository;
     @Autowired
     private IProductRepository productRepository;
     Integer count = 0;
@@ -35,10 +39,13 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         InvoiceDetail invoiceDetail = new InvoiceDetail();
         if (count == 0) {
             InvoiceDTO invoiceDTO = new InvoiceDTO();
+            int id = invoiceRepository.getTotalCodeAmount() + 100000;
+            invoiceDTO.setCode("HD" + id);
+            invoiceDTO.setDate(LocalDate.now().toString());
             invoiceService.save(invoiceDTO);
         }
         invoiceDetail.setInvoice(invoiceService.findLastInvoiceInList());
-        invoiceDetail.setProduct(productRepository.findWithId(invoiceDetailDTO.getProductDTO().getId()));
+        invoiceDetail.setProduct(productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode()));
         BeanUtils.copyProperties(invoiceDetailDTO, invoiceDetail);
         invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
                 invoiceDetail.getTotal(),
