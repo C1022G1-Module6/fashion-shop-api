@@ -7,18 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.entity.product.Product;
-import vn.codegym.entity.product.ProductSize;
-import vn.codegym.entity.product.ProductType;
 import vn.codegym.service.product.IProductService;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
+
 
 @CrossOrigin("*")
 @RestController
@@ -52,10 +50,10 @@ public class ProductRestController {
      *  Function : findAllByIdProduct
      */
     @GetMapping("/detail")
-    public ResponseEntity<List<ProductDetailDTO>> productDetails(int id){
+    public ResponseEntity<List<ProductDetailDTO>> productDetails(@RequestParam(required = false) Integer  id){
         List<ProductDetailDTO> productDetailDTOList = productService.findAllByProductId(id);
-        if (productDetailDTOList.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if (productDetailDTOList.size() == 0){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(productDetailDTOList,HttpStatus.OK);
     }
@@ -84,18 +82,12 @@ public class ProductRestController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-//    /**
-//     *
-//     * @param code
-//     * @param name
-//     * @param entryPrice
-//     * @param productTypeId
-//     * @param img
-//     * @param qrImg
-//     * @param productSizes
-//     * @return
-//     * @throws IOException
-//     */
+    /**
+     * created by QuanTVA
+     * @param productCreateDTO
+     * @return ResponseEntity<>(HttpStatus.CREATED)
+     * @throws IOException
+     */
     @PostMapping("/create-product")
     public ResponseEntity<ProductCreateDTO> createProduct(@RequestBody ProductCreateDTO productCreateDTO) throws IOException {
 

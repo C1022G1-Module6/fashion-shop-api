@@ -7,10 +7,11 @@ import java.util.Set;
 public class ProductCreateDTO {
     private String code;
     private String name;
-    private Integer quantity;
+
     private String qrImg;
     private String img;
     private Double sellingPrice;
+    private Double entryPrice;
     private ProductTypeDTO productType;
     private Set<ProductSizeDTO> productSizes;
     private boolean isDelete = false;
@@ -33,12 +34,13 @@ public class ProductCreateDTO {
         this.name = name;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+
+    public Double getEntryPrice() {
+        return entryPrice;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setEntryPrice(Double entryPrice) {
+        this.entryPrice = entryPrice;
     }
 
     public String getQrImg() {

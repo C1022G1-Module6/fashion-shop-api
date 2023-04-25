@@ -71,7 +71,11 @@ public class ProductService implements IProductService {
         return productRepository.search(productName, productSizeList, productTypeId, pageable);
     }
 
-
+    /**
+     * created by QuanTVA
+     * @param productCreateDTO
+     * function : addProduct
+     */
     public void addProduct(ProductCreateDTO productCreateDTO){
         // Save product
         Product product = new Product();
@@ -82,35 +86,25 @@ public class ProductService implements IProductService {
                 product.getImg(),
                 product.getQrImg(),
                 product.getEntryPrice(),
+                product.getSellingPrice(),
                 product.getProductType().getId(),
                 product.isDelete());
 
-        // Save product image
-//        String productImgName = StringUtils.cleanPath(.getOriginalFilename());
-//        product.setImg(productImgName);
-//        String productImgPath = "src/main/resources/static/images/product/" + productImgName;
-//        File productImgFile = new File(productImgPath);
-//        productImgFile.getParentFile().mkdirs();
-//        img.transferTo(productImgFile);
-//
-//
-//        // Save product QR image
-//        String productQrImgName = StringUtils.cleanPath(qrImg.getOriginalFilename());
-//        product.setQrImg(productQrImgName);
-//        String productQrImgPath = "src/main/resources/static/images/product/" + productQrImgName;
-//        File productQrImgFile = new File(productQrImgPath);
-//        productQrImgFile.getParentFile().mkdirs();
-//        qrImg.transferTo(productQrImgFile);
+        Product product1 = productRepository.findWithCode(product.getCode());
 
-        // Save product size details
-//        for (ProductSizeDTO productSizeDTO : productCreateDTO.getProductSizes()) {
-//            productSizeDTO.setProduct(product);
-//        }
-//        product.setProductSizes(productSizes);
-//        productRepository.addProductSize(product);
-//    }
+        for (ProductSizeDTO size:productCreateDTO.getProductSizes()) {
+            productRepository.addProductSizeDetail(size.getId(), product1.getId());
+        }
+
+
 }
 
+    /**
+     *
+     * created by QuanTVA
+     * @param id
+     * @return Product
+     */
     @Override
     public Product findWithId(Integer id) {
         return productRepository.findWithId(id);
