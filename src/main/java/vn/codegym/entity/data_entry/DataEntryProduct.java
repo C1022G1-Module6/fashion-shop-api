@@ -22,6 +22,14 @@ public class DataEntryProduct {
     private Product product;
     private Boolean isDelete = false;
 
+    public DataEntry getDataEntry() {
+        return dataEntry;
+    }
+
+    public void setDataEntry(DataEntry dataEntry) {
+        this.dataEntry = dataEntry;
+    }
+
     public Boolean getDelete() {
         return isDelete;
     }
@@ -49,13 +57,6 @@ public class DataEntryProduct {
         this.quantity = quantity;
     }
 
-    public DataEntry getDataEntry() {
-        return dataEntry;
-    }
-
-    public void setDataEntry(DataEntry dataEntry) {
-        this.dataEntry = dataEntry;
-    }
 
     public Product getProduct() {
         return product;
@@ -64,15 +65,4 @@ public class DataEntryProduct {
     public void setProduct(Product product) {
         this.product = product;
     }
-<<<<<<< HEAD
-=======
-
-    public DataEntry getDataEntry() {
-        return dataEntry;
-    }
-
-    public void setDataEntry(DataEntry dataEntry) {
-        this.dataEntry = dataEntry;
-    }
->>>>>>> bc5b433ec10d3eaf4d56797fc9a0790cf9e0b0a0
 }

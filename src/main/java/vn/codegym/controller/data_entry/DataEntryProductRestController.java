@@ -18,21 +18,21 @@ public class DataEntryProductRestController {
 
     @PostMapping("")
     public ResponseEntity<?> createDataEntryProduct(@RequestBody DataEntryProductDTO dataEntryProductDTO){
-        try {
+//        try {
             iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @GetMapping("")
     public ResponseEntity<?> listALl(){
-        try {
+//        try {
             List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
             return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        } catch (Exception e){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
     }
 }
