@@ -38,7 +38,8 @@ public class Employee {
     private String phoneNumber;
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
+
     private String password;
     @Lob
     private String avatar;

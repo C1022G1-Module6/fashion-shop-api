@@ -30,7 +30,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class AuthController {
+public class AuthRestController {
 
     @Autowired
     private IEmployeeService iEmployeeService;
