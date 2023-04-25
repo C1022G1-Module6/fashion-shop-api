@@ -10,23 +10,24 @@ import vn.codegym.entity.customer.Customer;
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     /**
      * Customer search function with isDelete parameter supports soft deletion
+     *
      * @param pageable
      * @param code
      * @param name
      * @param phoneNumber
      * @param isDelete
      * @return function returns page containing customer data information
-     */
-    @Query(value = "select * from customer where code like concat('%', :code, '%') " +
-            "and name like concat('%', :name, '%') " +
-            "and phone_number like concat('%', :phoneNumber, '%') and is_delete = false" , nativeQuery = true)
+     */;
+//    @Query(value = "select * from customer c where code like concat('%', :code, '%') and name like concat('%', :name, '%') and phone_number like concat('%', :phoneNumber, '%') and is_delete = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM customer c WHERE c.code LIKE CONCAT('%', :code, '%') AND c.name LIKE CONCAT('%', :name, '%') AND c.phone_number LIKE CONCAT('%', :phoneNumber, '%') AND c.is_delete = false", nativeQuery = true)
     Page<Customer> searchCustomerInfo(Pageable pageable,
-                                                 @Param("code") String code,
-                                                 @Param("name") String name,
-                                                 @Param("phoneNumber") String phoneNumber);
+                                      @Param("code") String code,
+                                      @Param("name") String name,
+                                      @Param("phoneNumber") String phoneNumber);
 
     /**
      * Search for customers by id
+     *
      * @param id
      * @return the object corresponding to the passed id
      */

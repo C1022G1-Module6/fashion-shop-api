@@ -10,7 +10,7 @@ public interface ICustomerTypeRepository extends JpaRepository<CustomerType, Int
     /**
      * Function to get all kinds of customer information
      * @return customer type list
-     */
+     */;
     @Query(value = "select * from customer_type", nativeQuery = true)
     List<CustomerType> findAllCustomerType();
 }
