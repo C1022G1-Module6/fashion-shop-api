@@ -53,7 +53,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     @Modifying
     @Transactional
     @Query(value = "update invoice set bonus_point = :bonusPoint, code = :code, `date` = :date, " +
-            "employee_name = :employeeName, payment = :payment, total = :total, customer_id = :customer" +
+            "employee_name = :employeeName, payment = :payment, total = :total, customer_id = :customer " +
             "where id = :id", nativeQuery = true)
     void updateInvoice(@Param("bonusPoint") Integer bonusPoint,
                        @Param("code") String code,

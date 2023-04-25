@@ -62,8 +62,8 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public void update(InvoiceDTO invoiceDTO) {
         Invoice invoice = findLastInvoiceInList();
-        BeanUtils.copyProperties(invoiceDTO.getCustomerDTO(), invoice.getCustomer());
-//        BeanUtils.copyProperties(invoiceDTO.getInvoiceDetailDTOS(), invoice.getInvoiceDetails());
+        invoiceDTO.setId(invoice.getId());;
+        invoiceDTO.setCode(invoice.getCode());
         BeanUtils.copyProperties(invoiceDTO, invoice);
         invoiceRepository.updateInvoice(invoice.getBonusPoint(),
                 invoice.getCode(),
@@ -71,7 +71,7 @@ public class InvoiceService implements IInvoiceService {
                 invoice.getEmployeeName(),
                 invoice.getPayment(),
                 invoice.getTotal(),
-                invoice.getCustomer().getId(),
+                invoiceDTO.getCustomerDTO().getId(),
                 invoice.getId());
     }
 

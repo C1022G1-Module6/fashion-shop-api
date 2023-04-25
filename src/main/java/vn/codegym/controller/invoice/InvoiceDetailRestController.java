@@ -18,12 +18,12 @@ public class InvoiceDetailRestController {
 
     @PostMapping("")
     public ResponseEntity<?> createInvoiceDetail(@RequestBody InvoiceDetailDTO invoiceDetailDTO) {
-//        try {
+        try {
         invoiceDetailService.save(invoiceDetailDTO);
         return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("")

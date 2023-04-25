@@ -40,12 +40,12 @@ public class InvoiceRestController {
      */
     @PutMapping("")
     public ResponseEntity<?> updateInvoice(@RequestBody InvoiceDTO invoiceDTO) {
-//        try {
+        try {
             invoiceService.update(invoiceDTO);
             invoiceDetailService.resetCount();
             return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
