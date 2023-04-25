@@ -1,5 +1,6 @@
 package vn.codegym.dto.notification;
 
+import vn.codegym.dto.employee.EmployeeDTO;
 import vn.codegym.entity.employee.Employee;
 
 import javax.validation.constraints.NotBlank;
@@ -16,13 +17,10 @@ public class NotificationDTO {
 
     @NotBlank(message = "Vui lòng nhập nội dung thông báo")
     @Size(max = 300, message = "Tiêu đề không được vượt quá 300 ký tự")
-    @Size(min = 20, message = "Tiêu đề tối thiểu là 20 ký tự")
+    @Size(min = 10, message = "Tiêu đề tối thiểu là 20 ký tự")
     private String content;
-
     private String img;
-
-    @NotBlank(message = "Vui lòng nhập chọn đối tượng thông báo")
-    private Employee employee;
+    private EmployeeDTO employeeDTO;
 
     private Boolean isDelete = false;
 
@@ -30,12 +28,12 @@ public class NotificationDTO {
     public NotificationDTO() {
     }
 
-    public NotificationDTO(Integer id, String title, String content, String img, Employee employee, Boolean isDelete) {
+    public NotificationDTO(Integer id, String title, String content, String img, EmployeeDTO employeeDTO, Boolean isDelete) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.img = img;
-        this.employee = employee;
+        this.employeeDTO = employeeDTO;
         this.isDelete = isDelete;
     }
 
@@ -79,12 +77,12 @@ public class NotificationDTO {
         this.img = img;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public EmployeeDTO getEmployeeDTO() {
+        return employeeDTO;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeDTO(EmployeeDTO employeeDTO) {
+        this.employeeDTO = employeeDTO;
     }
 }
 

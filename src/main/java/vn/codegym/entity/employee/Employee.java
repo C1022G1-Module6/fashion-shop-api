@@ -1,5 +1,6 @@
 package vn.codegym.entity.employee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -37,7 +38,7 @@ public class Employee {
     @JsonManagedReference
     private Set<News> news;
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Notification> notifications;
     public Employee() {
     }

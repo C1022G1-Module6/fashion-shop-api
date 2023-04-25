@@ -16,8 +16,9 @@ public class Notification {
     private String img;
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
     private Employee employee;
+    private Boolean isDelete = false;
+
 
     public Notification() {
     }
@@ -60,5 +61,13 @@ public class Notification {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }

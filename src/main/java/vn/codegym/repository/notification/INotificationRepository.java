@@ -1,5 +1,7 @@
 package vn.codegym.repository.notification;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,10 +12,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface INotificationRepository extends JpaRepository<Notification, Integer> {
-    @Modifying
     @Query(value = "select *  from notification  " +
             "where employee_id = 1", nativeQuery = true)
-    List<Notification> getAll();
+    Page<Notification> getAll(Pageable pageable);
 
     @Transactional
     @Modifying
