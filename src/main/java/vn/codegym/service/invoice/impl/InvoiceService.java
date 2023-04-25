@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.entity.invoice.Invoice;
+import vn.codegym.projection.statistical.INumberOfCustomerProjection;
 import vn.codegym.repository.invoice.IInvoiceRepository;
 import vn.codegym.service.invoice.IInvoiceService;
 import org.springframework.stereotype.Service;
@@ -56,4 +57,21 @@ public class InvoiceService implements IInvoiceService {
                 invoice.getCustomer().getId(),
                 invoice.getId());
     }
+
+    @Override
+    public List<INumberOfCustomerProjection> findAllCustomer() {
+        return null;
+    }
+
+    @Override
+    public Double getTotalRevenue(String startDate, String endDate) {
+        return invoiceRepository.getTotalRevenue(startDate,endDate);
+    }
+
+//    @Override
+//    public List<INumberOfCustomerProjection> findAllCustomer() {
+//        return invoiceRepository.findNumberOfCustomer();
+//    }
+
+
 }

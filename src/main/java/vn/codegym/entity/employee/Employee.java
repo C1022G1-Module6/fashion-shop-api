@@ -27,6 +27,16 @@ public class Employee {
     private String userName;
     @Column(nullable = false, unique = true)
     private String password;
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_employee",
                 joinColumns = {@JoinColumn(name = "employee_id")},

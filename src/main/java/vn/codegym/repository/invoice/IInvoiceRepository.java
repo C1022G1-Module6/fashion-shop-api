@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import vn.codegym.entity.invoice.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import vn.codegym.projection.statistical.INumberOfCustomerProjection;
 
 import java.util.List;
 
@@ -39,4 +40,12 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
                        @Param("total") Double total,
                        @Param("customer") Integer customerId,
                        @Param("id") Integer id);
+
+//    @Query(value = "SELECT * FROM invoice", nativeQuery = true)
+//    List<INumberOfCustomerProjection> findNumberOfCustomer();
+
+    @Query("SELECT SUM(invoice.payment) FROM Invoice invoice WHERE invoice.date BETWEEN :startDate AND :endDate")
+    Double getTotalRevenue(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
+
 }

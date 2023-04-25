@@ -1,4 +1,4 @@
-package vn.codegym.projection;
+package vn.codegym.projection.statistical;
 
 public interface ITotalRevenueProjection {
     Integer getPayment();

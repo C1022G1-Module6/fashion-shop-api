@@ -24,6 +24,16 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
     private Integer point = 0;
+    private Boolean isDelete = false;
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
     @JsonBackReference

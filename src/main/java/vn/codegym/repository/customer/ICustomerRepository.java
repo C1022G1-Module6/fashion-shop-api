@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import vn.codegym.projection.INumberOfCustomerProjection;
+import vn.codegym.projection.statistical.INumberOfCustomerProjection;
 
 import java.util.List;
 
