@@ -1,9 +1,11 @@
 package vn.codegym.dto.news;
 
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import vn.codegym.entity.employee.Employee;
 
-public class NewsDTO {
+public class NewsDTO implements Validator {
     private Integer id;
     private String title;
     private String img;
@@ -66,5 +68,32 @@ public class NewsDTO {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        NewsDTO newsDTO = (NewsDTO) target;
+        if (newsDTO.getTitle().equals("")) {
+            errors.rejectValue("title", "title", "Nhập tiêu đề");
+        } else {
+            int titleMinLength = newsDTO.getTitle().length();
+            int titleMaxLength = newsDTO.getTitle().length();
+            if (!(titleMinLength >= 10 && titleMaxLength <=100)) {
+                errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 100 kí tự");
+            }
+        }
+        if (newsDTO.getImg().matches("\\.(png|jpg|PNG|JPG)$")) {
+            errors.rejectValue("img", "img", "Ảnh sai định dạng");
+        }
+        int minLengthContent = newsDTO.content.length();
+        int maxLengthContent = newsDTO.content.length();
+        if (!(minLengthContent >= 50 && maxLengthContent <= 500)) {
+            errors.rejectValue("content", "content", "Nội dung từ 50 đến 500 kí tự");
+        }
     }
 }

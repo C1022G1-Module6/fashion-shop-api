@@ -1,8 +1,8 @@
 package vn.codegym.entity.employee;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -29,10 +29,10 @@ public class Employee {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_employee",
-                joinColumns = {@JoinColumn(name = "employee_id")},
-                inverseJoinColumns = {@JoinColumn(name = "role_id")}
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
-    private Set<com.example.project_module6.entity.employee.Role> roles;
+    private Set<Role> roles;
     @OneToMany(mappedBy = "employee")
     @JsonManagedReference
     private Set<News> news;
@@ -126,11 +126,11 @@ public class Employee {
         this.password = password;
     }
 
-    public Set<com.example.project_module6.entity.employee.Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<com.example.project_module6.entity.employee.Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

@@ -7,9 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.news.INewsDTO;
 import vn.codegym.dto.news.NewsDTO;
+import vn.codegym.entity.employee.Employee;
 import vn.codegym.entity.news.News;
 import vn.codegym.service.news.INewsService;
 
@@ -44,13 +47,13 @@ public class NewsRestController {
      * create by : TanNN ,
      * Date Create : 24/04/2023
      * Function : display 3 random news in the database
-     * @return HttpStatus.BAD_REQUEST if result is error or HttpStatus.OK if result is not error
+     * @return HttpStatus.NO_CONTENT if result is error or HttpStatus.OK if result is not error
      */
     @GetMapping("relatedNews")
     public ResponseEntity<List<INewsDTO>> getRelatedNews(){
         List<INewsDTO> listRlatedNews = iNewsService.listRelatedNews();
         if (listRlatedNews.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(listRlatedNews,HttpStatus.OK);
     }
@@ -78,11 +81,14 @@ public class NewsRestController {
      * @return HttpStatus.BAD_REQUEST if the result is an error or HttpStatus.OK if the passed parameter is successfully saved to the database
      */
     @PostMapping("createNews")
-    public ResponseEntity<?> createNews(@RequestBody NewsDTO newsDTO) {
-        if (newsDTO == null) {
+    public ResponseEntity<?> createNews(@Validated @RequestBody NewsDTO newsDTO, BindingResult bindingResult) {
+        newsDTO.validate(newsDTO,bindingResult);
+        if (bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         News news = new News();
+        Employee employee = new Employee(1);
+        newsDTO.setEmployee(employee);
         BeanUtils.copyProperties(newsDTO, news);
         iNewsService.addNews(news);
         return new ResponseEntity<>(HttpStatus.OK);

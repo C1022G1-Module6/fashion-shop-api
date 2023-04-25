@@ -42,8 +42,8 @@ public interface INewsRepository extends JpaRepository<News, Integer> {
      * @param pageable
      * @return Returns a list of information according to the 2 parameters passed
      */
-    @Query(value = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n where n.title like concat('%',:tittleSearch,'%') order by n.id desc",
-            countQuery = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n where n.title like concat('%',:tittleSearch,'%') order by n.id desc",
+    @Query(value = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n where n.title like concat('%',:tittleSearch,'%') and n.flag_delete = 0 order by n.id desc",
+            countQuery = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n where n.title like concat('%',:tittleSearch,'%') and n.flag_delete = 0 order by n.id desc",
             nativeQuery = true)
     Page<INewsDTO> pageNews(Pageable pageable, String tittleSearch);
 
