@@ -64,4 +64,15 @@ public class DataEntryProduct {
     public void setProduct(Product product) {
         this.product = product;
     }
+<<<<<<< HEAD
+=======
+
+    public DataEntry getDataEntry() {
+        return dataEntry;
+    }
+
+    public void setDataEntry(DataEntry dataEntry) {
+        this.dataEntry = dataEntry;
+    }
+>>>>>>> bc5b433ec10d3eaf4d56797fc9a0790cf9e0b0a0
 }

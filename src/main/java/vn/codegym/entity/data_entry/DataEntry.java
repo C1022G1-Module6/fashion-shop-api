@@ -16,6 +16,7 @@ public class DataEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    // Hỏi Tân cách làm mã tự động tăng
     private String code;
     private String date;
     @Column(name = "employee_name")
