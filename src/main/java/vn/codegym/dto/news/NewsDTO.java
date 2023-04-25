@@ -9,6 +9,7 @@ public class NewsDTO implements Validator {
     private Integer id;
     private String title;
     private String img;
+    private String nameImg;
     private String content;
     private Employee employee;
 
@@ -19,6 +20,15 @@ public class NewsDTO implements Validator {
         this.id = id;
         this.title = title;
         this.img = img;
+        this.content = content;
+        this.employee = employee;
+    }
+
+    public NewsDTO(Integer id, String title, String img,String nameImg, String content, Employee employee) {
+        this.id = id;
+        this.title = title;
+        this.img = img;
+        this.nameImg = nameImg;
         this.content = content;
         this.employee = employee;
     }
@@ -87,11 +97,13 @@ public class NewsDTO implements Validator {
                 errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 100 kí tự");
             }
         }
-        if (newsDTO.getImg().matches("\\.(png|jpg|PNG|JPG)$")) {
+        if (newsDTO.getImg().equals("")){
+            errors.rejectValue("img", "img", "Vui lòng chọn ảnh");
+        }else if ((newsDTO.getImg().matches("\\.(png|jpg|PNG|JPG)$"))) {
             errors.rejectValue("img", "img", "Ảnh sai định dạng");
         }
-        int minLengthContent = newsDTO.content.length();
-        int maxLengthContent = newsDTO.content.length();
+        int minLengthContent = newsDTO.getContent().length();
+        int maxLengthContent = newsDTO.getContent().length();
         if (!(minLengthContent >= 50 && maxLengthContent <= 500)) {
             errors.rejectValue("content", "content", "Nội dung từ 50 đến 500 kí tự");
         }

@@ -13,6 +13,7 @@ public class News {
     private Integer id;
     private String title;
     private String img;
+    private String nameImg;
     private String content;
     private boolean flagDelete;
     @ManyToOne
