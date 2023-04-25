@@ -69,7 +69,8 @@ public class InvoiceService implements IInvoiceService {
         invoiceDTO.setCode(invoice.getCode());
         invoiceDTO.setDate(invoice.getDate());
         BeanUtils.copyProperties(invoiceDTO, invoice);
-        invoiceRepository.updateInvoice(invoice.getBonusPoint(),
+        invoiceRepository.updateInvoice(
+                invoice.getBonusPoint(),
                 invoice.getCode(),
                 invoice.getDate(),
                 invoice.getEmployeeName(),

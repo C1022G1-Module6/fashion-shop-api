@@ -24,7 +24,7 @@ public class InvoiceDetailRestController {
     @PostMapping("")
     public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO,
                                                  BindingResult bindingResult) {
-        if (invoiceDetailDTO.getProductDTO().getId() == null || invoiceDetailDTO.getInvoiceDTO().getId() == null) {
+        if (invoiceDetailDTO.getProductDTO().getCode() == null || invoiceDetailDTO.getInvoiceDTO().getId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
