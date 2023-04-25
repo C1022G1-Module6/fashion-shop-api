@@ -17,25 +17,42 @@ public class StatisticalRestController_getTopOrders {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * This function is used to check the display of top Orders size = 0
+     *
+     * @author TruongTQ
+     */
+
     @Test
-    public void getInfoStudent_id_1() throws Exception {
+    public void getTopOrders_5() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins", "null"))
+                                .get("/api/admins/top-order/"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
 
+
+    /**
+     * This function is used to check the display of top Orders size > 0
+     *
+     * @author TruongTQ
+     */
     @Test
-    public void getInfoStudent_id_4() throws Exception {
+    public void getTopOrders_6() throws Exception {
+
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins", "11"))
+                                .get("/api/admins/top-order"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("id").value(11))
-                .andExpect(jsonPath("name").value("Trung"))
-                .andExpect(jsonPath("dateOfBirth").value("2022-08-31"))
-                .andExpect(jsonPath("classStudent.id").value(1));
+                .andExpect(jsonPath("totalElements").value(1))
+                .andExpect(jsonPath("content[0].name").value("ao"))
+                .andExpect(jsonPath("content[0].total").value("9"))
+                .andExpect(jsonPath("content[0].payment").value("1000000"))
+                .andExpect(jsonPath("content[4].name").value("quan"))
+                .andExpect(jsonPath("content[4].total").value("3"))
+                .andExpect(jsonPath("content[4].payment").value("150000"));
+
     }
 }

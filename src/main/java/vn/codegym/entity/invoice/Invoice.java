@@ -2,9 +2,10 @@ package vn.codegym.entity.invoice;
 import vn.codegym.entity.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import vn.codegym.entity.employee.Employee;
 
 import javax.persistence.*;
-import java.util.Date;
+
 import java.util.Set;
 
 @Entity
@@ -13,11 +14,16 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
+
     private String code;
     private String date;
-    @Column(name = "employee_name")
-    private String employeeName;
+//    @Column(name = "employee_name")
+//    private String employeeName;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    @JsonBackReference
+    private Employee employee;
     private Double total;
     private Double payment;
     @Column(name = "bonus_point")
@@ -37,6 +43,13 @@ public class Invoice {
         return id;
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
     public void setId(Integer id) {
         this.id = id;
     }
@@ -57,13 +70,13 @@ public class Invoice {
         this.date = date;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
+//    public String getEmployeeName() {
+//        return employeeName;
+//    }
+//
+//    public void setEmployeeName(String employeeName) {
+//        this.employeeName = employeeName;
+//    }
 
     public Double getTotal() {
         return total;

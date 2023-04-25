@@ -26,7 +26,7 @@ public class StatisticalRestController {
     @Autowired
     private IEmployeeService iEmployeeService;
 
-    @GetMapping("")
+    @GetMapping("/customer")
     public ResponseEntity<List<INumberOfCustomerProjection>> getNumberOfCustomer() {
         List<INumberOfCustomerProjection> iNumberOfCustomerProjections = iInvoiceService.findAllCustomer();
         if (iNumberOfCustomerProjections == null) {
@@ -65,7 +65,7 @@ public class StatisticalRestController {
 //            return new ResponseEntity<>(iTopOrdersProjections, HttpStatus.OK);
 //        }
 //    }
-    @GetMapping("")
+    @GetMapping("/total")
     public Double getTotalRevenue(@RequestParam("startDate") String startDate,
                                   @RequestParam("endDate") String endDate) {
         return iInvoiceService.getTotalRevenues(startDate,endDate);

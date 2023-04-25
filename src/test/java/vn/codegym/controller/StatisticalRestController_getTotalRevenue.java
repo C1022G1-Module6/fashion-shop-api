@@ -16,26 +16,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class StatisticalRestController_getTotalRevenue {
     @Autowired
     private MockMvc mockMvc;
-
+    /**
+     * This function is used to check the display of total size > 0
+     *
+     * @author TruongTQ
+     */
     @Test
     public void getInfoStudent_id_1() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins", "null"))
+                                .get("/api/admins/total/"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
+    /**
+     * This function is used to check the display of total size > 0
+     *
+     * @author TruongTQ
+     */
     @Test
     public void getInfoStudent_id_4() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins", "11"))
+                                .get("/api/admins/total"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("id").value(11))
-                .andExpect(jsonPath("name").value("Trung"))
-                .andExpect(jsonPath("dateOfBirth").value("2022-08-31"))
-                .andExpect(jsonPath("classStudent.id").value(1));
+                .andExpect(jsonPath("totalElements").value(1))
+                .andExpect(jsonPath("content[0].payment").value("50000000"));
+
     }
 }

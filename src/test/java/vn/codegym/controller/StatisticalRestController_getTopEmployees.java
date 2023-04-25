@@ -17,25 +17,42 @@ public class StatisticalRestController_getTopEmployees {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * This function is used to check the display of the top employees size = 0
+     *
+     * @author TruongTQ
+     */
+
     @Test
-    public void getInfoStudent_id_1() throws Exception {
+    public void getTopEmployees_5() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins", "null"))
+                                .get("/api/admins/top-selling/"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
 
+
+    /**
+     * This function is used to check the display of top employees size > 0
+     *
+     * @author TruongTQ
+     */
     @Test
-    public void getInfoStudent_id_4() throws Exception {
+    public void getTopEmployees_6() throws Exception {
+
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins", "11"))
+                                .get("/api/admins/top-selling"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("id").value(11))
-                .andExpect(jsonPath("name").value("Trung"))
-                .andExpect(jsonPath("dateOfBirth").value("2022-08-31"))
-                .andExpect(jsonPath("classStudent.id").value(1));
+                .andExpect(jsonPath("totalElements").value(1))
+                .andExpect(jsonPath("content[0].name").value("truong"))
+                .andExpect(jsonPath("content[0].phoneNumber").value("098761231"))
+                .andExpect(jsonPath("content[0].dateOfBirth").value("20/06/2000"))
+                .andExpect(jsonPath("content[4].name").value("vinh"))
+                .andExpect(jsonPath("content[4].phoneNumber").value("076528171"))
+                .andExpect(jsonPath("content[4].dateOfBirth").value("20/06/1999"));
+
     }
 }

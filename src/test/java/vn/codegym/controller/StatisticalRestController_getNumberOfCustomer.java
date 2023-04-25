@@ -18,25 +18,40 @@ public class StatisticalRestController_getNumberOfCustomer {
     @Autowired
     private MockMvc mockMvc;
 
+    /**
+     * This function is used to check the display of the number of customer size = 0
+     *
+     * @author TruongTQ
+     */
+
     @Test
-    public void getNumberOfCustomer_id_5() throws Exception {
+    public void getNumberOfCustomer_5() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/api/admins"))
+                                .get("/api/admins/customer/"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
 
+
+    /**
+     * This function is used to check the display of the number of customer size > 0
+     *  id là số lượng khách hàng
+     *  date là so sánh tháng này với tháng trước
+     * @author TruongTQ
+     */
     @Test
-    public void getNumberOfCustomer_id_6() throws Exception {
+    public void getNumberOfCustomer_6() throws Exception {
+
         this.mockMvc.perform(
                         MockMvcRequestBuilders
-                                .get("/studentRest/detail/{id}", "11"))
+                                .get("/api/admins/customer"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("id").value(11))
-                .andExpect(jsonPath("name").value("Trung"))
-                .andExpect(jsonPath("dateOfBirth").value("2022-08-31"))
-                .andExpect(jsonPath("classStudent.id").value(1));
+
+                .andExpect(jsonPath("totalElements").value(1))
+                .andExpect(jsonPath("content[0].customer.id").value("3"))
+                .andExpect(jsonPath("content[0].date").value("2"));
+
     }
 }

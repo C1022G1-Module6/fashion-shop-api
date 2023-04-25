@@ -1,6 +1,7 @@
 package vn.codegym.dto.invoice;
 
 import vn.codegym.dto.customer.CustomerDTO;
+import vn.codegym.dto.employee.EmployeeDTO;
 
 import java.util.Set;
 
@@ -8,7 +9,7 @@ public class InvoiceDTO {
     private Integer id;
     private String code;
     private String date;
-    private String employeeName;
+    private EmployeeDTO employeeName;
     private Double total;
     private Double payment;
     private Integer bonusPoint;
@@ -42,11 +43,12 @@ public class InvoiceDTO {
         this.date = date;
     }
 
-    public String getEmployeeName() {
+
+    public EmployeeDTO getEmployeeName() {
         return employeeName;
     }
 
-    public void setEmployeeName(String employeeName) {
+    public void setEmployeeName(EmployeeDTO employeeName) {
         this.employeeName = employeeName;
     }
 

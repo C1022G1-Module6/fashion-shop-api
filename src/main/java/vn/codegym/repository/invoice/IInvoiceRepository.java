@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import vn.codegym.entity.employee.Employee;
 import vn.codegym.entity.invoice.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import vn.codegym.projection.statistical.INumberOfCustomerProjection;
@@ -18,7 +19,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     void saveInvoice(@Param("bonusPoint") Integer bonusPoint,
                      @Param("code") String code,
                      @Param("date") String date,
-                     @Param("employeeName") String employeeName,
+                     @Param("employeeName") Employee employeeName,
                      @Param("payment") Double payment,
                      @Param("total") Double total,
                      @Param("customer") Integer customerId);
@@ -35,7 +36,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     void updateInvoice(@Param("bonusPoint") Integer bonusPoint,
                        @Param("code") String code,
                        @Param("date") String date,
-                       @Param("employeeName") String employeeName,
+                       @Param("employeeName") Employee employeeName,
                        @Param("payment") Double payment,
                        @Param("total") Double total,
                        @Param("customer") Integer customerId,

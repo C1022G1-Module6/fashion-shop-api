@@ -28,7 +28,7 @@ public class InvoiceService implements IInvoiceService {
             invoiceRepository.saveInvoice(invoice.getBonusPoint(),
                     invoice.getCode(),
                     invoice.getDate(),
-                    invoice.getEmployeeName(),
+                    invoice.getEmployee(),
                     invoice.getPayment(),
                     invoice.getTotal(),
                     invoice.getCustomer().getId());
@@ -51,7 +51,7 @@ public class InvoiceService implements IInvoiceService {
         invoiceRepository.updateInvoice(invoice.getBonusPoint(),
                 invoice.getCode(),
                 invoice.getDate(),
-                invoice.getEmployeeName(),
+                invoice.getEmployee(),
                 invoice.getPayment(),
                 invoice.getTotal(),
                 invoice.getCustomer().getId(),
@@ -64,9 +64,11 @@ public class InvoiceService implements IInvoiceService {
     }
 
     @Override
-    public Double getTotalRevenue(String startDate, String endDate) {
+    public Double getTotalRevenues(String startDate, String endDate) {
         return invoiceRepository.getTotalRevenue(startDate,endDate);
     }
+
+
 
 //    @Override
 //    public List<INumberOfCustomerProjection> findAllCustomer() {
