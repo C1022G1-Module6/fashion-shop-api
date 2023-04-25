@@ -18,9 +18,9 @@ public class EmployeeDTO {
     private String phoneNumber;
     private String userName;
     private String password;
-    private Set<Role> roles;
-    private Set<News> news;
-    private Set<Notification> notifications;
+//    private Set<Role> roles;
+//    private Set<News> news;
+//    private Set<Notification> notifications;
     private Boolean isDelete = false;
 
     public EmployeeDTO() {
@@ -38,9 +38,6 @@ public class EmployeeDTO {
         this.phoneNumber = phoneNumber;
         this.userName = userName;
         this.password = password;
-        this.roles = roles;
-        this.news = news;
-        this.notifications = notifications;
         this.isDelete = isDelete;
     }
 
@@ -124,29 +121,29 @@ public class EmployeeDTO {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Set<News> getNews() {
-        return news;
-    }
-
-    public void setNews(Set<News> news) {
-        this.news = news;
-    }
-
-    public Set<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(Set<Notification> notifications) {
-        this.notifications = notifications;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+//
+//    public Set<News> getNews() {
+//        return news;
+//    }
+//
+//    public void setNews(Set<News> news) {
+//        this.news = news;
+//    }
+//
+//    public Set<Notification> getNotifications() {
+//        return notifications;
+//    }
+//
+//    public void setNotifications(Set<Notification> notifications) {
+//        this.notifications = notifications;
+//    }
 
     public Boolean getDelete() {
         return isDelete;

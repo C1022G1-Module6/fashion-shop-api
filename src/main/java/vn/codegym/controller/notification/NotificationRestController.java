@@ -34,7 +34,7 @@ public class NotificationRestController {
      * @return httpStatusCode = 200
      */
     @GetMapping("")
-    public ResponseEntity<Page<NotificationDTO>> getAll(@PageableDefault(size = 2) Pageable pageable) {
+    public ResponseEntity<Page<NotificationDTO>> getAll(@PageableDefault(size = 4) Pageable pageable) {
         Page<NotificationDTO> notifications = notificationService.getAll(pageable);
         if (notifications.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -58,7 +58,7 @@ public class NotificationRestController {
     public ResponseEntity<?> createNotification(@RequestBody @Validated NotificationDTO notificationDTO,
                                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_ACCEPTABLE    );
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_ACCEPTABLE );
         }
 
         Notification notification = new Notification();

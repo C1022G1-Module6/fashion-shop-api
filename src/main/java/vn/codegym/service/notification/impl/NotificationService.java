@@ -22,8 +22,8 @@ public class NotificationService implements INotificationService {
     private INotificationRepository notificationRepository;
     @Override
     public Page<NotificationDTO> getAll(Pageable pageable) {
-      Page<Notification> notifications =  notificationRepository.getAll(pageable);
       List<NotificationDTO> notificationDTOS = new ArrayList<>() ;
+        Page<Notification> notifications =  notificationRepository.getAll(pageable);
         NotificationDTO notificationDTO;
         for (Notification notification: notifications ){
             notificationDTO = new NotificationDTO();

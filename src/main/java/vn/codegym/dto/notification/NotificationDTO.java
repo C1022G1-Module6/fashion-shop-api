@@ -17,7 +17,7 @@ public class NotificationDTO {
 
     @NotBlank(message = "Vui lòng nhập nội dung thông báo")
     @Size(max = 300, message = "Tiêu đề không được vượt quá 300 ký tự")
-    @Size(min = 10, message = "Tiêu đề tối thiểu là 20 ký tự")
+    @Size(min = 10, message = "Nội dung tối thiểu là 10 ký tự")
     private String content;
     private String img;
     private EmployeeDTO employeeDTO;
