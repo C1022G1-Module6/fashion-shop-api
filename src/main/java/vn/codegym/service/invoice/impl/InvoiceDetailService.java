@@ -46,6 +46,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         }
         invoiceDetail.setInvoice(invoiceService.findLastInvoiceInList());
         invoiceDetail.setProduct(productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode()));
+        invoiceDetail.setTotal(invoiceDetail.getProduct().getSellingPrice() * invoiceDetailDTO.getQuantity());
         BeanUtils.copyProperties(invoiceDetailDTO, invoiceDetail);
         invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
                 invoiceDetail.getTotal(),

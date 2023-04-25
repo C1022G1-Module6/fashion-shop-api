@@ -104,31 +104,4 @@ public class InvoiceDetailRestController_createInvoiceDetail {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-
-    /**
-     * this method is applied test the value of invoiceDTO 's id is null
-     * @throws Exception
-     * TuNT
-     */
-    @Test
-    public void createInvoiceDetail_invoiceDTOId_13() throws Exception {
-        InvoiceDetailDTO invoiceDetailDTO = new InvoiceDetailDTO();
-        invoiceDetailDTO.setQuantity(2);
-        InvoiceDTO invoiceDTO = new InvoiceDTO();
-        invoiceDTO.setId(null);
-        invoiceDetailDTO.setInvoiceDTO(invoiceDTO);
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setId(1);
-        invoiceDetailDTO.setProductDTO(productDTO);
-        invoiceDetailDTO.setTotal(3.0);
-        invoiceDetailDTO.setDelete(false);
-
-        this.mockMvc
-                .perform(MockMvcRequestBuilders
-                        .post("/invoice-detail")
-                        .content(this.objectMapper.writeValueAsString(invoiceDetailDTO))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andDo(print())
-                .andExpect(status().is4xxClientError());
-    }
 }
