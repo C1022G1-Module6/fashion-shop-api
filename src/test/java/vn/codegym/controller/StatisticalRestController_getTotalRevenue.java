@@ -22,7 +22,7 @@ public class StatisticalRestController_getTotalRevenue {
      * @author TruongTQ
      */
     @Test
-    public void getInfoStudent_id_1() throws Exception {
+    public void getTotalRevenue_5() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/admins/total/"))
@@ -35,7 +35,7 @@ public class StatisticalRestController_getTotalRevenue {
      * @author TruongTQ
      */
     @Test
-    public void getInfoStudent_id_4() throws Exception {
+    public void getTotalRevenue_6() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/admins/total"))
