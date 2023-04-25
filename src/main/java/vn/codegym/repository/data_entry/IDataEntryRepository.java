@@ -16,16 +16,14 @@ public interface IDataEntryRepository extends JpaRepository<DataEntry, Integer> 
      * @param code
      * @param date
      * @param employee_name
-     * @param productId
      */
     @Modifying
     @Transactional
-    @Query(value = "insert into data_entry (code, `date`, quantity, employee_name, product_id)" +
-            "values (:code, :date, :quantity, :employee_name, :product_id)", nativeQuery = true)
+    @Query(value = "insert into data_entry (code, `date`, employee_name)" +
+            "values (:code, :date, :employee_name)", nativeQuery = true)
     void entryProduct(@Param("code") String code,
                       @Param("date") String date,
-                      @Param("employee_name") String employee_name,
-                      @Param("product") Integer productId);
+                      @Param("employee_name") String employee_name);
 
     /**
      *This function get all data entry and return a list of data entry instances
@@ -39,16 +37,14 @@ public interface IDataEntryRepository extends JpaRepository<DataEntry, Integer> 
      * @param code
      * @param date
      * @param employeeName
-     * @param productId
      * @param id
      */
     @Modifying
     @Transactional
-    @Query(value = "update data_entry set code = :code, `date` = :date, employe_name = :employeeName, product_id = :product where id = :id", nativeQuery = true)
+    @Query(value = "update data_entry set code = :code, `date` = :date, employe_name = :employeeName where id = :id", nativeQuery = true)
     void updateDataEntry(
                        @Param("code") String code,
                        @Param("date") String date,
                        @Param("employeeName") String employeeName,
-                       @Param("product") Integer productId,
                        @Param("id") Integer id);
 }

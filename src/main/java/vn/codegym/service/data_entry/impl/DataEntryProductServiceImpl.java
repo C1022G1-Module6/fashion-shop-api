@@ -42,7 +42,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
             iDataEntryService.entryProduct(dataEntryDTO);
         }
         dataEntryProduct.setDataEntry(iDataEntryService.findLastDataEntryInList());
-        dataEntryProduct.setProduct(iProductRepository.findWithId(dataEntryProductDTO.getProductDTO().getId()));
+        dataEntryProduct.setProduct(iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode()));
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
         iDataEntryProductRepository.saveDataEntryProduct(dataEntryProduct.getQuantity(),
                 dataEntryProduct.getDataEntry().getId(),

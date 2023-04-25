@@ -39,14 +39,14 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
-    private Set<DataEntry> dataEntrySet;
+    private Set<DataEntryProduct> dataEntryProductSet;
 
-    public Set<DataEntry> getDataEntrySet() {
-        return dataEntrySet;
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
     }
 
-    public void setDataEntrySet(Set<DataEntry> dataEntrySet) {
-        this.dataEntrySet = dataEntrySet;
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProductSet) {
+        this.dataEntryProductSet = dataEntryProductSet;
     }
 
     public Product() {

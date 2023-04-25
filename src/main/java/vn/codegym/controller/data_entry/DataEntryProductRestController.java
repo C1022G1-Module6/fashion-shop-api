@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.data_entry.DataEntryProductDTO;
 import vn.codegym.service.data_entry.IDataEntryProductService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/data-entry-product")
 @CrossOrigin("*")
@@ -20,6 +22,16 @@ public class DataEntryProductRestController {
             iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> listALl(){
+        try {
+            List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
+            return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
+        } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

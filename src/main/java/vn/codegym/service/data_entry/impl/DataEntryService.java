@@ -31,16 +31,14 @@ public class DataEntryService implements IDataEntryService {
     @Override
     public void entryProduct(DataEntryDTO dataEntryDTO) {
         DataEntry dataEntry = new DataEntry();
-        if (dataEntryDTO.getDataEntryProductDTOSet() == null && dataEntryDTO.getProductDTO() == null) {
+        if (dataEntryDTO.getDataEntryProductDTOSet() == null) {
             iDataEntryRepository.save(dataEntry);
         } else {
-            BeanUtils.copyProperties(dataEntryDTO.getProductDTO(), dataEntry.getProduct());
             BeanUtils.copyProperties(dataEntryDTO.getDataEntryProductDTOSet(), dataEntry.getDataEntryProductSet());
             BeanUtils.copyProperties(dataEntryDTO, dataEntry);
             iDataEntryRepository.entryProduct(dataEntry.getCode(),
                     dataEntry.getDate(),
-                    dataEntry.getEmployeeName(),
-                    dataEntry.getProduct().getId());
+                    dataEntry.getEmployeeName());
         }
     }
 
@@ -70,7 +68,6 @@ public class DataEntryService implements IDataEntryService {
                 dataEntry.getCode(),
                 dataEntry.getDate(),
                 dataEntry.getEmployeeName(),
-                dataEntry.getProduct().getId(),
                 dataEntry.getId());
     }
 
@@ -86,8 +83,6 @@ public class DataEntryService implements IDataEntryService {
         DataEntryDTO dataEntryDTO;
         for (DataEntry dataEntry: dataEntryList) {
             dataEntryDTO = new DataEntryDTO();
-            dataEntryDTO.setProductDTO(new ProductDTO());
-            BeanUtils.copyProperties(dataEntry.getProduct(), dataEntryDTO.getProductDTO());
             BeanUtils.copyProperties(dataEntry, dataEntryDTO);
             dataEntryDTOList.add(dataEntryDTO);
         }

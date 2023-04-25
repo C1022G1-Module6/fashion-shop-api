@@ -14,27 +14,15 @@ import java.util.Set;
 @Table(name = "data_entry")
 public class DataEntry {
     @Id
-    @GeneratedValue(generator = "dataEntryCodeGenerator")
-    @GenericGenerator(name = "dataEntryCodeGenerator", strategy = "vn.codegym.util.CustomInvoiceCodeGenerator")
-    private String code;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String code;
     private String date;
     @Column(name = "employee_name")
     private String employeeName;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @JsonBackReference
-    private Product product;
-    @OneToMany(mappedBy = "data_entry")
+    @OneToMany(mappedBy = "dataEntry")
     @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;
-    public Product getProduct() {
-        return product;
-    }
-    public void setProduct(Product product) {
-        this.product = product;
-    }
     public Integer getId() {
         return id;
     }
