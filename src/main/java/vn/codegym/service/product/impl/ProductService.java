@@ -1,12 +1,15 @@
 package vn.codegym.service.product.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
+import vn.codegym.dto.product.ProductSizeDTO;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
 import vn.codegym.entity.product.ProductType;
@@ -28,9 +31,10 @@ public class ProductService implements IProductService {
 
     /**
      * Created by : QuanTVA
+     *
      * @param id
      * @return : List<ProductDetailDTO>
-     *  Function : findAllByIdProduct
+     * Function : findAllByIdProduct
      */
     @Override
     public List<ProductDetailDTO> findAllByProductId(int id) {
@@ -39,22 +43,24 @@ public class ProductService implements IProductService {
 
     /**
      * created by : QuanTVA
+     *
      * @param pageable
      * @return : Page<Product>
-     *     function : findAllProduct
+     * function : findAllProduct
      */
     public Page<Product> findAllProducts(Pageable pageable) {
         return productRepository.findAllProducts(pageable);
     }
 
     /**
-     *created by : QuanTVA
+     * created by : QuanTVA
+     *
      * @param productName
      * @param "productSizeList"
      * @param productTypeId
      * @param pageable
      * @return Page<ProductDTO>
-     *     Function : search
+     * Function : search
      */
     public Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable) {
         List<String> productSizeList = null;
@@ -65,43 +71,49 @@ public class ProductService implements IProductService {
         return productRepository.search(productName, productSizeList, productTypeId, pageable);
     }
 
-    /**
-     * Created by : QuanTVA
-     * @param productCode
-     * @param productName
-     * @param productImg
-     * @param productQrImg
-     * @param productEntryPrice
-     * @param "productTypeId"
-     * function : addProduct
-     */
-    public void addProduct(String productCode, String productName, Double productEntryPrice, ProductType productType, MultipartFile productImg, String productQrImg, Set<ProductSize> productSizes) throws IOException {
+
+    public void addProduct(ProductCreateDTO productCreateDTO){
         // Save product
         Product product = new Product();
-        product.setCode(productCode);
-        product.setName(productName);
-        product.setEntryPrice(productEntryPrice);
-        product.setProductType(productType);
-        product.setDelete(false);
-        product = productRepository.save(product);
+        product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
+        BeanUtils.copyProperties(productCreateDTO,product);
+        productRepository.addProduct(product.getCode(),
+                product.getName(),
+                product.getImg(),
+                product.getQrImg(),
+                product.getEntryPrice(),
+                product.getProductType().getId(),
+                product.isDelete());
 
         // Save product image
-        String productImgName = StringUtils.cleanPath(productImg.getOriginalFilename());
-        product.setImg(productImgName);
-        String productImgPath = "src/main/resources/static/images/product/" + productImgName;
-        File productImgFile = new File(productImgPath);
-        productImgFile.getParentFile().mkdirs();
-        productImg.transferTo(productImgFile);
-
-        // Save product QR image
-        product.setQrImg(productQrImg);
+//        String productImgName = StringUtils.cleanPath(.getOriginalFilename());
+//        product.setImg(productImgName);
+//        String productImgPath = "src/main/resources/static/images/product/" + productImgName;
+//        File productImgFile = new File(productImgPath);
+//        productImgFile.getParentFile().mkdirs();
+//        img.transferTo(productImgFile);
+//
+//
+//        // Save product QR image
+//        String productQrImgName = StringUtils.cleanPath(qrImg.getOriginalFilename());
+//        product.setQrImg(productQrImgName);
+//        String productQrImgPath = "src/main/resources/static/images/product/" + productQrImgName;
+//        File productQrImgFile = new File(productQrImgPath);
+//        productQrImgFile.getParentFile().mkdirs();
+//        qrImg.transferTo(productQrImgFile);
 
         // Save product size details
-        for (ProductSize productSize : productSizes) {
-            productSize.setProduct(product);
-        }
-        product.setProductSizes(productSizes);
-        productRepository.save(product);
+//        for (ProductSizeDTO productSizeDTO : productCreateDTO.getProductSizes()) {
+//            productSizeDTO.setProduct(product);
+//        }
+//        product.setProductSizes(productSizes);
+//        productRepository.addProductSize(product);
+//    }
+}
+
+    @Override
+    public Product findWithId(Integer id) {
+        return productRepository.findWithId(id);
     }
 }
 

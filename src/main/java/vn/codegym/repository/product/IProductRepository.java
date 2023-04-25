@@ -69,39 +69,42 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 
 
     /**
-     * Created by : QuanTVA
-     * @param productCode
-     * @param productName
-     * @param productImg
-     * @param productQrImg
-     * @param productEntryPrice
+     * created by QuanTVA
+     * @param code
+     * @param name
+     * @param img
+     * @param qrImg
+     * @param entryPrice
      * @param productTypeId
      * function : addProduct
      */
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO product (code,name, img,qr_img,entry_price, product_type_id) " +
-            "VALUES (:productCode, :productName, :productImg, :productQrImg, :productEntryPrice, :productTypeId)", nativeQuery = true)
-    void addProduct(@Param("productCode") String productCode,
-                    @Param("productName") String productName,
-                    @Param("productImg") MultipartFile productImg,
-                    @Param("productQrImg") String productQrImg,
-                    @Param("productEntryPrice") Double productEntryPrice,
-                    @Param("productTypeId") Integer productTypeId);
+    @Query(value = "INSERT INTO product (code,`name`, img,qr_img,entry_price, product_type_id,is_delete) " +
+            "VALUES (:code, :name, :img, :qrImg, :entryPrice, :productTypeId, :isDelete)", nativeQuery = true)
+    void addProduct(@Param("code") String code,
+                    @Param("name") String name,
+                    @Param("img") String img,
+                    @Param("qrImg") String qrImg,
+                    @Param("entryPrice") Double entryPrice,
+                    @Param("productTypeId") Integer productTypeId,
+                    @Param("isDelete") boolean isDelete);
 
 
-    /**
-     * create by : QuanTVA
-     * @param productId
-     * @param size
-     * @param quantity
-     * function : addProductSize
-     */
-    @Transactional
-    @Modifying
-    @Query(value = "INSERT INTO product_size (id, size, quantity) " +
-            "VALUES (:productId, :size, :quantity)", nativeQuery = true)
-    void addProductSize(@Param("productId") Integer productId,
-                        @Param("size") String size,
-                        @Param("quantity") Integer quantity);
+//    /**
+//     * create by : QuanTVA
+//     * @param productId
+//     * @param size
+//     * @param quantity
+//     * function : addProductSize
+//     */
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO product_size (id, size, quantity) " +
+//            "VALUES (:productId, :size, :quantity)", nativeQuery = true)
+//    void addProductSize(@Param("productId") Integer productId,
+//                        @Param("size") String size,
+//                        @Param("quantity") Integer quantity);
+
 }
+

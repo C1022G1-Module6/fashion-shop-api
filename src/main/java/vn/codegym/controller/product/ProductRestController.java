@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.entity.product.Product;
@@ -35,7 +36,7 @@ public class ProductRestController {
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "2") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products = productService.findAllProducts(pageable);
@@ -82,27 +83,26 @@ public class ProductRestController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-    /**
-     * Created by : QuanTVA
-     * @param productCode
-     * @param productName
-     * @param productImg
-     * @param productQrImg
-     * @param productEntryPrice
-     * @param productTypeId
-     * function : addProduct
-     */
-    @PostMapping("/products")
-    public ResponseEntity<?> createProduct(@RequestParam("productCode") String productCode,
-                                           @RequestParam("productName") String productName,
-                                           @RequestParam("productEntryPrice") Double productEntryPrice,
-                                           @RequestParam("productTypeId") Integer productTypeId,
-                                           @RequestParam(value = "productImg", required = false) MultipartFile productImg,
-                                           @RequestParam(value = "productQrImg", required = false) String productQrImg,
-                                           @RequestParam(value = "productSizes", required = false) Set<ProductSize> productSizes) throws IOException {
 
-        productService.addProduct(productCode, productName, productEntryPrice, ProductType.valueOf(productTypeId), productImg, productQrImg, productSizes);
+//    /**
+//     *
+//     * @param code
+//     * @param name
+//     * @param entryPrice
+//     * @param productTypeId
+//     * @param img
+//     * @param qrImg
+//     * @param productSizes
+//     * @return
+//     * @throws IOException
+//     */
+    @PostMapping("/create-product")
+    public ResponseEntity<ProductCreateDTO> createProduct(@RequestBody ProductCreateDTO productCreateDTO) throws IOException {
+
+        productService.addProduct(productCreateDTO);
+
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }

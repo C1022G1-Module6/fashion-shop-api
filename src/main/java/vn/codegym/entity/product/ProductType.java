@@ -14,8 +14,15 @@ public class ProductType {
     private String name;
     @OneToMany(mappedBy = "productType")
     @JsonBackReference
-
     private Set<Product> products;
+
+    public ProductType(Integer id) {
+        this.id = id;
+    }
+
+    public ProductType() {
+
+    }
 
     public static ProductType valueOf(Integer productTypeId) {
         return null;

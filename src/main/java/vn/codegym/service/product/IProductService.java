@@ -3,6 +3,7 @@ package vn.codegym.service.product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
+import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.entity.product.Product;
@@ -18,6 +19,10 @@ public interface IProductService {
     List<ProductDetailDTO> findAllByProductId(int id);
     Page<Product> findAllProducts(Pageable pageable);
     Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable);
-    void addProduct(String productCode, String productName, Double productEntryPrice, ProductType productType, MultipartFile productImg, String productQrImg, Set<ProductSize> productSizes) throws IOException;
+    void addProduct(ProductCreateDTO productCreateDTO);
+
+    Product findWithId(Integer id);
+
+
 }
 

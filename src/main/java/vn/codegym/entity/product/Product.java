@@ -25,13 +25,14 @@ public class Product {
     private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
-    @JsonBackReference
+    @JsonManagedReference
     private ProductType productType;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "product_size_detail",
             joinColumns = {@JoinColumn(name = "product_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_size_id")}
     )
+    @JsonManagedReference
     private Set<ProductSize> productSizes;
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
@@ -39,8 +40,6 @@ public class Product {
 
     public Product() {
     }
-
-
 
     public Integer getId() {
         return id;
