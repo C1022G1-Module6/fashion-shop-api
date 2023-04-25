@@ -63,4 +63,7 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
                        @Param("total") Double total,
                        @Param("customer") Integer customerId,
                        @Param("id") Integer id);
+
+    @Query(value = "select count(code) from invoice", nativeQuery = true)
+    Integer getTotalCodeAmount();
 }
