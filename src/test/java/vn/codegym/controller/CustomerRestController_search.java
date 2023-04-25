@@ -186,7 +186,7 @@ public class CustomerRestController_search {
      * @throws Exception
      */
     @Test
-    public void search_with_pageable() throws Exception {
+    public void search_with_pageable_99() throws Exception {
         int pageSize = 3;
         int pageNumber = 0;
         String sortBy = "id";
