@@ -12,7 +12,7 @@ public class InvoiceDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer quantity;
-    private Integer total;
+    private Double total;
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     @JsonBackReference
@@ -21,6 +21,7 @@ public class InvoiceDetail {
     @JoinColumn(name = "product_id")
     @JsonBackReference
     private Product product;
+    private Boolean isDelete = false;
 
     public InvoiceDetail() {
     }
@@ -41,11 +42,11 @@ public class InvoiceDetail {
         this.quantity = quantity;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -63,5 +64,13 @@ public class InvoiceDetail {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }

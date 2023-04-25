@@ -1,4 +1,5 @@
 package vn.codegym.entity.invoice;
+import org.hibernate.annotations.GenericGenerator;
 import vn.codegym.entity.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -13,9 +14,8 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
     private String code;
-    private Date date;
+    private String date;
     @Column(name = "employee_name")
     private String employeeName;
     private Double total;
@@ -49,11 +49,11 @@ public class Invoice {
         this.code = code;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
