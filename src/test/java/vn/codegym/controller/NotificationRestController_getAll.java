@@ -16,7 +16,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NotificationRestController_getAll {
     @Autowired
     private  MockMvc mockMvc;
+    /**
+     * This function is used to check the display of the message size = 0
+     *
+     * @author VinhPQ
 
+     */
     @Test
     public void getAll_5() throws Exception{
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -25,7 +30,12 @@ public class NotificationRestController_getAll {
                 .andExpect(status().is4xxClientError());
     }
 
+    /**
+     * This function is used to check the display of the message size > 0
+     *
+     * @author VinhPQ
 
+     */
     @Test
     public void getAll_6() throws Exception {
             this.mockMvc.perform(

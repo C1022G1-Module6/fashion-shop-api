@@ -27,7 +27,11 @@ public class NotificationRestController_createNotification {
 
     @Autowired
     private ObjectMapper objectMapper;
-
+    /**
+     *
+     * this function is used to check the validity of the specific title field rather than null
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_title_13() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -47,7 +51,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of the specific title field rather than empty
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_title_14() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -67,7 +75,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of the title field, namely the correct format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_title_15() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -88,7 +100,11 @@ public class NotificationRestController_createNotification {
 
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of a specific title field in minLength format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_title_16() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -109,7 +125,11 @@ public class NotificationRestController_createNotification {
 
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of a specific title field in maxLength format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_title_17() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -132,7 +152,11 @@ public class NotificationRestController_createNotification {
 
     }
 
-
+    /**
+     *
+     * this function is used to check the validity of the specific content field rather than null
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_content_13() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -152,7 +176,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of the specific content field rather than empty
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_content_14() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -172,7 +200,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of the content field, namely the correct format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_content_15() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -193,7 +225,11 @@ public class NotificationRestController_createNotification {
 
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of a specific content field in minLength format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_content_16() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -214,7 +250,11 @@ public class NotificationRestController_createNotification {
 
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of a specific content field in maxLength format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_content_17() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -250,7 +290,11 @@ public class NotificationRestController_createNotification {
 
     }
 
-
+    /**
+     *
+     * this function is used to check the validity of the specific img field rather than null
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_img_13() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -270,7 +314,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of the specific img field rather than empty
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_img_14() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -290,7 +338,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * this function is used to check the validity of the content field, namely the correct format
+     * * Author: VinhPQ
+     */
     @Test
     public void createNotification_img_15() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -314,7 +366,11 @@ public class NotificationRestController_createNotification {
 
 
 
-
+    /**
+     *
+     * this function is used to check the validity of the specific employee_id field rather than null
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_employee_id_13() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
@@ -334,7 +390,11 @@ public class NotificationRestController_createNotification {
                 .andExpect(status().is4xxClientError());
 
     }
-
+    /**
+     *
+     * This function is used to check when all input data is correct
+     * Author: VinhPQ
+     */
     @Test
     public void createNotification_18() throws Exception{
         NotificationDTO notificationDTO = new NotificationDTO();
