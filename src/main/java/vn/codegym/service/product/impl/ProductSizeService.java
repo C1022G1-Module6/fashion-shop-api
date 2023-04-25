@@ -19,13 +19,6 @@ public class ProductSizeService implements IProductSizeService {
         return productSizeRepository.findAll();
     }
 
-    @Override
-    public void addProductSize(String name) {
-        productSizeRepository.addProductSize(name);
-    }
 
-    @Override
-    public void save(ProductSize productSize) {
-        productSizeRepository.save(productSize);
-    }
+
 }

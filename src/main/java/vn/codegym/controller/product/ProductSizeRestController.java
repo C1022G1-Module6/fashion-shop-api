@@ -30,15 +30,5 @@ private IProductService productService;
     return new ResponseEntity<>(productSizes, HttpStatus.OK);
 }
 
-@PostMapping("/product-size")
-    public void createProductSize(List<Integer> productId ){
-    ProductSize productSize = new ProductSize();
-    Set<Product> productSet = new HashSet<>();
-    for(Integer productIds : productId) {
-        Product product = productService.findWithId(productIds);
-        productSet.add(product);
-    }
-    productSize.setProductSet(productSet);
-    iProductSizeService.save(productSize);
-}
+
 }

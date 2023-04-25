@@ -4,25 +4,20 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.dto.product.ProductSizeDTO;
 import vn.codegym.entity.product.Product;
-import vn.codegym.entity.product.ProductSize;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.repository.product.IProductRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class ProductService implements IProductService {
@@ -73,14 +68,14 @@ public class ProductService implements IProductService {
 
     /**
      * created by QuanTVA
-     * @param productCreateDTO
-     * function : addProduct
+     *
+     * @param productCreateDTO function : addProduct
      */
-    public void addProduct(ProductCreateDTO productCreateDTO){
+    public void addProduct(ProductCreateDTO productCreateDTO) {
         // Save product
         Product product = new Product();
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
-        BeanUtils.copyProperties(productCreateDTO,product);
+        BeanUtils.copyProperties(productCreateDTO, product);
         productRepository.addProduct(product.getCode(),
                 product.getName(),
                 product.getImg(),
@@ -92,16 +87,16 @@ public class ProductService implements IProductService {
 
         Product product1 = productRepository.findWithCode(product.getCode());
 
-        for (ProductSizeDTO size:productCreateDTO.getProductSizes()) {
+        for (ProductSizeDTO size : productCreateDTO.getProductSizes()) {
             productRepository.addProductSizeDetail(size.getId(), product1.getId());
         }
 
 
-}
+    }
 
     /**
-     *
      * created by QuanTVA
+     *
      * @param id
      * @return Product
      */
