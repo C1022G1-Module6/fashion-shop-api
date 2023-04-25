@@ -14,12 +14,12 @@ import static org.springframework.web.servlet.function.RequestPredicates.content
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProductRestController_productDetails {
+public class ProductRestController_getProductDetails {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void productDetails_id_1() throws Exception {
+    public void getProductDetails_id_1() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/detail?id={id}", "null"))
@@ -28,7 +28,7 @@ public class ProductRestController_productDetails {
     }
 
     @Test
-    public void productDetails_id_2() throws Exception {
+    public void getProductDetails_id_2() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/detail?id={id}", ""))
@@ -37,7 +37,7 @@ public class ProductRestController_productDetails {
     }
 
     @Test
-    public void productDetails_id_3() throws Exception {
+    public void getProductDetails_id_3() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/detail?id={id}", 5))
@@ -47,7 +47,7 @@ public class ProductRestController_productDetails {
 
 
     @Test
-    public void productDetails_id_4() throws Exception {
+    public void getProductDetails_id_4() throws Exception {
         this.mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/api/detail?id={id}", 1))

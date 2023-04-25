@@ -34,7 +34,7 @@ public class ProductRestController {
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size
+            @RequestParam(defaultValue = "3") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products = productService.findAllProducts(pageable);
@@ -50,7 +50,7 @@ public class ProductRestController {
      *  Function : findAllByIdProduct
      */
     @GetMapping("/detail")
-    public ResponseEntity<List<ProductDetailDTO>> productDetails(@RequestParam(required = false) Integer  id){
+    public ResponseEntity<List<ProductDetailDTO>> getProductDetails(@RequestParam(required = false) Integer  id){
         List<ProductDetailDTO> productDetailDTOList = productService.findAllByProductId(id);
         if (productDetailDTOList.size() == 0){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -72,7 +72,7 @@ public class ProductRestController {
             @RequestParam(required = false) Integer productTypeId,
             @RequestParam(required = false) String[] productSizes,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "3") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ProductDTO> products = productService.searchProducts(productName, productTypeId, productSizes, pageable);

@@ -21,7 +21,7 @@ public class ProductTypeRestController {
     private IProductTypeService iProductTypeService;
 
 @GetMapping("/product-type")
-public ResponseEntity<List<ProductType>> findAllProductSize(){
+public ResponseEntity<List<ProductType>> findAllProductType(){
     List<ProductType> productTypes = iProductTypeService.getAllProductTypes();
     if (productTypes.isEmpty()){
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
