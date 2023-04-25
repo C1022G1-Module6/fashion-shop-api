@@ -1,4 +1,5 @@
 package vn.codegym.entity.invoice;
+import org.hibernate.annotations.GenericGenerator;
 import vn.codegym.entity.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -11,10 +12,11 @@ import java.util.Set;
 @Table(name = "invoice")
 public class Invoice {
     @Id
+    @GeneratedValue(generator = "invoiceCodeGenerator")
+    @GenericGenerator(name = "invoiceCodeGenerator", strategy = "vn.codegym.util.CustomInvoiceCodeGenerator")
+    private String code;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
-    private String code;
     private String date;
     @Column(name = "employee_name")
     private String employeeName;

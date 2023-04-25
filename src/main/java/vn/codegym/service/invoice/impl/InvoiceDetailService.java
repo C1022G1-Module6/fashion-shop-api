@@ -11,7 +11,6 @@ import vn.codegym.repository.product.IProductRepository;
 import vn.codegym.service.invoice.IInvoiceDetailService;
 import org.springframework.stereotype.Service;
 import vn.codegym.service.invoice.IInvoiceService;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +23,13 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     @Autowired
     private IProductRepository productRepository;
     Integer count = 0;
+
+    /**
+     * this method is applied to create new invoice with invoiceDetailDTO as param
+     * when this method is request, it also increases count value and create new invoice instance to db
+     * by using save method from invoiceService (only create if count = 0)
+     * @param invoiceDetailDTO
+     */
     @Override
     public void save(InvoiceDetailDTO invoiceDetailDTO) {
         InvoiceDetail invoiceDetail = new InvoiceDetail();
@@ -37,18 +43,28 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
                 invoiceDetail.getTotal(),
                 invoiceDetail.getInvoice().getId(),
-                invoiceDetail.getProduct().getId());
+                invoiceDetail.getProduct().getId(),
+                invoiceDetail.getDelete());
         count++;
     }
     public void resetCount() {
         count = 0;
     }
 
+    /**
+     * this methois applied to delete an invoiceDetail instance by set the isDelete value to true
+     * @param id
+     */
     @Override
     public void delete(Integer id) {
         InvoiceDetail invoiceDetail = invoiceDetailRepository.findDetailWithId(id);
         invoiceDetail.setDelete(true);
     }
+
+    /**
+     * This function get all invoiceDetailDTO instances and return a list of invoice instances
+     * @return
+     */
 
     @Override
     public List<InvoiceDetailDTO> findAll() {
