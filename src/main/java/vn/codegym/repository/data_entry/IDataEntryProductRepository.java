@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import vn.codegym.entity.data_entry.DataEntryProduct;
+import vn.codegym.entity.invoice.InvoiceDetail;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface IDataEntryProductRepository extends JpaRepository<DataEntryProduct, Integer> {
     @Modifying
@@ -19,4 +21,7 @@ public interface IDataEntryProductRepository extends JpaRepository<DataEntryProd
 
     @Query(value = "select * from data_entry_product where id = :id", nativeQuery = true)
     DataEntryProduct findEntryProductWithId(@Param("id") Integer id);
+
+    @Query(value = "select * from data_entry_product where is_delete = false", nativeQuery = true)
+    List<DataEntryProduct> listAllDataEntryProduct();
 }

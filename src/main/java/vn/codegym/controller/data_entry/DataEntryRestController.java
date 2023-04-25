@@ -8,41 +8,50 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.data_entry.DataEntryDTO;
+import vn.codegym.service.data_entry.IDataEntryProductService;
 import vn.codegym.service.data_entry.IDataEntryService;
+import vn.codegym.service.data_entry.impl.DataEntryProductServiceImpl;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/date_entry")
+@RequestMapping("/date-entry")
 @CrossOrigin("*")
 public class DataEntryRestController {
     @Autowired
     private IDataEntryService iDataEntryService;
+    @Autowired
+    private DataEntryProductServiceImpl dataEntryProductService;
 
     /**
-     *
-     * @param dataEntryDTO
-     * @param bindingResult
+     * this method is applied to send a List of data entry instances and a HttpStatus
      * @return
      */
-    @PostMapping("")
-    public ResponseEntity<?> entryProducts(@Validated
-                                           @RequestBody DataEntryDTO dataEntryDTO,
-                                           BindingResult bindingResult){
-        if (!bindingResult.hasErrors()){
-            iDataEntryService.entryProduct(dataEntryDTO);
-        }else {
-            Map<String, String> map = new LinkedHashMap<>();
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            for (FieldError error: errors){
-                if (!map.containsKey(error.getField())){
-                    map.put(error.getField(), error.getDefaultMessage());
-                }
-            }
-            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+    @GetMapping("")
+    public ResponseEntity<?> getAllList(){
+        try {
+            List<DataEntryDTO> dataEntryDTOList = iDataEntryService.findAll();
+            return new ResponseEntity<>(dataEntryDTOList, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    /**
+     * this method is applied to update info of data entry instance with the param get from client and send HttpStatus
+     * @param dataEntryDTO
+     * @return
+     */
+    @PutMapping ("")
+    public ResponseEntity<?> updateEntryProducts(@RequestBody DataEntryDTO dataEntryDTO){
+        try {
+            iDataEntryService.update(dataEntryDTO);
+            dataEntryProductService.resetCount();
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

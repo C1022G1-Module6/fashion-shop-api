@@ -10,7 +10,15 @@ public class DataEntryDTO {
     private String code;
     private String date;
     private String employeeName;
+    private ProductDTO productDTO;
     private Set<DataEntryProductDTO> dataEntryProductDTOSet;
+
+    public ProductDTO getProductDTO() {
+        return productDTO;
+    }
+    public void setProductDTO(ProductDTO productDTO) {
+        this.productDTO = productDTO;
+    }
 
     public Integer getId() {
         return id;
@@ -51,7 +59,6 @@ public class DataEntryDTO {
     public void setDataEntryProductDTOSet(Set<DataEntryProductDTO> dataEntryProductDTOSet) {
         this.dataEntryProductDTOSet = dataEntryProductDTOSet;
     }
-
     public DataEntryDTO() {
     }
 }

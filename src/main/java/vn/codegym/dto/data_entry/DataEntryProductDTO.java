@@ -4,13 +4,9 @@ import vn.codegym.dto.product.ProductDTO;
 
 public class DataEntryProductDTO {
     private Integer id;
-
     private Integer quantity;
-
     private DataEntryDTO dataEntryDTO;
-
     private ProductDTO productDTO;
-
     private Boolean isDelete = false;
 
     public DataEntryProductDTO() {

@@ -11,19 +11,15 @@ public class DataEntryProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private Integer quantity;
-
     @ManyToOne
     @JoinColumn(name = "data_entry_id")
     @JsonBackReference
     private DataEntry dataEntry;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     @JsonBackReference
     private Product product;
-
     private Boolean isDelete = false;
 
     public Boolean getDelete() {
