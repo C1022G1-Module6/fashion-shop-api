@@ -37,7 +37,7 @@ public class Product {
     private Set<InvoiceDetail> invoiceDetails;
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
-    private Set<DataEntryProduct> dataEntryProductSet;
+    private Set<DataEntryProduct> dataEntryProducts;
 
     public Product() {
     }
@@ -126,12 +126,12 @@ public class Product {
         return invoiceDetails;
     }
 
-    public Set<DataEntryProduct> getDataEntryProductSet() {
-        return dataEntryProductSet;
+    public Set<DataEntryProduct> getDataEntryProducts() {
+        return dataEntryProducts;
     }
 
-    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProducts) {
-        this.dataEntryProductSet = dataEntryProducts;
+    public void setDataEntryProducts(Set<DataEntryProduct> dataEntryProducts) {
+        this.dataEntryProducts = dataEntryProducts;
     }
 
     public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {

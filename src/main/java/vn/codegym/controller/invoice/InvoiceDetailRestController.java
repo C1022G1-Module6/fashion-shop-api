@@ -44,11 +44,10 @@ public class InvoiceDetailRestController {
 
     @GetMapping("")
     public ResponseEntity<?> listAll() {
-        try {
-            List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
-            return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
-        } catch (Exception e) {
+        List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
+        if (invoiceDetailDTOList.size() == 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
     }
 }

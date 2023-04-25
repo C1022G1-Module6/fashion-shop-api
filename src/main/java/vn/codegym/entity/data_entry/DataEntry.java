@@ -1,5 +1,7 @@
 package vn.codegym.entity.data_entry;
 
+import vn.codegym.entity.product.Product;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -16,7 +18,7 @@ public class DataEntry {
     @Column(name = "employee_name")
     private String employeeName;
     @OneToMany(mappedBy = "dataEntry")
-    private Set<DataEntryProduct> dataEntryProductSet;
+    private Set<DataEntryProduct> dataEntryProducts;
 
     public DataEntry() {
     }
@@ -53,11 +55,11 @@ public class DataEntry {
         this.employeeName = employeeName;
     }
 
-    public Set<DataEntryProduct> getDataEntryProductSet() {
-        return dataEntryProductSet;
+    public Set<DataEntryProduct> getDataEntryProducts() {
+        return dataEntryProducts;
     }
 
-    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProducts) {
-        this.dataEntryProductSet = dataEntryProducts;
+    public void setDataEntryProducts(Set<DataEntryProduct> dataEntryProducts) {
+        this.dataEntryProducts = dataEntryProducts;
     }
 }
