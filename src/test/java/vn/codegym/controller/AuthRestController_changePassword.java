@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import vn.codegym.dto.request.ChangePasswordRequest;
-import vn.codegym.dto.request.SignInForm;
+
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +28,7 @@ public class AuthRestController_changePassword {
     private ObjectMapper objectMapper;
 
     @Test
-    public void login_oldPassWord_19() throws Exception {
+    public void changePassword_oldPassWord_19() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword(null);
         changePasswordRequest.setNewPassword("abc12345");
@@ -44,7 +44,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_oldPassWord_20() throws Exception {
+    public void changePassword_oldPassWord_20() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("");
         changePasswordRequest.setNewPassword("abc12345");
@@ -65,7 +65,7 @@ public class AuthRestController_changePassword {
      * @throws Exception
      */
     @Test
-    public void login_oldPassWord_99() throws Exception {
+    public void changePassword_oldPassWord_99() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc11111");
         changePasswordRequest.setNewPassword("abc12345");
@@ -81,7 +81,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_oldPassWord_22() throws Exception {
+    public void changePassword_oldPassWord_22() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("a");
         changePasswordRequest.setNewPassword("abc12345");
@@ -97,7 +97,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_oldPassWord_23() throws Exception {
+    public void changePassword_oldPassWord_23() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abcaabcabcabababbcabbabacbabacbacbabacbcababcab");
         changePasswordRequest.setNewPassword("abc12345");
@@ -113,7 +113,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_newPassWord_19() throws Exception {
+    public void changePassword_newPassWord_19() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword(null);
@@ -129,7 +129,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_newPassWord_20() throws Exception {
+    public void changePassword_newPassWord_20() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("");
@@ -150,7 +150,7 @@ public class AuthRestController_changePassword {
      * @throws Exception
      */
     @Test
-    public void login_newPassWord_99() throws Exception {
+    public void changePassword_newPassWord_99() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc123");
@@ -166,7 +166,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_newPassWord_22() throws Exception {
+    public void changePassword_newPassWord_22() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("a");
@@ -182,7 +182,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_newPassWord_23() throws Exception {
+    public void changePassword_newPassWord_23() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abcaabcabcabababbcabbabacbabacbacbabacbcababcab");
@@ -198,7 +198,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_confirmPassWord_19() throws Exception {
+    public void changePassword_confirmPassWord_19() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc12345");
@@ -214,7 +214,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_confirmPassWord_20() throws Exception {
+    public void changePassword_confirmPassWord_20() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc12345");
@@ -235,7 +235,7 @@ public class AuthRestController_changePassword {
      * @throws Exception
      */
     @Test
-    public void login_confirmPassWord_99() throws Exception {
+    public void changePassword_confirmPassWord_99() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc12345");
@@ -251,7 +251,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_confirmPassWord_22() throws Exception {
+    public void changePassword_confirmPassWord_22() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc12345");
@@ -267,7 +267,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_confirmPassWord_23() throws Exception {
+    public void changePassword_confirmPassWord_23() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc12345");
@@ -283,7 +283,7 @@ public class AuthRestController_changePassword {
     }
 
     @Test
-    public void login_confirmPassWord_24() throws Exception {
+    public void changePassword_confirmPassWord_24() throws Exception {
         ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest();
         changePasswordRequest.setOldPassword("abc123");
         changePasswordRequest.setNewPassword("abc12345");

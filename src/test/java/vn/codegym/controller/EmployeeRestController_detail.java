@@ -27,6 +27,7 @@ public class EmployeeRestController_detail {
 
     }
 
+
     @Test
     public void detail_username_2() throws Exception {
         this.mockMvc.perform(
@@ -62,8 +63,6 @@ public class EmployeeRestController_detail {
                 .andExpect(jsonPath("userName").value("anhquan123"))
                 .andExpect(jsonPath("phoneNumber").value("0901111111"))
                 .andExpect(jsonPath("address").value("50 Hoàng Diệu"))
-                .andExpect(jsonPath("email").value("nlaquan1301@gmail.com"))
-        ;
-
+                .andExpect(jsonPath("email").value("nlaquan1301@gmail.com"));
     }
 }
