@@ -12,11 +12,9 @@ import java.util.Set;
 @Table(name = "invoice")
 public class Invoice {
     @Id
-    @GeneratedValue(generator = "invoiceCodeGenerator")
-    @GenericGenerator(name = "invoiceCodeGenerator", strategy = "vn.codegym.util.CustomInvoiceCodeGenerator")
-    private String code;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String code;
     private String date;
     @Column(name = "employee_name")
     private String employeeName;

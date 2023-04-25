@@ -28,6 +28,8 @@ public class InvoiceService implements IInvoiceService {
     public void save(InvoiceDTO invoiceDTO) {
         Invoice invoice = new Invoice();
         if (invoiceDTO.getCustomerDTO() == null && invoiceDTO.getInvoiceDetailDTOS() == null) {
+            invoice.setCode(invoiceDTO.getCode());
+            invoice.setDate(invoiceDTO.getDate());
             invoiceRepository.save(invoice);
         } else {
             BeanUtils.copyProperties(invoiceDTO.getCustomerDTO(), invoice.getCustomer());
@@ -51,6 +53,7 @@ public class InvoiceService implements IInvoiceService {
     public Invoice findLastInvoiceInList() {
         List<Invoice> invoiceList = invoiceRepository.listAllInvoice();
         Invoice invoice = invoiceList.get(invoiceList.size() - 1);
+        invoice.setId(invoiceList.get(invoiceList.size() - 2).getId() + 1);
         return invoice;
     }
 
@@ -64,6 +67,7 @@ public class InvoiceService implements IInvoiceService {
         Invoice invoice = findLastInvoiceInList();
         invoiceDTO.setId(invoice.getId());;
         invoiceDTO.setCode(invoice.getCode());
+        invoiceDTO.setDate(invoice.getDate());
         BeanUtils.copyProperties(invoiceDTO, invoice);
         invoiceRepository.updateInvoice(invoice.getBonusPoint(),
                 invoice.getCode(),
