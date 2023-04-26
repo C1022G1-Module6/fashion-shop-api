@@ -27,7 +27,7 @@ public class NewsService implements INewsService {
      */
     @Override
     public void addNews(News newsDTO) {
-        iNewsRepository.addNews(newsDTO.getContent(),newsDTO.getImg(),newsDTO.getTitle(),newsDTO.getEmployee().getId());
+        iNewsRepository.addNews(newsDTO.getContent(),newsDTO.getImg(),newsDTO.getNameImg(),newsDTO.getTitle(),newsDTO.getEmployee().getId());
     }
 
     /**

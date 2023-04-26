@@ -11,6 +11,7 @@ public class NewsDTO implements Validator {
     private String img;
     private String nameImg;
     private String content;
+    private String dateTime;
     private Employee employee;
 
     public NewsDTO() {
@@ -38,6 +39,30 @@ public class NewsDTO implements Validator {
         this.img = img;
         this.content = content;
         this.employee = employee;
+    }
+
+    public NewsDTO(String title, String img, String nameImg, String content, Employee employee) {
+        this.title = title;
+        this.img = img;
+        this.nameImg = nameImg;
+        this.content = content;
+        this.employee = employee;
+    }
+
+    public String getNameImg() {
+        return nameImg;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setNameImg(String nameImg) {
+        this.nameImg = nameImg;
     }
 
     public Integer getId() {
@@ -97,14 +122,18 @@ public class NewsDTO implements Validator {
                 errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 100 kí tự");
             }
         }
-        if (newsDTO.getImg().equals("")){
-            errors.rejectValue("img", "img", "Vui lòng chọn ảnh");
-        }else if ((newsDTO.getImg().matches("\\.(png|jpg|PNG|JPG)$"))) {
-            errors.rejectValue("img", "img", "Ảnh sai định dạng");
+//        if (newsDTO.getImg().equals("")){
+//            errors.rejectValue("img", "img", "Vui lòng chọn ảnh");
+//        }else if (!(newsDTO.getNameImg().matches("\\.(png|jpg)$"))) {
+//            errors.rejectValue("img", "img", "Ảnh sai định dạng");
+//        }
+        if (newsDTO.getContent().equals("")){
+            errors.rejectValue("content", "content", "Nhập nội dung");
         }
+
         int minLengthContent = newsDTO.getContent().length();
         int maxLengthContent = newsDTO.getContent().length();
-        if (!(minLengthContent >= 50 && maxLengthContent <= 500)) {
+        if (!(minLengthContent >= 100 && maxLengthContent <= 1000)) {
             errors.rejectValue("content", "content", "Nội dung từ 50 đến 500 kí tự");
         }
     }
