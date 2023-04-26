@@ -39,7 +39,7 @@ public class CustomerRestController {
      */
     @PostMapping(value = {"/create"} )
     public ResponseEntity<?> createCustomer(@Validated @RequestBody CustomerDTO customerDTO, BindingResult bindingResult){
-        /*new CustomerDTO().validate(customerDTO,bindingResult);*/
+        new CustomerDTO().validate(customerDTO,bindingResult);
 //        Map<String,String> check = iCustomerService.checkCreate(customerDTO);
 //        if (check.get("errorCode") != null) {
 //            bindingResult.rejectValue("code", "code", check.get("errorCode"));
@@ -63,6 +63,14 @@ public class CustomerRestController {
     }
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> findCustomerById(@PathVariable Integer id) {
+        Customer customer = iCustomerService.findCustomerById(id);
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
 
     /**
      * Created by: TienTHM
@@ -75,6 +83,7 @@ public class CustomerRestController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<?> updateCustomer(@PathVariable("id") Integer id, @Validated @RequestBody CustomerDTO customerDTO, BindingResult bindingResult) {
         new CustomerDTO().validate(customerDTO, bindingResult);
+        customerDTO.setId(id);
 //        Map<String, String> check = iCustomerService.checkUpdate(customerDTO);
 //        if (check.get("errorCode") != null) {
 //            bindingResult.rejectValue("code", "code", check.get("errorCode"));
@@ -89,6 +98,7 @@ public class CustomerRestController {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         Customer customer = iCustomerService.findCustomerById(id);
+        System.out.println("cccccccccccccccccccccccccccccc:"+id);
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

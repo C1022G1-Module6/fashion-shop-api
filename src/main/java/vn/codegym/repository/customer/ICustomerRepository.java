@@ -3,6 +3,7 @@ package vn.codegym.repository.customer;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -97,19 +98,19 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             "email = :email," +
             "phone_number = :phoneNumber," +
             "point = :point," +
-            "customer_type_id = :customerTypeId," +
+            "customer_type_id = :customerTypeId" +
             " WHERE id = :id",
             nativeQuery = true)
     void updateCustomer(
             @Param("code") String code,
             @Param("name") String name,
             @Param("gender") boolean gender,
-            @Param("date_of_birth") String dateOfBirth,
+            @Param("dateOfBirth") String dateOfBirth,
             @Param("address") String address,
             @Param("email") String email,
-            @Param("phone_number") String phoneNumber,
+            @Param("phoneNumber") String phoneNumber,
             @Param("point") Integer point,
-            @Param("customer_type_id") Integer customerTypeId,
+            @Param("customerTypeId") Integer customerTypeId,
             @Param("id") Integer id
     );
 

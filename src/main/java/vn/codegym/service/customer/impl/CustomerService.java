@@ -84,22 +84,22 @@ public class CustomerService implements ICustomerService {
      * @param customerDTO
      * @return
      */
-//    @Override
-//    public Map<String, String> checkCreate(CustomerDTO customerDTO) {
-//        Map<String,String> checkCustomer = new HashMap<>();
-//        for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
-//            if (iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
-//                checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại!");
-//            }
-//            if (iCustomerRepository.findAllCustomer().get(i).getPhoneNumber().equals(customerDTO.getPhoneNumber())) {
-//                checkCustomer.put("errorPhone", "Số điện thoại đã tồn tại trong hệ thống.");
-//            }
-//            if (iCustomerRepository.findAllCustomer().get(i).getEmail().equals(customerDTO.getEmail())) {
-//                checkCustomer.put("errorEmail", "Email đã tồn tại trong hệ thống.");
-//            }
-//        }
-//        return checkCustomer;
-//    }
+    @Override
+    public Map<String, String> checkCreate(CustomerDTO customerDTO) {
+        Map<String,String> checkCustomer = new HashMap<>();
+        for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
+            if (iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
+                checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại!");
+            }
+            if (iCustomerRepository.findAllCustomer().get(i).getPhoneNumber().equals(customerDTO.getPhoneNumber())) {
+                checkCustomer.put("errorPhone", "Số điện thoại đã tồn tại trong hệ thống.");
+            }
+            if (iCustomerRepository.findAllCustomer().get(i).getEmail().equals(customerDTO.getEmail())) {
+                checkCustomer.put("errorEmail", "Email đã tồn tại trong hệ thống.");
+            }
+        }
+        return checkCustomer;
+    }
 
     /**
      * Created by: TienTHM
@@ -109,22 +109,22 @@ public class CustomerService implements ICustomerService {
      * @param customerDTO
      * @return
      */
-//    @Override
-//    public Map<String, String> checkUpdate(CustomerDTO customerDTO) {
-//        Map<String, String> checkCustomer = new HashMap<>();
-//        Customer customer = findCustomerById(customerDTO.getId());
-//        for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
-//            if (!customer.getCode().equals(customerDTO.getCode()) && iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
-//                checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại trong hệ thống.");
-//            }
-//            if (!customer.getPhoneNumber().equals(customer.getPhoneNumber()) && iCustomerRepository.findAllCustomer().get(i).getPhoneNumber().equals(customerDTO.getPhoneNumber())) {
-//                checkCustomer.put("errorPhone", "Số điện thoại đã tồn tại trong hệ thống.");
-//            }
-//            if (!customer.getEmail().equals(customerDTO.getEmail()) && iCustomerRepository.findAllCustomer().get(i).getEmail().equals(customerDTO.getEmail())) {
-//
-//                checkCustomer.put("errorEmail", "Email đã tồn tại trong hệ thống.");
-//            }
-//        }
-//        return null;
-//    }
+    @Override
+    public Map<String, String> checkUpdate(CustomerDTO customerDTO) {
+        Map<String, String> checkCustomer = new HashMap<>();
+        Customer customer = findCustomerById(customerDTO.getId());
+        for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
+            if (!customer.getCode().equals(customerDTO.getCode()) && iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
+                checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại trong hệ thống.");
+            }
+            if (!customer.getPhoneNumber().equals(customer.getPhoneNumber()) && iCustomerRepository.findAllCustomer().get(i).getPhoneNumber().equals(customerDTO.getPhoneNumber())) {
+                checkCustomer.put("errorPhone", "Số điện thoại đã tồn tại trong hệ thống.");
+            }
+            if (!customer.getEmail().equals(customerDTO.getEmail()) && iCustomerRepository.findAllCustomer().get(i).getEmail().equals(customerDTO.getEmail())) {
+
+                checkCustomer.put("errorEmail", "Email đã tồn tại trong hệ thống.");
+            }
+        }
+        return null;
+    }
 }

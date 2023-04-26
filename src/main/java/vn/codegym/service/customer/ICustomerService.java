@@ -23,7 +23,6 @@ public interface ICustomerService {
     void saveCustomer(String code, String name, boolean gender, String dateOfBirth, String address, String email,
                       String phoneNumber, Integer point,Integer customerTypeId);
 
-//    void saveCustomer(String code,boolean gender);
 
     /**
      * Created by: TienTHM
@@ -67,7 +66,7 @@ public interface ICustomerService {
      * @return
      */
 
-//    Map<String, String> checkCreate(CustomerDTO customerDTO);
+    Map<String, String> checkCreate(CustomerDTO customerDTO);
 
 
 
@@ -80,6 +79,6 @@ public interface ICustomerService {
      * @return
      */
 
-//    Map<String, String> checkUpdate(CustomerDTO customerDTO);
+    Map<String, String> checkUpdate(CustomerDTO customerDTO);
 
 }
