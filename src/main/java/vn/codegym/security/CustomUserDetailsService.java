@@ -8,14 +8,11 @@ import vn.codegym.entity.employee.Employee;
 import vn.codegym.repository.employee.IEmployeeRepository;
 import vn.codegym.service.employee.impl.EmployeeService;
 
-import java.util.Optional;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    IEmployeeRepository iEmployeeRepository;
-    @Autowired
-    EmployeeService employeeService;
+    private IEmployeeRepository iEmployeeRepository;
+
 
     /**
      * QuanNLA

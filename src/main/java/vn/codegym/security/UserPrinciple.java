@@ -18,6 +18,7 @@ public class UserPrinciple implements UserDetails {
     @JsonIgnore
     private String password;
     private String avatar;
+
     private Collection<? extends GrantedAuthority> roles;
 
     @Override
@@ -49,6 +50,34 @@ public class UserPrinciple implements UserDetails {
                 employee.getAvatar(),
                 authorities
         );
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Collection<? extends GrantedAuthority> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<? extends GrantedAuthority> roles) {
+        this.roles = roles;
     }
 
     public String getEmail() {

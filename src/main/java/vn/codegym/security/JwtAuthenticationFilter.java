@@ -60,7 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * @return
      * If the Authorization field has no value or does not begin with "Bearer", the method returns null, else return jwt
      */
-    private String getJwt(HttpServletRequest request){
+    public String getJwt(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");
         if(authHeader != null && authHeader.startsWith("Bearer")){
             return authHeader.replace("Bearer","");

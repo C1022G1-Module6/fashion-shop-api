@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.employee.EmployeeDTO;
 import vn.codegym.dto.response.ResponseMessage;
 import vn.codegym.entity.employee.Employee;
+import vn.codegym.security.JwtAuthenticationFilter;
+import vn.codegym.security.JwtTokenProvider;
 import vn.codegym.service.employee.IEmployeeService;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -18,25 +20,34 @@ import java.util.Optional;
 public class EmployeeRestController {
     @Autowired
     private IEmployeeService iEmployeeService;
-
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
     /**
      * QuanNLA
      * Date 24/04/2023
      * Method that finds username and returns user information
-     * @param username
+     * @param request
      * @return
      * If checking the username does not match, it will return message "Tên người dùng không tồn tại"
      * If check username match, it will return EmployeeDTO object and HttpStatus.OK
      */
     @GetMapping("detail")
-    public ResponseEntity<?> detail(@RequestParam(required = false,defaultValue = "")String username){
-        if(!iEmployeeService.existsByUsername(username)){
-            return new ResponseEntity<>(new ResponseMessage("Tên người dùng không tồn tại")
-                    , HttpStatus.BAD_REQUEST);
-        }
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        Optional<Employee> employee = iEmployeeService.findByUsername(username);
-        BeanUtils.copyProperties(employee.get(),employeeDTO);
-        return new ResponseEntity<>(employeeDTO,HttpStatus.OK);
+    public ResponseEntity<?> detail(HttpServletRequest request) {
+            String token = jwtAuthenticationFilter.getJwt(request);
+            if(token!=null &&jwtTokenProvider.validateToken(token)){
+                String username = jwtTokenProvider.getUserNameFromToken(token);
+                if(!iEmployeeService.existsByUsername(username)){
+                    return new ResponseEntity<>(new ResponseMessage("Tên người dùng không tồn tại")
+                            , HttpStatus.BAD_REQUEST);
+                }
+                EmployeeDTO employeeDTO = new EmployeeDTO();
+                Optional<Employee> employee = iEmployeeService.findByUsername(username);
+                BeanUtils.copyProperties(employee.get(),employeeDTO);
+                return new ResponseEntity<>(employeeDTO,HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(new ResponseMessage("JWT không tồn tại"),HttpStatus.BAD_REQUEST);
+            }
     }
 }
