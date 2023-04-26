@@ -92,8 +92,6 @@ public class ProductService implements IProductService {
         for (ProductSizeDTO size : productCreateDTO.getProductSizes()) {
             productRepository.addProductSizeDetail(size.getId(), product1.getId());
         }
-
-
     }
 
     /**

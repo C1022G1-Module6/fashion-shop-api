@@ -25,9 +25,8 @@ public class ProductType {
 
     }
 
-
     public static ProductType valueOf(Integer productTypeId) {
-        return null
+        return null;
     }
 
     public Integer getId() {
@@ -55,10 +54,5 @@ public class ProductType {
     }
 }
 
-    public static ProductType valueOf(Integer productTypeId) {
-        return null;
 
-
-    }
-}
 
