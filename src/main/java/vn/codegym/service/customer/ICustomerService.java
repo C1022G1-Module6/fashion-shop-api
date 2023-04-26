@@ -3,6 +3,7 @@ package vn.codegym.service.customer;
 import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.entity.customer.Customer;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ICustomerService {
@@ -18,11 +19,11 @@ public interface ICustomerService {
      * @param email
      * @param phoneNumber
      * @param point
-     * @param customerTypeId
      */
     void saveCustomer(String code, String name, boolean gender, String dateOfBirth, String address, String email,
                       String phoneNumber, Integer point,Integer customerTypeId);
 
+//    void saveCustomer(String code,boolean gender);
 
     /**
      * Created by: TienTHM
@@ -30,8 +31,11 @@ public interface ICustomerService {
      * function: find customer by id
      * @param id
      */
+
     Customer findCustomerById(Integer id);
 
+
+    List<Customer> findAllCustomer();
 
     /**
      * Created by: TienTHM
@@ -49,8 +53,10 @@ public interface ICustomerService {
      * @param customerTypeId
      * @param id
      */
+
     void updateCustomer(String code, String name, boolean gender, String dateOfBirth, String address, String email,
                         String phoneNumber, Integer point,Integer customerTypeId,Integer id);
+
 
 
     /**
@@ -60,7 +66,9 @@ public interface ICustomerService {
      * @param customerDTO
      * @return
      */
-    Map<String, String> checkCreate(CustomerDTO customerDTO);
+
+//    Map<String, String> checkCreate(CustomerDTO customerDTO);
+
 
 
     /**
@@ -71,5 +79,7 @@ public interface ICustomerService {
      * @param customerDTO
      * @return
      */
-    Map<String, String> checkUpdate(CustomerDTO customerDTO);
+
+//    Map<String, String> checkUpdate(CustomerDTO customerDTO);
+
 }

@@ -1,5 +1,6 @@
 package vn.codegym.entity.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import vn.codegym.entity.invoice.Invoice;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -13,7 +14,6 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
     private String code;
     private String name;
     private boolean gender;
@@ -30,7 +30,8 @@ public class Customer {
     @JsonBackReference
     private CustomerType customerType;
     @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     private Set<Invoice> invoices;
 
     public Customer() {

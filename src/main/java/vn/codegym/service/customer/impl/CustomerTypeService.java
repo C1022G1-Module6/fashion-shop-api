@@ -22,6 +22,6 @@ public class CustomerTypeService implements ICustomerTypeService {
      */
     @Override
     public List<CustomerType> getAllCustomerType() {
-        return iCustomerTypeRepository.getAllCustomerType();
+        return iCustomerTypeRepository.findAll();
     }
 }

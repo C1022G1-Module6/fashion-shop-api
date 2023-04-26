@@ -1,6 +1,7 @@
 package vn.codegym.repository.customer;
 
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import vn.codegym.entity.customer.Customer;
 import org.springframework.data.domain.Page;
@@ -11,76 +12,49 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-@Transactional
+@Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
-    @Query(value = "select * from customer where code like concat('%', :code, '%') " +
-            "and name like concat('%', :name, '%') " +
-            "and phone_number like concat('%', :phoneNumber, '%')", nativeQuery = true)
-    Page<Customer> searchCustomerInfo(Pageable pageable,
-                                      @Param("code") String code,
-                                      @Param("name") String name,
-                                      @Param("phoneNumber") String phoneNumber);
 
     /**
      * Create by: TienTHM,
      * Date create : 24/04/2023
      * Function : Add new customer to database
      *
-     *@Param("code") String code,
-     *@Param("name") String name,
-     *@Param("gender") boolean gender,
-     *@Param("date_of_birth") String dateOfBirth,
-     *@Param("address") String address,
-     *@Param("email") String email,
-     *@Param("phone_number") String phoneNumber,
-     *@Param("point") Integer point,
-     *@Param("customer_type_id") Integer customerTypeId);
+     * @Param("code") String code,
+     * @Param("name") String name,
+     * @Param("gender") boolean gender,
+     * @Param("date_of_birth") String dateOfBirth,
+     * @Param("address") String address,
+     * @Param("email") String email,
+     * @Param("phone_number") String phoneNumber,
+     * @Param("point") Integer point,
      */
+    @Transactional
     @Modifying
-    @Query(value = "insert into customer(\n" +
-            "            code,\n" +
-            "            name,\n" +
-            "            gender,\n" +
-            "            date_of_birth,\n" +
-            "            address,\n" +
-            "            email,\n" +
-            "            phone_number,\n" +
-            "            point,\n" +
-            "            customer_type_id,\n" +
-            "            is_deleted)\n" +
-            "            value\n" +
-            "            (:code,\n" +
-            "            :name,\n" +
-            "            :gender,\n" +
-            "            :date_of_birth,\n" +
-            "            :address,\n" +
-            "            :email,\n" +
-            "            :phone_number,\n" +
-            "            :point,\n" +
-            "            :customer_type_id,\n" +
-            "             false \n",
+    @Query(value = "insert into customer( code, name, gender,date_of_birth, address, email, phone_number, point, is_delete,customer_type_id) " +
+            "value (:code, :name, :gender, :dateOfBirth, :address, :email, :phoneNumber, :point, false,:customerTypeId)",
             nativeQuery = true)
     void saveCustomer(
             @Param("code") String code,
             @Param("name") String name,
             @Param("gender") boolean gender,
-            @Param("date_of_birth") String dateOfBirth,
+            @Param("dateOfBirth") String dateOfBirth,
             @Param("address") String address,
             @Param("email") String email,
-            @Param("phone_number") String phoneNumber,
+            @Param("phoneNumber") String phoneNumber,
             @Param("point") Integer point,
-            @Param("customer_type_id") Integer customerTypeId);
+            @Param("customerTypeId") Integer customerTypeId);
 
 
-    /**
-     * Created by: TienTHM
-     * Date created: 24/04/2023
-     * Function: find all customer
-     *
-     * @return
-     */
+    //    /**
+//     * Created by: TienTHM
+//     * Date created: 24/04/2023
+//     * Function: find all customer
+//     *
+//     * @return
+//     */
     @Modifying
-    @Query(value = "select * from customer",nativeQuery = true)
+    @Query(value = "select * from customer", nativeQuery = true)
     List<Customer> findAllCustomer();
 
 

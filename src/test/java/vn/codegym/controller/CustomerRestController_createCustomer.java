@@ -41,12 +41,11 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
-
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -71,12 +70,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -101,12 +100,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -130,12 +129,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -160,12 +159,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -218,12 +217,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber(null);
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -247,12 +246,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(null);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -276,12 +275,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -304,12 +303,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -332,12 +331,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -360,12 +359,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -388,12 +387,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0231568947");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -416,12 +415,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -444,12 +443,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -472,12 +471,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -500,12 +499,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -528,12 +527,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -556,12 +555,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -584,12 +583,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561@#$");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -614,12 +613,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -643,12 +642,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -672,12 +671,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561@#$");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -701,12 +700,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -730,12 +729,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -759,12 +758,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("081");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -789,12 +788,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -818,12 +817,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -847,12 +846,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -876,12 +875,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -905,12 +904,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -934,12 +933,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("08378795611111111111111111111111111111111111111111111111111111");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
@@ -963,12 +962,12 @@ public class CustomerRestController_createCustomer {
         customerDTO.setGender(true);
         customerDTO.setPhoneNumber("0837879561");
         customerDTO.setPoint(10);
-        CustomerType customerType = new CustomerType();
+        CustomerType customerType = new CustomerType(customerDTO.getCustomerType().getId());
         customerType.setId(2);
         customerDTO.setCustomerType(customerType);
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                        .post("api/customer/create")
+                        .post("/api/customer/create")
                         .content(this.objectMapper.writeValueAsString(customerDTO))
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
