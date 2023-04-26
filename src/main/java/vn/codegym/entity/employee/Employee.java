@@ -1,16 +1,28 @@
 package vn.codegym.entity.employee;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "employee",uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "user_name"
+        }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
+})
 public class Employee {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "roles_employee",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    Set<Role> roles = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,25 +38,44 @@ public class Employee {
     private String phoneNumber;
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
+
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "roles_employee",
-            joinColumns = {@JoinColumn(name = "employee_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private Set<Role> roles;
+    @Lob
+    private String avatar;
     @OneToMany(mappedBy = "employee")
     @JsonManagedReference
     private Set<News> news;
     @OneToMany(mappedBy = "employee")
-    @JsonBackReference
+    @JsonManagedReference
     private Set<Notification> notifications;
+
     public Employee() {
     }
 
-    public Employee(Integer id) {
+    public Employee(Integer id, String code, String name, boolean gender, String dateOfBirth, String address, String email, String phoneNumber, String userName, String password, String avatar, Set<Role> roles, Set<News> news, Set<Notification> notifications) {
         this.id = id;
+        this.code = code;
+        this.name = name;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.userName = userName;
+        this.password = password;
+        this.avatar = avatar;
+        this.roles = roles;
+        this.news = news;
+        this.notifications = notifications;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Integer getId() {
