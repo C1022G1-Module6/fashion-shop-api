@@ -1,5 +1,6 @@
 package vn.codegym.service.product.impl;
 
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import java.util.List;
 public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
+
 
     /**
      * Created by : QuanTVA
@@ -104,6 +106,24 @@ public class ProductService implements IProductService {
     public Product findWithId(Integer id) {
         return productRepository.findWithId(id);
     }
+
+    @Override
+
+    /**
+     * Create by: TanTH
+     * Date create: 24/04/2023
+     * Function:  connect repository to get data corresponding to the search data
+     *
+     * @param name
+     * @param product_type_id
+     * @return Returns a Page object containing a list of data corresponding to the data to be searched
+     */
+
+    public Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable) {
+        return productRepository.ListProduct(name, product_type_id,pageable);
+    }
+
+
 }
 
 

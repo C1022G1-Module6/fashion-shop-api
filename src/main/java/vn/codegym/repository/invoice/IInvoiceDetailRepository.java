@@ -12,12 +12,13 @@ import java.util.List;
 public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "insert into invoice_detail (quantity, total, invoice_id, product_id) " +
-            "values (:quantity, :total, :invoice, :product)", nativeQuery = true)
+    @Query(value = "insert into invoice_detail (quantity, total, invoice_id, product_id, is_delete) " +
+            "values (:quantity, :total, :invoice, :product, :isDelete)", nativeQuery = true)
     void saveInvoiceDetail(@Param("quantity") Integer quantity,
                            @Param("total") Double total,
                            @Param("invoice") Integer invoiceId,
-                           @Param("product") Integer productId);
+                           @Param("product") Integer productId,
+                           @Param("isDelete") Boolean isDelete);
     @Query(value = "select * from invoice_detail where is_delete = false", nativeQuery = true)
     List<InvoiceDetail> listAllInvoiceDetail();
     @Query(value = "select * from invoice_detail where id = :id", nativeQuery = true)

@@ -12,6 +12,7 @@ public class ProductType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
     @OneToMany(mappedBy = "productType")
     @JsonBackReference
     private Set<Product> products;
@@ -26,6 +27,10 @@ public class ProductType {
 
     public static ProductType valueOf(Integer productTypeId) {
         return null;
+
+
+    public ProductType() {
+
     }
 
     public Integer getId() {
@@ -43,6 +48,7 @@ public class ProductType {
     public void setName(String name) {
         this.name = name;
     }
+
 
     public Set<Product> getProducts() {
         return products;
