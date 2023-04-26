@@ -25,8 +25,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select * from product where id = :id", nativeQuery = true)
     Product findWithId(@Param("id") Integer id);
 
-    @Query(value = "select * from product where code = :code", nativeQuery = true)
-    Product findWithCode(@Param("code") String code);
+
     /**
      * Created by : QuanTVA
      * @param id
