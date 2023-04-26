@@ -1,9 +1,8 @@
 package vn.codegym.entity.data_entry;
 
-import vn.codegym.entity.product.Product;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,11 +13,12 @@ public class DataEntry {
     private Integer id;
     // Hỏi Tân cách làm mã tự động tăng
     private String code;
-    private Date date;
+    private String date;
     @Column(name = "employee_name")
     private String employeeName;
     @OneToMany(mappedBy = "dataEntry")
-    private Set<DataEntryProduct> dataEntryProducts;
+    @JsonManagedReference
+    private Set<DataEntryProduct> dataEntryProductSet;
 
     public DataEntry() {
     }
@@ -39,11 +39,11 @@ public class DataEntry {
         this.code = code;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -55,11 +55,11 @@ public class DataEntry {
         this.employeeName = employeeName;
     }
 
-    public Set<DataEntryProduct> getDataEntryProducts() {
-        return dataEntryProducts;
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
     }
 
-    public void setDataEntryProducts(Set<DataEntryProduct> dataEntryProducts) {
-        this.dataEntryProducts = dataEntryProducts;
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProducts) {
+        this.dataEntryProductSet = dataEntryProducts;
     }
 }

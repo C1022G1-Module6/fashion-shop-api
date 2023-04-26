@@ -22,6 +22,8 @@ public class Product {
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
+
+    private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
@@ -37,7 +39,15 @@ public class Product {
     private Set<InvoiceDetail> invoiceDetails;
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
-    private Set<DataEntryProduct> dataEntryProducts;
+    private Set<DataEntryProduct> dataEntryProductSet;
+
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
+    }
+
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProductSet) {
+        this.dataEntryProductSet = dataEntryProductSet;
+    }
 
     public Product() {
     }
@@ -126,15 +136,15 @@ public class Product {
         return invoiceDetails;
     }
 
-    public Set<DataEntryProduct> getDataEntryProducts() {
-        return dataEntryProducts;
-    }
-
-    public void setDataEntryProducts(Set<DataEntryProduct> dataEntryProducts) {
-        this.dataEntryProducts = dataEntryProducts;
-    }
-
     public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }
