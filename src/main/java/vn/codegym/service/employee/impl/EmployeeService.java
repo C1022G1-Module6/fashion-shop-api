@@ -90,9 +90,8 @@ public class EmployeeService implements IEmployeeService {
     }
     @Override
     public List<Employee> getAll() {
-        return employeeRepository.getAll();
+        return iEmployeeRepository.getAll();
     }
 }
 
 
-}

@@ -1,10 +1,8 @@
 package vn.codegym.controller.employee;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.employee.EmployeeDetailDTO;
 import vn.codegym.dto.response.ResponseMessage;
 import vn.codegym.entity.employee.Employee;
@@ -13,15 +11,10 @@ import vn.codegym.security.JwtTokenProvider;
 import vn.codegym.service.employee.IEmployeeService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.codegym.entity.employee.Employee;
-import vn.codegym.service.employee.IEmployeeService;
 
 import java.util.List;
 
@@ -62,7 +55,7 @@ public class EmployeeRestController {
                 return new ResponseEntity<>(new ResponseMessage("JWT không tồn tại"),HttpStatus.BAD_REQUEST);
             }
     }
-}
+
 
     /** display function employee
      *param: not param

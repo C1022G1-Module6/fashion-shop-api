@@ -70,6 +70,10 @@ public class Employee {
         this.notifications = notifications;
     }
 
+    public Employee(int id) {
+        this.id = id;
+    }
+
     public String getAvatar() {
         return avatar;
     }
