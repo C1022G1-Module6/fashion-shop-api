@@ -5,6 +5,8 @@ import vn.codegym.entity.product.ProductType;
 import java.util.List;
 
 public interface IProductTypeService {
+
+
     /**
      * Create by: TanTH
      * Date create: 24/04/2023
@@ -13,4 +15,5 @@ public interface IProductTypeService {
      * @return
      */
     List<ProductType> ListProductType();
+
 }

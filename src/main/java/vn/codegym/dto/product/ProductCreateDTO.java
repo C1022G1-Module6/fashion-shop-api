@@ -1,29 +1,21 @@
 package vn.codegym.dto.product;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Set;
 
-public class ProductDTO {
-    private Integer id;
+public class ProductCreateDTO {
     private String code;
     private String name;
-    private Integer quantity;
+
     private String qrImg;
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
     private ProductTypeDTO productType;
     private Set<ProductSizeDTO> productSizes;
-
-
-    public ProductDTO() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    private boolean isDelete = false;
+    public ProductCreateDTO() {
     }
 
     public String getCode() {
@@ -42,12 +34,13 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+
+    public Double getEntryPrice() {
+        return entryPrice;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setEntryPrice(Double entryPrice) {
+        this.entryPrice = entryPrice;
     }
 
     public String getQrImg() {
@@ -74,14 +67,6 @@ public class ProductDTO {
         this.sellingPrice = sellingPrice;
     }
 
-    public Double getEntryPrice() {
-        return entryPrice;
-    }
-
-    public void setEntryPrice(Double entryPrice) {
-        this.entryPrice = entryPrice;
-    }
-
     public ProductTypeDTO getProductType() {
         return productType;
     }
@@ -96,5 +81,13 @@ public class ProductDTO {
 
     public void setProductSizes(Set<ProductSizeDTO> productSizes) {
         this.productSizes = productSizes;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }

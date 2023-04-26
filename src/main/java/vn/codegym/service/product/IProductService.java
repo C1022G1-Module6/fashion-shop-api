@@ -2,9 +2,26 @@ package vn.codegym.service.product;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import vn.codegym.dto.product.ProductCreateDTO;
+import vn.codegym.dto.product.ProductDTO;
+import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.entity.product.Product;
+import vn.codegym.entity.product.ProductSize;
+import vn.codegym.entity.product.ProductType;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 public interface IProductService {
+
+    List<ProductDetailDTO> findAllByProductId(int id);
+    Page<Product> findAllProducts(Pageable pageable);
+    Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable);
+    void addProduct(ProductCreateDTO productCreateDTO);
+
+    Product findWithId(Integer id);
+
     /**
      * Create by: TanTH
      * Date create: 24/04/2023
@@ -17,3 +34,4 @@ public interface IProductService {
 
     Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable);
 }
+
