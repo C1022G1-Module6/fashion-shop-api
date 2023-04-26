@@ -25,6 +25,7 @@ public class InvoiceRestController {
     private InvoiceDetailService invoiceDetailService;
 
     /**
+     * TuNT
      * this method is applied to send a List of invoice instances and a HttpStatus
      * @return
      */
@@ -39,6 +40,7 @@ public class InvoiceRestController {
     }
 
     /**
+     * TuNT
      * this method is applied to update info of invoice instance with the param get from client and send HttpStatus
      * @param invoiceDTO
      * @return
@@ -63,5 +65,11 @@ public class InvoiceRestController {
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> getInvoice() {
+        InvoiceDTO invoiceDTO = invoiceService.getInvoiceDetail();
+        return new ResponseEntity<>(invoiceDTO, HttpStatus.OK);
     }
 }

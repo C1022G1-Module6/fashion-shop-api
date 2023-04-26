@@ -9,4 +9,5 @@ public interface IInvoiceDetailService {
     //    void update(Integer invoiceId);
     void delete(Integer id);
     List<InvoiceDetailDTO> findAll();
+    void deleteAll();
 }

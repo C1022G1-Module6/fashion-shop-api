@@ -15,7 +15,7 @@ public class InvoiceDetailRestController_listAll {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void getListStudent_5() throws Exception {
+    public void listAll() throws Exception {
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders

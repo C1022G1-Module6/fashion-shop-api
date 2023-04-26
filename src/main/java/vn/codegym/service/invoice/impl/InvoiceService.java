@@ -52,9 +52,16 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public Invoice findLastInvoiceInList() {
         List<Invoice> invoiceList = invoiceRepository.listAllInvoice();
+        return invoiceList.get(invoiceList.size() - 1);
+    }
+
+    @Override
+    public InvoiceDTO getInvoiceDetail() {
+        List<Invoice> invoiceList = invoiceRepository.listAllInvoice();
         Invoice invoice = invoiceList.get(invoiceList.size() - 1);
-        invoice.setId(invoiceList.get(invoiceList.size() - 2).getId() + 1);
-        return invoice;
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
+        BeanUtils.copyProperties(invoice, invoiceDTO);
+        return invoiceDTO;
     }
 
     /**

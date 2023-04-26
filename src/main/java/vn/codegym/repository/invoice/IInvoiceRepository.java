@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import vn.codegym.entity.invoice.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import vn.codegym.entity.invoice.InvoiceDetail;
 
 import java.util.List;
 
@@ -66,4 +67,10 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     @Query(value = "select count(code) from invoice", nativeQuery = true)
     Integer getTotalCodeAmount();
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from invoice where id = :id", nativeQuery = true)
+    void deleteWithId(@Param("id") Integer id);
+
 }
