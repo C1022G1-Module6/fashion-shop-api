@@ -18,9 +18,6 @@ public class CustomerDTO {
     private Set<InvoiceDTO> invoiceDTOS;
     private Boolean isDelete = false;
 
-    public CustomerDTO() {
-    }
-
     public Integer getId() {
         return id;
     }
