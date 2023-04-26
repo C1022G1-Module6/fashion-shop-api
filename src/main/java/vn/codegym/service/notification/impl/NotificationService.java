@@ -40,4 +40,20 @@ public class NotificationService implements INotificationService {
         notificationRepository.createNotification(notification);
 
     }
+
+    @Override
+    public NotificationDTO findByIdNotification(Integer id) {
+        Notification notification = notificationRepository.findById(id).get();
+        NotificationDTO notificationDTO =new NotificationDTO();
+
+        notificationDTO.setEmployeeDTO(new EmployeeDTO());
+        BeanUtils.copyProperties(notification.getEmployee(), notificationDTO.getEmployeeDTO());
+        BeanUtils.copyProperties(notification, notificationDTO);
+
+
+
+
+
+        return notificationDTO ;
+    }
 }

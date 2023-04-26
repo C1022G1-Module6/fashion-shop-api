@@ -11,4 +11,8 @@ public interface INotificationService {
     Page<NotificationDTO> getAll(Pageable pageable);
 
     void addNotification(Notification notification);
+
+//    NotificationDTO findById(Integer id);
+
+    NotificationDTO findByIdNotification(Integer id);
 }

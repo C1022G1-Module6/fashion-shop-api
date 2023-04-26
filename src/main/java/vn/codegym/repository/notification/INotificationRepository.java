@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import vn.codegym.dto.notification.NotificationDTO;
 import vn.codegym.entity.notification.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -32,5 +33,10 @@ public interface INotificationRepository extends JpaRepository<Notification, Int
             ":#{#notification.delete}," +
             ":#{#notification.employee.id})", nativeQuery = true)
     void createNotification(@Param("notification") Notification notification);
+
+
+//
+//    @Query(value = "select * from notification where employee_id = 1 and id =:id", nativeQuery = true)
+//    List<NotificationDTO> findByIdNotification(Integer id);
 }
 
