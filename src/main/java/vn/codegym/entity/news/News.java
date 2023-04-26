@@ -1,7 +1,7 @@
 package vn.codegym.entity.news;
 
-import vn.codegym.entity.employee.Employee;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import vn.codegym.entity.employee.Employee;
 
 import javax.persistence.*;
 
