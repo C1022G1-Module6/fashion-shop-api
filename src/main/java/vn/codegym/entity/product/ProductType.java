@@ -24,6 +24,12 @@ public class ProductType {
     public ProductType() {
 
     }
+
+
+    public static ProductType valueOf(Integer productTypeId) {
+        return null
+    }
+
     public Integer getId() {
         return id;
     }
@@ -40,7 +46,6 @@ public class ProductType {
         this.name = name;
     }
 
-
     public Set<Product> getProducts() {
         return products;
     }
@@ -48,9 +53,12 @@ public class ProductType {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+}
+
     public static ProductType valueOf(Integer productTypeId) {
         return null;
 
 
     }
 }
+
