@@ -1,5 +1,6 @@
 package vn.codegym.entity.employee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -29,17 +30,21 @@ public class Employee {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_employee",
-                joinColumns = {@JoinColumn(name = "employee_id")},
-                inverseJoinColumns = {@JoinColumn(name = "role_id")}
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles;
     @OneToMany(mappedBy = "employee")
     @JsonManagedReference
     private Set<News> news;
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Notification> notifications;
     public Employee() {
+    }
+
+    public Employee(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {

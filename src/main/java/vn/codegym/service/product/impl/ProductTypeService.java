@@ -14,8 +14,18 @@ public class ProductTypeService implements IProductTypeService {
     @Autowired
     private IProductTypeRepository productTypeRepository;
 
+
+    /**
+     * Create by: TanTH
+     * Date create: 24/04/2023
+     * Function:  connect service to get data corresponding
+     *
+     * @return
+     */
+
     @Override
-    public List<ProductType> getAllProductTypes() {
-        return productTypeRepository.findAll();
+    public List<ProductType> ListProductType() {
+        return productTypeRepository.ListProductType();
+
     }
 }

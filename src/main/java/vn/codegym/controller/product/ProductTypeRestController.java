@@ -7,25 +7,30 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.codegym.entity.product.ProductSize;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.service.product.IProductTypeService;
-
 import java.util.List;
 
-@CrossOrigin("*")
-@RestController
-@RequestMapping("/api")
+@CrossOrigin
+@RequestMapping("api/user/productType")
 public class ProductTypeRestController {
-@Autowired
-    private IProductTypeService iProductTypeService;
 
-@GetMapping("/product-type")
-public ResponseEntity<List<ProductType>> findAllProductType(){
-    List<ProductType> productTypes = iProductTypeService.getAllProductTypes();
-    if (productTypes.isEmpty()){
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    /**
+     * Create by: TanTH
+     * Date create: 24/04/2023
+     * Function:  connect service to get data corresponding
+     *
+     * @return
+     */
+
+    @Autowired
+    private IProductTypeService productTypeService;
+    @GetMapping("")
+    public ResponseEntity<List<ProductType>> getAllProductType() {
+        List<ProductType> productTypes = productTypeService.ListProductType();
+        if (productTypes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productTypes, HttpStatus.OK);
     }
-    return new ResponseEntity<>(productTypes, HttpStatus.OK);
-}
 }

@@ -3,14 +3,15 @@ package vn.codegym.controller.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+import vn.codegym.entity.product.Product;
 import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
@@ -23,20 +24,44 @@ import java.util.List;
 import java.util.Map;
 
 
-@CrossOrigin("*")
-@RestController
-@RequestMapping("/api")
+
+
+=======
+@CrossOrigin
+@RequestMapping("api/user/product")
 public class ProductRestController {
+
+    /**
+     * Create by: TanTH
+     * Date create: 24/04/2023
+     * Function: connect service to get data corresponding to the search data
+     *
+     * @param name
+     * @param product_type_id
+     * @return
+     */
 
     @Autowired
     private IProductService productService;
+
+    @GetMapping("/list")
+    public ResponseEntity<Page<Product>> listProducts(
+            @RequestParam(name = "name", defaultValue = "") String name,
+            @RequestParam(name = "product_type_id", defaultValue = "0") Integer product_type_id,
+            @PageableDefault(size = 5) Pageable pageable) {
+        Page<Product> products = productService.ListProduct(name, product_type_id, pageable);
+        if (products.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(products);
+    }
     /**
      * created by : QuanTVA
      * @param "pageable"
      * @return : Page<Product>
      *     function : findAllProduct
      */
-    @GetMapping("/products")
+     @GetMapping("/stock")
     public ResponseEntity<Page<Product>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size
@@ -48,7 +73,7 @@ public class ProductRestController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-    /**
+     /**
      * Created by : QuanTVA
      * @param id
      * @return : List<ProductDetailDTO>
@@ -62,7 +87,7 @@ public class ProductRestController {
         }
         return new ResponseEntity<>(productDetailDTOList,HttpStatus.OK);
     }
-    /**
+ /**
      *created by : QuanTVA
      * @param productName
      * @param "productSizeList"
@@ -86,8 +111,7 @@ public class ProductRestController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
-    /**
+      /**
      * created by QuanTVA
      * @param productCreateDTO
      * @return ResponseEntity<>(HttpStatus.CREATED)
@@ -110,5 +134,4 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
-
 }

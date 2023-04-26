@@ -18,6 +18,7 @@ public class ProductSize {
     @ManyToMany(mappedBy = "productSizes")
     private Set<Product> productSet = new HashSet<>();
 
+
     public ProductSize() {
     }
 
@@ -37,6 +38,7 @@ public class ProductSize {
         this.name = name;
     }
 
+
     public Set<Product> getProductSet() {
         return productSet;
     }
@@ -44,4 +46,5 @@ public class ProductSize {
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
     }
+
 }

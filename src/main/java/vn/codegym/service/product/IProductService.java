@@ -2,7 +2,6 @@ package vn.codegym.service.product;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
@@ -23,6 +22,16 @@ public interface IProductService {
 
     Product findWithId(Integer id);
 
+    /**
+     * Create by: TanTH
+     * Date create: 24/04/2023
+     * Function:  connect repository to get data corresponding to the search data
+     *
+     * @param name
+     * @param product_type_id
+     * @return
+     */
 
+    Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable);
 }
 
