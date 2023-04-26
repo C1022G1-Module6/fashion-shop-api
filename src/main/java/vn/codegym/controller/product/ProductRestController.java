@@ -28,7 +28,7 @@ import java.util.Map;
 
 
 
-@CrossOrigin
+@CrossOrigin()
 @RequestMapping("api/user/product")
 public class ProductRestController {
 

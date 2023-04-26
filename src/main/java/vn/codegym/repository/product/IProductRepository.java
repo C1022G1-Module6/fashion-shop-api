@@ -121,6 +121,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     Page<Product> ListProduct(@Param("name") String name, @Param("id") Integer product_type_id, Pageable pageable);
 
 
+
     @Query(value = "select * from product where qr_img = :qrImg", nativeQuery = true)
     Product findWithQr(@Param("qrImg") String qrImg);
 
