@@ -1,14 +1,17 @@
 package vn.codegym.dto.data_entry;
 
-import vn.codegym.dto.product.ProductDTO;
-
-import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 public class DataEntryDTO {
+    @NotBlank(message = "không được để trống")
     private Integer id;
+    @Pattern(regexp = "^MP\\d{6}$", message = "Mã phiếu có định dạng HDXXXXXX (X là số)")
     private String code;
+    @NotBlank(message = "không được để trống")
     private String date;
+    @NotBlank(message = "không được để trống")
     private String employeeName;
     private Set<DataEntryProductDTO> dataEntryProductDTOSet;
 
@@ -51,6 +54,7 @@ public class DataEntryDTO {
     public void setDataEntryProductDTOSet(Set<DataEntryProductDTO> dataEntryProductDTOSet) {
         this.dataEntryProductDTOSet = dataEntryProductDTOSet;
     }
+
     public DataEntryDTO() {
     }
 }

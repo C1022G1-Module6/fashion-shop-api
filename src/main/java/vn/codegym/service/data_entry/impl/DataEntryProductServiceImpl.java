@@ -46,7 +46,8 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
         iDataEntryProductRepository.saveDataEntryProduct(dataEntryProduct.getQuantity(),
                 dataEntryProduct.getDataEntry().getId(),
-                dataEntryProduct.getProduct().getId());
+                dataEntryProduct.getProduct().getId(),
+                dataEntryProduct.getDelete());
     }
 
     public void resetCount() {

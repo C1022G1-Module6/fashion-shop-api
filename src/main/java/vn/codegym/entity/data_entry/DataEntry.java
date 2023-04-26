@@ -1,13 +1,8 @@
 package vn.codegym.entity.data_entry;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.GenericGenerator;
-import vn.codegym.entity.customer.Customer;
-import vn.codegym.entity.product.Product;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -24,6 +19,7 @@ public class DataEntry {
     @OneToMany(mappedBy = "dataEntry")
     @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;
+
     public Integer getId() {
         return id;
     }
