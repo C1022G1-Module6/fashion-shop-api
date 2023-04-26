@@ -43,6 +43,14 @@ public class NotificationRestController {
         }
     }
 
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<?> delete( @PageableDefault(size = 4) Pageable pageable ,@PathVariable("id") Integer id) {
+         NotificationDTO notificationDTO= notificationService.findByIdNotification(id);
+        return new ResponseEntity<>(notificationDTO, HttpStatus.OK);
+
+
+    }
+
     /**
      * Notification posting function
      *
