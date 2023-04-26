@@ -24,7 +24,7 @@ public class InvoiceDetailRestController {
     @PostMapping("")
     public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO,
                                                  BindingResult bindingResult) {
-        if (invoiceDetailDTO.getProductDTO().getId() == null || invoiceDetailDTO.getInvoiceDTO().getId() == null) {
+        if (invoiceDetailDTO.getProductDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
@@ -44,11 +44,10 @@ public class InvoiceDetailRestController {
 
     @GetMapping("")
     public ResponseEntity<?> listAll() {
-        try {
-            List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
-            return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
-        } catch (Exception e) {
+        List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
+        if (invoiceDetailDTOList.size() == 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
     }
 }

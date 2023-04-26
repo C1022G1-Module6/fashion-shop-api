@@ -1,7 +1,8 @@
 package vn.codegym.entity.data_entry;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -12,10 +13,11 @@ public class DataEntry {
     private Integer id;
     // Hỏi Tân cách làm mã tự động tăng
     private String code;
-    private Date date;
+    private String date;
     @Column(name = "employee_name")
     private String employeeName;
     @OneToMany(mappedBy = "dataEntry")
+    @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;
 
     public DataEntry() {
@@ -37,11 +39,11 @@ public class DataEntry {
         this.code = code;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
