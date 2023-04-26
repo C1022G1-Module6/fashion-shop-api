@@ -29,8 +29,6 @@ public class ProductType {
         return null;
 
 
-    public ProductType() {
-
     }
 
     public Integer getId() {
@@ -48,7 +46,6 @@ public class ProductType {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Set<Product> getProducts() {
         return products;
