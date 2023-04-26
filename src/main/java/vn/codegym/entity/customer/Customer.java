@@ -23,13 +23,22 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
     private Integer point = 0;
+    private Boolean isDelete = false;
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
     private Set<Invoice> invoices;
-    private Boolean isDelete = false;
 
     public Customer() {
     }
@@ -122,11 +131,4 @@ public class Customer {
         this.invoices = invoices;
     }
 
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
 }

@@ -1,6 +1,7 @@
 package vn.codegym.dto.invoice;
 
 import vn.codegym.dto.customer.CustomerDTO;
+import vn.codegym.dto.employee.EmployeeDTO;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
@@ -48,6 +49,7 @@ public class InvoiceDTO {
     public void setDate(String date) {
         this.date = date;
     }
+
 
     public String getEmployeeName() {
         return employeeName;
