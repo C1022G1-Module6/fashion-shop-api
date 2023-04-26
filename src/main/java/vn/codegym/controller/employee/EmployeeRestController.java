@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.codegym.dto.employee.EmployeeDTO;
+import vn.codegym.dto.employee.EmployeeDetailDTO;
 import vn.codegym.dto.response.ResponseMessage;
 import vn.codegym.entity.employee.Employee;
 import vn.codegym.security.JwtAuthenticationFilter;
@@ -42,7 +42,7 @@ public class EmployeeRestController {
                     return new ResponseEntity<>(new ResponseMessage("Tên người dùng không tồn tại")
                             , HttpStatus.BAD_REQUEST);
                 }
-                EmployeeDTO employeeDTO = new EmployeeDTO();
+                EmployeeDetailDTO employeeDTO = new EmployeeDetailDTO();
                 Optional<Employee> employee = iEmployeeService.findByUsername(username);
                 BeanUtils.copyProperties(employee.get(),employeeDTO);
                 return new ResponseEntity<>(employeeDTO,HttpStatus.OK);

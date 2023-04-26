@@ -1,6 +1,6 @@
 package vn.codegym.dto.employee;
 
-public class EmployeeDTO {
+public class EmployeeDetailDTO {
     private Integer id;
     private String code;
     private String name;
@@ -12,7 +12,7 @@ public class EmployeeDTO {
     private String userName;
     private String avatar;
 
-    public EmployeeDTO() {
+    public EmployeeDetailDTO() {
     }
 
     public Integer getId() {
