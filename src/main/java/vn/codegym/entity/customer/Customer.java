@@ -39,7 +39,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
     private Set<Invoice> invoices;
-    private Boolean isDelete = false;
 
     public Customer() {
     }
@@ -132,11 +131,4 @@ public class Customer {
         this.invoices = invoices;
     }
 
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
 }
