@@ -6,6 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import vn.codegym.dto.product.ProductCreateDTO;
@@ -15,7 +18,9 @@ import vn.codegym.entity.product.Product;
 import vn.codegym.service.product.IProductService;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin("*")
@@ -89,12 +94,21 @@ public class ProductRestController {
      * @throws IOException
      */
     @PostMapping("/create-product")
-    public ResponseEntity<ProductCreateDTO> createProduct(@RequestBody ProductCreateDTO productCreateDTO) throws IOException {
-
-        productService.addProduct(productCreateDTO);
-
-
+    public ResponseEntity<?> createProduct(@Validated @RequestBody ProductCreateDTO productCreateDTO, BindingResult bindingResult)  {
+        if (!bindingResult.hasErrors()){
+            productService.addProduct(productCreateDTO);
+        }else {
+            Map<String, String> map = new LinkedHashMap<>();
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for (FieldError error : errors) {
+                if (!map.containsKey(error.getField())) {
+                    map.put(error.getField(), error.getDefaultMessage());
+                }
+            }
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
 }
