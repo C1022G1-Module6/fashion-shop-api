@@ -30,8 +30,8 @@ public class Employee {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_employee",
-                joinColumns = {@JoinColumn(name = "employee_id")},
-                inverseJoinColumns = {@JoinColumn(name = "role_id")}
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles;
     @OneToMany(mappedBy = "employee")
@@ -41,6 +41,10 @@ public class Employee {
     @JsonBackReference
     private Set<Notification> notifications;
     public Employee() {
+    }
+
+    public Employee(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
