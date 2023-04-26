@@ -8,12 +8,10 @@ public interface INumberOfCustomerProjection {
     /**
      * Lấy ID theo số lần khách mua hàng
      *
-     * @return
+     *
      */
-    CustomerGetId getCustomer();
-    interface CustomerGetId {
-        Integer getId();
-    }
-    Date getDate();
+    Long getCurrent();
+    Long getLast();
+    Long getPercent();
 
 }

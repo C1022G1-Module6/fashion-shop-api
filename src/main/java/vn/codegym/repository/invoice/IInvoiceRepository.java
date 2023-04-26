@@ -4,10 +4,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import vn.codegym.entity.employee.Employee;
 import vn.codegym.entity.invoice.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
-import vn.codegym.projection.statistical.INumberOfCustomerProjection;
 
 import java.util.List;
 
@@ -19,12 +17,14 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     void saveInvoice(@Param("bonusPoint") Integer bonusPoint,
                      @Param("code") String code,
                      @Param("date") String date,
-                     @Param("employeeName") Employee employeeName,
+                     @Param("employeeName") String employeeName,
                      @Param("payment") Double payment,
                      @Param("total") Double total,
                      @Param("customer") Integer customerId);
-    //    @Query(value = "select * from invoice where id = :id", nativeQuery = true)
-//    Invoice findDetailById(@Param("id") Integer id);
+
+    @Query(value = "select * from invoice where id = :id", nativeQuery = true)
+    Invoice findDetailById(@Param("id") Integer id);
+
     @Query(value = "select * from invoice", nativeQuery = true)
     List<Invoice> listAllInvoice();
 
@@ -36,17 +36,10 @@ public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
     void updateInvoice(@Param("bonusPoint") Integer bonusPoint,
                        @Param("code") String code,
                        @Param("date") String date,
-                       @Param("employeeName") Employee employeeName,
+                       @Param("employeeName") String employeeName,
                        @Param("payment") Double payment,
                        @Param("total") Double total,
                        @Param("customer") Integer customerId,
                        @Param("id") Integer id);
-
-//    @Query(value = "SELECT * FROM invoice", nativeQuery = true)
-//    List<INumberOfCustomerProjection> findNumberOfCustomer();
-
-    @Query("SELECT SUM(invoice.payment) FROM Invoice invoice WHERE invoice.date BETWEEN :startDate AND :endDate")
-    Double getTotalRevenue(@Param("startDate") String startDate, @Param("endDate") String endDate);
-
 
 }

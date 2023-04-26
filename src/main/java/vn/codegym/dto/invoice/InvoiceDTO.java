@@ -9,7 +9,7 @@ public class InvoiceDTO {
     private Integer id;
     private String code;
     private String date;
-    private EmployeeDTO employeeName;
+    private String employeeName;
     private Double total;
     private Double payment;
     private Integer bonusPoint;
@@ -44,11 +44,11 @@ public class InvoiceDTO {
     }
 
 
-    public EmployeeDTO getEmployeeName() {
+    public String getEmployeeName() {
         return employeeName;
     }
 
-    public void setEmployeeName(EmployeeDTO employeeName) {
+    public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
 
