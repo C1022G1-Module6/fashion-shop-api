@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.service.product.IProductTypeService;
-
 import java.util.List;
 
-@RestController
 @CrossOrigin
 @RequestMapping("api/user/productType")
 public class ProductTypeRestController {

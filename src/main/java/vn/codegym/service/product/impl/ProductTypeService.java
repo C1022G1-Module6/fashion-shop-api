@@ -14,6 +14,7 @@ public class ProductTypeService implements IProductTypeService {
     @Autowired
     private IProductTypeRepository productTypeRepository;
 
+
     /**
      * Create by: TanTH
      * Date create: 24/04/2023
@@ -25,5 +26,6 @@ public class ProductTypeService implements IProductTypeService {
     @Override
     public List<ProductType> ListProductType() {
         return productTypeRepository.ListProductType();
+
     }
 }

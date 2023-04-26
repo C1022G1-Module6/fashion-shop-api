@@ -1,5 +1,6 @@
 package vn.codegym.entity.product;
 
+import vn.codegym.entity.data_entry.DataEntryProduct;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,19 +22,25 @@ public class Product {
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
+
+    private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
-    @JsonBackReference
+    @JsonManagedReference
     private ProductType productType;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "product_size_detail",
             joinColumns = {@JoinColumn(name = "product_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_size_id")}
     )
+    @JsonManagedReference
     private Set<ProductSize> productSizes;
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<InvoiceDetail> invoiceDetails;
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    private Set<DataEntryProduct> dataEntryProductSet;
 
     public Product() {
     }
@@ -122,7 +129,23 @@ public class Product {
         return invoiceDetails;
     }
 
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
+    }
+
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProducts) {
+        this.dataEntryProductSet = dataEntryProducts;
+    }
+
     public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }

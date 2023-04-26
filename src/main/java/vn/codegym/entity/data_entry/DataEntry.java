@@ -1,7 +1,5 @@
 package vn.codegym.entity.data_entry;
 
-import vn.codegym.entity.product.Product;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -15,15 +13,10 @@ public class DataEntry {
     // Hỏi Tân cách làm mã tự động tăng
     private String code;
     private Date date;
-    private Integer quantity;
     @Column(name = "employee_name")
     private String employeeName;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "data_entry_product",
-            joinColumns = {@JoinColumn(name = "data_entry_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")}
-    )
-    private Set<Product> products;
+    @OneToMany(mappedBy = "dataEntry")
+    private Set<DataEntryProduct> dataEntryProductSet;
 
     public DataEntry() {
     }
@@ -52,14 +45,6 @@ public class DataEntry {
         this.date = date;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public String getEmployeeName() {
         return employeeName;
     }
@@ -68,11 +53,11 @@ public class DataEntry {
         this.employeeName = employeeName;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProducts) {
+        this.dataEntryProductSet = dataEntryProducts;
     }
 }

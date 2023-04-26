@@ -13,7 +13,9 @@ public class News {
     private Integer id;
     private String title;
     private String img;
+    private String nameImg;
     private String content;
+    private boolean flagDelete;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @JsonBackReference
@@ -56,6 +58,14 @@ public class News {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public boolean isFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
     }
 
     public void setEmployee(Employee employee) {
