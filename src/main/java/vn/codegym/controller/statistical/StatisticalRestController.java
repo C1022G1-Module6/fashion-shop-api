@@ -83,8 +83,13 @@ public class StatisticalRestController {
      *
      * @return nếu có dữ liệu trả về dữ liệu
      */
-    @GetMapping("/total")
-    public Double getTotalRevenue() {
-        return iStatiscialService.getTotalRevenues();
+    @GetMapping("/total-week")
+    public Double getTotalRevenueWeek() {
+        return iStatiscialService.getTotalRevenuesWeek();
+}
+
+    @GetMapping("/total-month")
+    public Double getTotalRevenueMonth() {
+        return iStatiscialService.getTotalRevenuesMonth();
     }
 }

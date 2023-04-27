@@ -8,7 +8,8 @@ import vn.codegym.projection.statistical.ITopOrdersProjection;
 import java.util.List;
 
 public interface IStatiscialService {
-    Double getTotalRevenues();
+    Double getTotalRevenuesWeek();
+    Double getTotalRevenuesMonth();
 
     List<ITopEmployeesProjection> findEmployee();
 
