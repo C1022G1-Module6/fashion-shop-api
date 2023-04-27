@@ -125,5 +125,8 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     Product findWithQr(@Param("qrImg") String qrImg);
     @Query(value = "select * from product where code = :code", nativeQuery = true)
     Product findWithCode(@Param("code") String code);
+
+    @Query(value = "select count(code) from product", nativeQuery = true)
+    Integer getTotalCodeAmount();
 }
 
