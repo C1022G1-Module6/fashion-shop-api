@@ -1,5 +1,6 @@
 package vn.codegym.entity.customer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,7 +22,7 @@ public class CustomerType {
     private Integer bonusPoint;
     @OneToMany(mappedBy = "customerType")
 //    @JsonManagedReference
-    @JsonIgnore
+    @JsonBackReference
     private Set<Customer> customers;
 
     public CustomerType() {

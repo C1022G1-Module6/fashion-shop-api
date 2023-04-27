@@ -27,7 +27,7 @@ public class Customer {
     private Boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
-    @JsonBackReference
+
     private CustomerType customerType;
     @OneToMany(mappedBy = "customer")
 //    @JsonManagedReference

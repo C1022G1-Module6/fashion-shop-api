@@ -25,10 +25,10 @@ import java.util.Map;
 public class CustomerRestController {
 
     @Autowired
-    private ICustomerService iCustomerService;
+    private ICustomerService customerService;
 
     @Autowired
-    ICustomerTypeService iCustomerTypeService;
+    ICustomerTypeService customerTypeService;
 
     /**
      * Created by: TienTHM
@@ -57,7 +57,7 @@ public class CustomerRestController {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
 
-        iCustomerService.saveCustomer(customer.getCode(),customer.getName(),customer.isGender(),customer.getDateOfBirth(),
+        customerService.saveCustomer(customer.getCode(),customer.getName(),customer.isGender(),customer.getDateOfBirth(),
                 customer.getAddress(),customer.getEmail(),customer.getPhoneNumber(),customer.getPoint(),customer.getCustomerType().getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -65,7 +65,7 @@ public class CustomerRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> findCustomerById(@PathVariable Integer id) {
-        Customer customer = iCustomerService.findCustomerById(id);
+        Customer customer = customerService.findCustomerById(id);
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -97,13 +97,12 @@ public class CustomerRestController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Customer customer = iCustomerService.findCustomerById(id);
-        System.out.println("cccccccccccccccccccccccccccccc:"+id);
+        Customer customer = customerService.findCustomerById(id);
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            iCustomerService.updateCustomer(customerDTO.getCode(),customerDTO.getName(),customerDTO.isGender(),customerDTO.getDateOfBirth(),
-                    customerDTO.getAddress(),customerDTO.getEmail(),customerDTO.getPhoneNumber(),customerDTO.getPoint(),customerDTO.getCustomerType().getId(),id);
+            customerService.updateCustomer(customerDTO.getCode(),customerDTO.getName(),customerDTO.isGender(),customerDTO.getDateOfBirth(),
+                    customerDTO.getAddress(),customerDTO.getEmail(),customerDTO.getPhoneNumber(),customerDTO.getPoint(),customerDTO.getCustomerTypeDTO().getId(),id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

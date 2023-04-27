@@ -41,7 +41,7 @@ public class CustomerDTO implements Validator {
 
     private Boolean isDelete = false;
 
-    private CustomerType customerType;
+    private CustomerTypeDTO customerTypeDTO;
 
     public CustomerDTO() {
     }
@@ -126,12 +126,21 @@ public class CustomerDTO implements Validator {
         isDelete = delete;
     }
 
-    public CustomerType getCustomerType() {
-        return customerType;
+//    public CustomerType getCustomerType() {
+//        return customerType;
+//    }
+//
+//    public void setCustomerType(CustomerType customerType) {
+//        this.customerType = customerType;
+//    }
+
+
+    public CustomerTypeDTO getCustomerTypeDTO() {
+        return customerTypeDTO;
     }
 
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
+    public void setCustomerTypeDTO(CustomerTypeDTO customerTypeDTO) {
+        this.customerTypeDTO = customerTypeDTO;
     }
 
     @Override
