@@ -67,7 +67,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @return call to updateCustomer in iCustomerRepository
      */
     @Query(value = "select * from customer where is_delete = false and id =:id", nativeQuery = true)
-    Customer findCustomerById(@Param("id") Integer id);
+    Customer findByCustomerId(@Param("id") Integer id);
 
 
 

@@ -22,7 +22,7 @@ public class CustomerTypeRestController {
 
     @GetMapping("")
     public ResponseEntity<List<CustomerType>> getAll(){
-        List<CustomerType> list = iCustomerTypeService.getAllCustomerType();
+        List<CustomerType> list = iCustomerTypeService.findAll();
         if (list == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

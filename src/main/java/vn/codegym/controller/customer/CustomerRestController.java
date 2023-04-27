@@ -64,8 +64,8 @@ public class CustomerRestController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> findCustomerById(@PathVariable Integer id) {
-        Customer customer = customerService.findCustomerById(id);
+    public ResponseEntity<Customer> findByCustomerId(@PathVariable Integer id) {
+        Customer customer = customerService.findByCustomerId(id);
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -97,7 +97,7 @@ public class CustomerRestController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Customer customer = customerService.findCustomerById(id);
+        Customer customer = customerService.findByCustomerId(id);
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

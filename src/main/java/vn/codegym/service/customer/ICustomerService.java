@@ -31,7 +31,7 @@ public interface ICustomerService {
      * @param id
      */
 
-    Customer findCustomerById(Integer id);
+    Customer findByCustomerId(Integer id);
 
 
     List<Customer> findAllCustomer();

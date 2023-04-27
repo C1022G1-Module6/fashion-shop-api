@@ -12,5 +12,5 @@ public interface ICustomerTypeService {
      *
      * @return
      */
-    List<CustomerType> getAllCustomerType();
+    List<CustomerType> findAll();
 }

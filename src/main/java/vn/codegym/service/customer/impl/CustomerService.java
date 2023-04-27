@@ -50,8 +50,8 @@ public class CustomerService implements ICustomerService {
      * @return
      */
     @Override
-    public Customer findCustomerById(Integer id) {
-        return iCustomerRepository.findCustomerById(id);
+    public Customer findByCustomerId(Integer id) {
+        return iCustomerRepository.findByCustomerId(id);
     }
 
 
@@ -112,7 +112,7 @@ public class CustomerService implements ICustomerService {
     @Override
     public Map<String, String> checkUpdate(CustomerDTO customerDTO) {
         Map<String, String> checkCustomer = new HashMap<>();
-        Customer customer = findCustomerById(customerDTO.getId());
+        Customer customer = findByCustomerId(customerDTO.getId());
         for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
             if (!customer.getCode().equals(customerDTO.getCode()) && iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
                 checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại trong hệ thống.");
