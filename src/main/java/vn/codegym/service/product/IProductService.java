@@ -16,7 +16,7 @@ import java.util.Set;
 public interface IProductService {
 
     List<ProductDetailDTO> findAllByProductId(int id);
-    Page<Product> findAllProducts(Pageable pageable);
+    Page<ProductDTO> findAllProducts(Pageable pageable);
     Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable);
     void addProduct(ProductCreateDTO productCreateDTO);
 
