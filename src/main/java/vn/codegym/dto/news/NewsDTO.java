@@ -118,8 +118,8 @@ public class NewsDTO implements Validator {
         } else {
             int titleMinLength = newsDTO.getTitle().length();
             int titleMaxLength = newsDTO.getTitle().length();
-            if (!(titleMinLength >= 10 && titleMaxLength <=100)) {
-                errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 100 kí tự");
+            if (!(titleMinLength >= 10 && titleMaxLength <=200)) {
+                errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 200 kí tự");
             }
         }
 //        if (newsDTO.getImg().equals("")){
@@ -133,8 +133,8 @@ public class NewsDTO implements Validator {
 
         int minLengthContent = newsDTO.getContent().length();
         int maxLengthContent = newsDTO.getContent().length();
-        if (!(minLengthContent >= 100 && maxLengthContent <= 1000)) {
-            errors.rejectValue("content", "content", "Nội dung từ 50 đến 500 kí tự");
+        if (!(minLengthContent >= 100 && maxLengthContent <= 5000)) {
+            errors.rejectValue("content", "content", "Nội dung từ 100 đến 5000 kí tự");
         }
     }
 }
