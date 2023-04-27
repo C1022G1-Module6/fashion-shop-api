@@ -1,5 +1,6 @@
 package vn.codegym.entity.product;
 
+import vn.codegym.entity.data_entry.DataEntryProduct;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,6 +22,8 @@ public class Product {
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
+
+    private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
@@ -34,6 +37,17 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<InvoiceDetail> invoiceDetails;
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    private Set<DataEntryProduct> dataEntryProductSet;
+
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
+    }
+
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProductSet) {
+        this.dataEntryProductSet = dataEntryProductSet;
+    }
 
     public Product() {
     }
@@ -124,5 +138,13 @@ public class Product {
 
     public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }

@@ -6,11 +6,8 @@ import java.util.List;
 
 public interface ICustomerTypeService {
     /**
-     * Created by: TienTHM
-     * Date created: 24/04/2022
-     * function: find all customer type
-     *
-     * @return
+     * Function to retrieve all types of customers
+     * @return a list of CustomerType objects
      */
     List<CustomerType> findAll();
 }

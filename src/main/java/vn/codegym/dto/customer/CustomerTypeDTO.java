@@ -13,9 +13,6 @@ public class CustomerTypeDTO implements Validator {
     private Integer condition;
     private Integer bonusPoint;
 
-    public CustomerTypeDTO() {
-    }
-
     public Integer getId() {
         return id;
     }

@@ -6,7 +6,23 @@ import vn.codegym.entity.customer.Customer;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import vn.codegym.dto.customer.CustomerDTO;
+
 public interface ICustomerService {
+    /**
+     * Function search customer
+     * @param pageable
+     * @param searchCode
+     * @param searchName
+     * @param searchPhoneNumber
+     * @return method will return a customer list page
+     */
+    Page<CustomerDTO> searchCustomer(Pageable pageable, String searchCode, String searchName, String searchPhoneNumber);
+
+    void deleteCustomer(int id);
+
     /**
      * Created by: TienTHM
      * Date created: 24/04/2022
@@ -32,10 +48,6 @@ public interface ICustomerService {
      */
 
     Customer findByCustomerId(Integer id);
-
-
-    List<Customer> findAllCustomer();
-
     /**
      * Created by: TienTHM
      * Date created: 24/04/2022
@@ -57,28 +69,5 @@ public interface ICustomerService {
                         String phoneNumber, Integer point,Integer customerTypeId,Integer id);
 
 
-
-    /**
-     * Created by: TienTHM
-     * Date created: 24/04/2022
-     * function: check exist add  Customer
-     * @param customerDTO
-     * @return
-     */
-
-    Map<String, String> checkCreate(CustomerDTO customerDTO);
-
-
-
-    /**
-     * Created by: TienTHM
-     * Date created: 24/04/2022
-     * function: check exist update Customer
-     *
-     * @param customerDTO
-     * @return
-     */
-
-    Map<String, String> checkUpdate(CustomerDTO customerDTO);
 
 }

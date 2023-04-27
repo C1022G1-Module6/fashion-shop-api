@@ -12,20 +12,30 @@ import vn.codegym.entity.customer.CustomerType;
 import vn.codegym.service.customer.ICustomerTypeService;
 
 import java.util.List;
+import vn.codegym.entity.customer.CustomerType;
+import vn.codegym.service.customer.ICustomerTypeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/customerType")
 @CrossOrigin("*")
 public class CustomerTypeRestController {
     @Autowired
-    private ICustomerTypeService iCustomerTypeService;
+    private ICustomerTypeService customerTypeService;
 
+    /**
+     * Function to display all types of customers
+     * @return if customer type list is empty then return status No_Content
+     *         if customer type list has value then return customer type list and status OK
+     */
     @GetMapping("")
-    public ResponseEntity<List<CustomerType>> getAll(){
-        List<CustomerType> list = iCustomerTypeService.findAll();
-        if (list == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<CustomerType>> showList() {
+        List<CustomerType> customerTypeList = customerTypeService.findAll();
+        if (customerTypeList == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(customerTypeList, HttpStatus.OK);
         }
-        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }

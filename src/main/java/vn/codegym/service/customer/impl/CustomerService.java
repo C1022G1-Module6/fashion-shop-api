@@ -5,17 +5,58 @@ import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.entity.customer.Customer;
 import vn.codegym.repository.customer.ICustomerRepository;
 import vn.codegym.service.customer.ICustomerService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import vn.codegym.dto.customer.CustomerTypeDTO;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class CustomerService implements ICustomerService {
     @Autowired
-    private ICustomerRepository iCustomerRepository;
+    private ICustomerRepository customerRepository;
 
+    /**
+     * Function search customer
+     * @param pageable
+     * @param searchCode
+     * @param searchName
+     * @param searchPhoneNumber
+     * @return method returns a page of customer data in CustomerDTO format,
+     * including the list of customers found, pagination (paginable) information,
+     * and the total number of customers found.
+     */
+    @Override
+    public Page<CustomerDTO> searchCustomer(Pageable pageable, String searchCode, String searchName, String searchPhoneNumber) {
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+        Page<Customer> customerPage = customerRepository
+              .searchCustomerInfo(pageable, searchCode, searchName, searchPhoneNumber);
+        CustomerDTO customerDTO;
+        for (Customer customer : customerPage) {
+            customerDTO = new CustomerDTO();
+            customerDTO.setCustomerTypeDTO(new CustomerTypeDTO());
+            BeanUtils.copyProperties(customer.getCustomerType(), customerDTO.getCustomerTypeDTO());
+            BeanUtils.copyProperties(customer, customerDTO);
+            customerDTOList.add(customerDTO);
+        }
+        return new PageImpl<>(customerDTOList, pageable, customerPage.getTotalElements());
+    }
+
+    /**
+     * Function delete customer
+     * @param id
+     */
+    @Override
+    public void deleteCustomer(int id) {
+        Customer customer = customerRepository.findByCustomerId(id);
+        customer.setDelete(true);
+        customerRepository.save(customer);
+    }
     /**
      * Created by: TienTHM
      * Date created: 24/04/2022
@@ -32,14 +73,8 @@ public class CustomerService implements ICustomerService {
      */
     @Override
     public void saveCustomer(String code, String name, boolean gender, String dateOfBirth, String address, String email, String phoneNumber, Integer point,Integer customerId) {
-        iCustomerRepository.saveCustomer(code, name, gender, dateOfBirth, address, email, phoneNumber, point,customerId);
+        customerRepository.saveCustomer(code, name, gender, dateOfBirth, address, email, phoneNumber, point,customerId);
     }
-
-    @Override
-    public List<Customer> findAllCustomer() {
-        return iCustomerRepository.findAll();
-    }
-
 
     /**
      * Created by: TienTHM
@@ -51,7 +86,7 @@ public class CustomerService implements ICustomerService {
      */
     @Override
     public Customer findByCustomerId(Integer id) {
-        return iCustomerRepository.findByCustomerId(id);
+        return customerRepository.findByCustomerId(id);
     }
 
 
@@ -73,58 +108,7 @@ public class CustomerService implements ICustomerService {
   */
     @Override
     public void updateCustomer(String code, String name, boolean gender, String dateOfBirth, String address, String email, String phoneNumber, Integer point, Integer customerTypeId, Integer id) {
-        iCustomerRepository.updateCustomer(code, name, gender, dateOfBirth, address, email, phoneNumber, point, customerTypeId, id);
+        customerRepository.updateCustomer(code, name, gender, dateOfBirth, address, email, phoneNumber, point, customerTypeId, id);
     }
 
-    /**
-     * Created by: TienTHM
-     * Date created: 24/04/2022
-     * function: check exist add  Customer
-     *
-     * @param customerDTO
-     * @return
-     */
-    @Override
-    public Map<String, String> checkCreate(CustomerDTO customerDTO) {
-        Map<String,String> checkCustomer = new HashMap<>();
-        for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
-            if (iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
-                checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại!");
-            }
-            if (iCustomerRepository.findAllCustomer().get(i).getPhoneNumber().equals(customerDTO.getPhoneNumber())) {
-                checkCustomer.put("errorPhone", "Số điện thoại đã tồn tại trong hệ thống.");
-            }
-            if (iCustomerRepository.findAllCustomer().get(i).getEmail().equals(customerDTO.getEmail())) {
-                checkCustomer.put("errorEmail", "Email đã tồn tại trong hệ thống.");
-            }
-        }
-        return checkCustomer;
-    }
-
-    /**
-     * Created by: TienTHM
-     * Date created: 24/04/2022
-     * function: check exist update Customer
-     *
-     * @param customerDTO
-     * @return
-     */
-    @Override
-    public Map<String, String> checkUpdate(CustomerDTO customerDTO) {
-        Map<String, String> checkCustomer = new HashMap<>();
-        Customer customer = findByCustomerId(customerDTO.getId());
-        for (int i = 0; i < iCustomerRepository.findAllCustomer().size(); i++) {
-            if (!customer.getCode().equals(customerDTO.getCode()) && iCustomerRepository.findAllCustomer().get(i).getCode().equals(customerDTO.getCode())) {
-                checkCustomer.put("errorCode", "Mã khách hàng đã tồn tại trong hệ thống.");
-            }
-            if (!customer.getPhoneNumber().equals(customer.getPhoneNumber()) && iCustomerRepository.findAllCustomer().get(i).getPhoneNumber().equals(customerDTO.getPhoneNumber())) {
-                checkCustomer.put("errorPhone", "Số điện thoại đã tồn tại trong hệ thống.");
-            }
-            if (!customer.getEmail().equals(customerDTO.getEmail()) && iCustomerRepository.findAllCustomer().get(i).getEmail().equals(customerDTO.getEmail())) {
-
-                checkCustomer.put("errorEmail", "Email đã tồn tại trong hệ thống.");
-            }
-        }
-        return null;
-    }
 }
