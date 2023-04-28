@@ -1,9 +1,8 @@
 package vn.codegym.entity.data_entry;
 
-import vn.codegym.entity.product.Product;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,19 +13,12 @@ public class DataEntry {
     private Integer id;
     // Hỏi Tân cách làm mã tự động tăng
     private String code;
-    private Date date;
-    private Integer quantity;
+    private String date;
     @Column(name = "employee_name")
     private String employeeName;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "data_entry_product",
-            joinColumns = {@JoinColumn(name = "data_entry_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")}
-    )
-    private Set<Product> products;
-
-    public DataEntry() {
-    }
+    @OneToMany(mappedBy = "dataEntry")
+    @JsonManagedReference
+    private Set<DataEntryProduct> dataEntryProductSet;
 
     public Integer getId() {
         return id;
@@ -44,20 +36,12 @@ public class DataEntry {
         this.code = code;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public String getEmployeeName() {
@@ -68,11 +52,11 @@ public class DataEntry {
         this.employeeName = employeeName;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Set<DataEntryProduct> getDataEntryProductSet() {
+        return dataEntryProductSet;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setDataEntryProductSet(Set<DataEntryProduct> dataEntryProducts) {
+        this.dataEntryProductSet = dataEntryProducts;
     }
 }

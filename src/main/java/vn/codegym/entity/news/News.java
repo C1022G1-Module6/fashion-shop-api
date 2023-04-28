@@ -1,7 +1,7 @@
 package vn.codegym.entity.news;
 
-import vn.codegym.entity.employee.Employee;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import vn.codegym.entity.employee.Employee;
 
 import javax.persistence.*;
 
@@ -13,13 +13,24 @@ public class News {
     private Integer id;
     private String title;
     private String img;
+    private String nameImg; //TanNN thêm vào
     private String content;
+    private String dateTime; //TanNN thêm vào
+    private boolean flagDelete;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @JsonBackReference
     private Employee employee;
 
     public News() {
+    }
+
+    public News(String title, String img, String nameImg, String content, Employee employee) {
+        this.title = title;
+        this.img = img;
+        this.nameImg = nameImg;
+        this.content = content;
+        this.employee = employee;
     }
 
     public Integer getId() {
@@ -58,7 +69,31 @@ public class News {
         return employee;
     }
 
+    public boolean isFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
+    }
+
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public String getNameImg() {
+        return nameImg;
+    }
+
+    public void setNameImg(String nameImg) {
+        this.nameImg = nameImg;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

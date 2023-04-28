@@ -1,10 +1,12 @@
 package vn.codegym.entity.invoice;
+import org.hibernate.annotations.GenericGenerator;
 import vn.codegym.entity.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import vn.codegym.entity.employee.Employee;
 
 import javax.persistence.*;
-import java.util.Date;
+
 import java.util.Set;
 
 @Entity
@@ -13,11 +15,11 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
     private String code;
     private String date;
     @Column(name = "employee_name")
     private String employeeName;
+
     private Double total;
     private Double payment;
     @Column(name = "bonus_point")
@@ -36,6 +38,7 @@ public class Invoice {
     public Integer getId() {
         return id;
     }
+
 
     public void setId(Integer id) {
         this.id = id;

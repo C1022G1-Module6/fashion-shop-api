@@ -1,10 +1,9 @@
 package vn.codegym.dto.customer;
 
-import vn.codegym.dto.invoice.InvoiceDTO;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-import java.util.Set;
-
-public class CustomerDTO {
+public class CustomerDTO implements Validator {
     private Integer id;
     private String code;
     private String name;
@@ -15,7 +14,6 @@ public class CustomerDTO {
     private String phoneNumber;
     private Integer point = 0;
     private CustomerTypeDTO customerTypeDTO;
-    private Set<InvoiceDTO> invoiceDTOS;
     private Boolean isDelete = false;
 
     public CustomerDTO() {
@@ -101,19 +99,22 @@ public class CustomerDTO {
         this.customerTypeDTO = customerTypeDTO;
     }
 
-    public Set<InvoiceDTO> getInvoiceDTOS() {
-        return invoiceDTOS;
-    }
-
-    public void setInvoiceDTOS(Set<InvoiceDTO> invoiceDTOS) {
-        this.invoiceDTOS = invoiceDTOS;
-    }
-
     public Boolean getDelete() {
         return isDelete;
     }
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDTO customerDTO = (CustomerDTO) target;
     }
 }
