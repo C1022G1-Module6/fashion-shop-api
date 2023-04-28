@@ -54,5 +54,8 @@ public interface IEmployeeService {
      */
     void changeUserPassword(Employee employee,String newPassword);
 
+    Employee findByEmailEmployee(String email);
+
+    void updateOtp(Employee employee);
     List<Employee> getAll();
 }

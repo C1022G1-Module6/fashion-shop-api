@@ -43,7 +43,7 @@ public class EmployeeRestController {
             String token = jwtAuthenticationFilter.getJwt(request);
             if(token!=null &&jwtTokenProvider.validateToken(token)){
                 String username = jwtTokenProvider.getUserNameFromToken(token);
-                if(!iEmployeeService.existsByUsername(username)){
+                if(Boolean.FALSE.equals(iEmployeeService.existsByUsername(username))){
                     return new ResponseEntity<>(new ResponseMessage("Tên người dùng không tồn tại")
                             , HttpStatus.BAD_REQUEST);
                 }

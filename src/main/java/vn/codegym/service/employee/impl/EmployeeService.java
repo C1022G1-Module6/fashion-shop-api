@@ -1,6 +1,4 @@
 package vn.codegym.service.employee.impl;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,5 +91,15 @@ public class EmployeeService implements IEmployeeService {
         return iEmployeeRepository.getAll();
     }
 }
+
+    @Override
+    public Employee findByEmailEmployee(String email) {
+        return iEmployeeRepository.findByEmailEmployee(email);
+    }
+
+    @Override
+    public void updateOtp(Employee employee) {
+        iEmployeeRepository.updateOtp(employee.getExpiryTime(),employee.getOtpSecret(),employee.getEmail());
+    }
 
 

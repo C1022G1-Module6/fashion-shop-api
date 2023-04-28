@@ -15,13 +15,6 @@ public class JwtResponse {
     public JwtResponse() {
     }
 
-//    public JwtResponse(String token, String type, String name,String avatar, Collection<? extends GrantedAuthority> roles) {
-//        this.token = token;
-//        this.type = type;
-//        this.name = name;
-//        this.avatar = avatar;
-//        this.roles = roles;
-//    }
 
     public JwtResponse(String token, String userName,String avatar, Collection<? extends GrantedAuthority> authorities) {
         this.token = token;
