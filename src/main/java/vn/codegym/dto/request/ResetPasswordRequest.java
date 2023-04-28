@@ -4,30 +4,17 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
-
-public class ChangePasswordRequest {
-    @Length(min = 5, max = 20, message = "Mật khẩu ít nhất 5 ký tự và nhiều nhất 20 ký tự")
-    @NotBlank(message = "Không được bỏ trống")
-    private String oldPassword;
+public class ResetPasswordRequest {
     @NotBlank(message = "Không được bỏ trống")
     @Length(min = 5, max = 20, message = "Mật khẩu ít nhất 5 ký tự và nhiều nhất 20 ký tự")
     private String newPassword;
     @Length(min = 5, max = 20, message = "Mật khẩu ít nhất 5 ký tự và nhiều nhất 20 ký tự")
     @NotBlank(message = "Không được bỏ trống")
     private String confirmPassword;
+    private String email;
 
-
-
-    public ChangePasswordRequest() {
+    public ResetPasswordRequest() {
         // TODO document why this constructor is empty
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
     }
 
     public String getNewPassword() {
@@ -44,5 +31,13 @@ public class ChangePasswordRequest {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

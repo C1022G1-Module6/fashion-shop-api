@@ -4,6 +4,7 @@ import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,7 +40,6 @@ public class Employee {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
     @Column(nullable = false)
-
     private String password;
     @Lob
     private String avatar;
@@ -50,6 +50,8 @@ public class Employee {
     @JsonManagedReference
     private Set<Notification> notifications;
 
+    private LocalDateTime expiryTime;
+    private String otpSecret;
     public Employee() {
     }
 
@@ -68,6 +70,22 @@ public class Employee {
         this.roles = roles;
         this.news = news;
         this.notifications = notifications;
+    }
+
+    public LocalDateTime getExpiryTime() {
+        return expiryTime;
+    }
+
+    public void setExpiryTime(LocalDateTime expiryTime) {
+        this.expiryTime = expiryTime;
+    }
+
+    public String getOtpSecret() {
+        return otpSecret;
+    }
+
+    public void setOtpSecret(String otpSecret) {
+        this.otpSecret = otpSecret;
     }
 
     public String getAvatar() {

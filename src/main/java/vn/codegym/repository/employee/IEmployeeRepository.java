@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import vn.codegym.entity.employee.Employee;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
@@ -52,4 +53,12 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "UPDATE employee SET password = :newPassword WHERE id = :id",nativeQuery = true)
     void updatePassword(@Param("newPassword")String newPassword,@Param("id")Integer id);
 
+
+    @Query(value = "SELECT * FROM employee WHERE email = :email", nativeQuery = true)
+    Employee findByEmailEmployee(@Param("email") String email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE employee set expiry_time = :expiryTime , otp_secret = :otpSecret where email = :email",nativeQuery = true)
+    void updateOtp(@Param("expiryTime") LocalDateTime expiryTime, @Param("otpSecret")String otpSecret, @Param("email")String email);
 }

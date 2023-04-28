@@ -13,6 +13,7 @@ public class EmployeeDetailDTO {
     private String avatar;
 
     public EmployeeDetailDTO() {
+        // TODO document why this constructor is empty
     }
 
     public Integer getId() {
