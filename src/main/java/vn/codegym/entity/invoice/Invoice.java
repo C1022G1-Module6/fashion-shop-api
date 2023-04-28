@@ -1,11 +1,9 @@
 package vn.codegym.entity.invoice;
-import org.hibernate.annotations.GenericGenerator;
 import vn.codegym.entity.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 
 @Entity

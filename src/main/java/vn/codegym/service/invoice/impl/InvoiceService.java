@@ -78,21 +78,13 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public void update(InvoiceDTO invoiceDTO) {
         Invoice invoice = findLastInvoiceInList();
-        invoiceDTO.setId(invoice.getId());;
+        invoiceDTO.setId(invoice.getId());
         invoiceDTO.setCode(invoice.getCode());
         invoiceDTO.setDate(invoice.getDate());
         BeanUtils.copyProperties(invoiceDTO, invoice);
         Customer customer = getCustomer(invoiceDTO.getCustomerDTO().getCode());
         invoice.setCustomer(customer);
-        invoiceRepository.updateInvoice(
-                invoice.getBonusPoint(),
-                invoice.getCode(),
-                invoice.getDate(),
-                invoice.getEmployeeName(),
-                invoice.getPayment(),
-                invoice.getTotal(),
-                invoice.getCustomer().getId(),
-                invoice.getId());
+        invoiceRepository.updateInvoice(invoice);
     }
 
     /**
