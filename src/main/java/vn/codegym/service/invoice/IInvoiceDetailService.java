@@ -4,6 +4,10 @@ import vn.codegym.dto.invoice.InvoiceDetailDTO;
 
 import java.util.List;
 
+
+public interface IInvoiceDetailService {}
+
+
 public interface IInvoiceDetailService {
     void save(InvoiceDetailDTO invoiceDetailDTO);
     //    void update(Integer invoiceId);
@@ -11,3 +15,4 @@ public interface IInvoiceDetailService {
     List<InvoiceDetailDTO> findAll();
     void deleteAll();
 }
+

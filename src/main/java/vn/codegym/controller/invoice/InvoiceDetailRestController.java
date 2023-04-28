@@ -1,5 +1,6 @@
 package vn.codegym.controller.invoice;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/invoice-detail")
-@CrossOrigin("*")
+
+
+
 public class InvoiceDetailRestController {
-    @Autowired
-    private IInvoiceDetailService invoiceDetailService;
+
 
     @PostMapping("")
     public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO,
@@ -50,4 +50,5 @@ public class InvoiceDetailRestController {
         }
         return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
     }
+
 }
