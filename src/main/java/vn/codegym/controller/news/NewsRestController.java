@@ -86,8 +86,6 @@ public class NewsRestController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Employee employee = new Employee(1);
-        newsDTO.setEmployee(employee);
         iNewsService.addNews(newsDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
