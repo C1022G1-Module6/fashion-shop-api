@@ -4,7 +4,7 @@ import vn.codegym.entity.employee.Role;
 import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
 
-import javax.validation.constraints.NotBlank;
+
 import java.util.Set;
 
 public class EmployeeDTO {
@@ -18,16 +18,15 @@ public class EmployeeDTO {
     private String phoneNumber;
     private String userName;
     private String password;
-//    private Set<Role> roles;
-//    private Set<News> news;
-//    private Set<Notification> notifications;
+    private Set<Role> roles;
+    private Set<News> news;
+    private Set<Notification> notifications;
     private Boolean isDelete = false;
 
     public EmployeeDTO() {
     }
 
     public EmployeeDTO(Integer id, String code, String name, boolean gender, String dateOfBirth, String address, String email, String phoneNumber, String userName, String password, Set<Role> roles, Set<News> news, Set<Notification> notifications, Boolean isDelete) {
-
         this.id = id;
         this.code = code;
         this.name = name;
@@ -38,6 +37,9 @@ public class EmployeeDTO {
         this.phoneNumber = phoneNumber;
         this.userName = userName;
         this.password = password;
+        this.roles = roles;
+        this.news = news;
+        this.notifications = notifications;
         this.isDelete = isDelete;
     }
 
@@ -121,29 +123,29 @@ public class EmployeeDTO {
         this.password = password;
     }
 
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
-//
-//    public Set<News> getNews() {
-//        return news;
-//    }
-//
-//    public void setNews(Set<News> news) {
-//        this.news = news;
-//    }
-//
-//    public Set<Notification> getNotifications() {
-//        return notifications;
-//    }
-//
-//    public void setNotifications(Set<Notification> notifications) {
-//        this.notifications = notifications;
-//    }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
+    }
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
+    }
 
     public Boolean getDelete() {
         return isDelete;

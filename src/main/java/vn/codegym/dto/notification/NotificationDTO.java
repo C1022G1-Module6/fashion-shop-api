@@ -1,7 +1,6 @@
 package vn.codegym.dto.notification;
 
 import vn.codegym.dto.employee.EmployeeDTO;
-import vn.codegym.entity.employee.Employee;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

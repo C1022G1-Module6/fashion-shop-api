@@ -43,7 +43,7 @@ public class NotificationService implements INotificationService {
 
     @Override
     public NotificationDTO findByIdNotification(Integer id) {
-        Notification notification =  notificationRepository.findById(id).get();
+        Notification notification =  notificationRepository.findByNotificationId(id);
         if (notification == null) {
             // handle the case where the notification is not found
             return null;

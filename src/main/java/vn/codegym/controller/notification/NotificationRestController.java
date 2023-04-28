@@ -56,7 +56,7 @@ public class NotificationRestController {
       * @return httpStatusCode = 200
      */
     @GetMapping("/detail/{id}")
-    public ResponseEntity<?> findById( @PathVariable("id") Integer id) {
+    public ResponseEntity<NotificationDTO> findById( @PathVariable("id") Integer id) {
          NotificationDTO notificationDTO= notificationService.findByIdNotification(id);
          if(notificationDTO == null){
              return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
