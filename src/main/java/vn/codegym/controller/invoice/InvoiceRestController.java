@@ -27,7 +27,7 @@ public class InvoiceRestController {
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<?> getAllList() {
+    public ResponseEntity<List<InvoiceDTO>> getAllList() {
         try {
              List<InvoiceDTO> invoiceDTOList = invoiceService.findAll();
             return new ResponseEntity<>(invoiceDTOList ,HttpStatus.OK);
@@ -45,7 +45,7 @@ public class InvoiceRestController {
     @PutMapping("")
     public ResponseEntity<?> updateInvoice(@Validated @RequestBody InvoiceDTO invoiceDTO, BindingResult bindingResult) {
         if (invoiceDTO.getBonusPoint() == null || invoiceDTO.getTotal() == null
-                || invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getId() == null) {
+                || invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
@@ -65,7 +65,7 @@ public class InvoiceRestController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getInvoice() {
+    public ResponseEntity<InvoiceDTO> getInvoice() {
         InvoiceDTO invoiceDTO = invoiceService.getInvoiceDetail();
         return new ResponseEntity<>(invoiceDTO, HttpStatus.OK);
     }

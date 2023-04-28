@@ -1,6 +1,5 @@
 package vn.codegym.controller.invoice;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +14,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
-
+@RestController
+@RequestMapping("/invoice-detail")
+@CrossOrigin("*")
 public class InvoiceDetailRestController {
-
+    @Autowired
+    private IInvoiceDetailService invoiceDetailService;
 
     @PostMapping("")
-    public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO,
-                                                 BindingResult bindingResult) {
+    public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO, BindingResult bindingResult) {
         if (invoiceDetailDTO.getProductDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -43,12 +42,17 @@ public class InvoiceDetailRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> listAll() {
+    public ResponseEntity<List<InvoiceDetailDTO>> listAll() {
         List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
-        if (invoiceDetailDTOList.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        invoiceDetailService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

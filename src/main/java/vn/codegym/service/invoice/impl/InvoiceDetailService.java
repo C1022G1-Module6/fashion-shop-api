@@ -6,7 +6,6 @@ import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.dto.invoice.InvoiceDetailDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductSizeDTO;
-import vn.codegym.entity.invoice.Invoice;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
@@ -80,6 +79,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     public void delete(Integer id) {
         InvoiceDetail invoiceDetail = invoiceDetailRepository.findDetailWithId(id);
         invoiceDetail.setDelete(true);
+        invoiceDetailRepository.save(invoiceDetail);
     }
 
     /**

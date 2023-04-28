@@ -24,9 +24,12 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param phoneNumber
      * @param isDelete
      * @return function returns page containing customer data information
-     */
+     */;
+    @Query(value = "SELECT * FROM customer c WHERE (c.code LIKE CONCAT('%', :code, '%') " +
+            "OR c.name LIKE CONCAT('%', :name, '%') " +
+            "OR c.phone_number LIKE CONCAT('%', :phoneNumber, '%')) " +
+            "AND c.is_delete = false", nativeQuery = true)
 
-    @Query(value = "SELECT * FROM customer c WHERE c.code LIKE CONCAT('%', :code, '%') AND c.name LIKE CONCAT('%', :name, '%') AND c.phone_number LIKE CONCAT('%', :phoneNumber, '%') AND c.is_delete = false", nativeQuery = true)
     Page<Customer> searchCustomerInfo(Pageable pageable,
                                       @Param("code") String code,
                                       @Param("name") String name,
@@ -103,6 +106,12 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param customerTypeId
      * @param id
      */
+
+    @Query(value = "select * from customer where id like concat('%', :id, '%')", nativeQuery = true)
+    Customer findByCustomerId(@Param("id") int id);
+    @Query(value = "select * from customer where code like concat('%', :code, '%')", nativeQuery = true)
+    Customer findCustomerWithCode(@Param("code") String code);
+
     @Transactional
     @Modifying
     @Query(value = "update customer " +
@@ -129,5 +138,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             @Param("customerTypeId") Integer customerTypeId,
             @Param("id") Integer id
     );
+
 
 }
