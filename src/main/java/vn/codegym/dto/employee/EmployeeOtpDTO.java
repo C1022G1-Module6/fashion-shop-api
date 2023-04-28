@@ -5,16 +5,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
-public class EmployeeMailDTO {
-    @NotBlank(message = "Không được để trống")
-    @Email(message = "Vui lòng nhập đúng định dạng Email VD: abc123@codegym.com")
+public class EmployeeOtpDTO {
     private String email;
+    @NotBlank(message = "Không được để trống")
+    @Pattern(regexp = "^\\d{5,6}$",message = "Vui lòng nhập đúng định dạng OTP VD:XXXXXX (X là chữ số)")
+    private String code;
 
-
-    public EmployeeMailDTO() {
+    public EmployeeOtpDTO() {
         // TODO document why this constructor is empty
     }
-
 
     public String getEmail() {
         return email;
@@ -24,4 +23,11 @@ public class EmployeeMailDTO {
         this.email = email;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }
