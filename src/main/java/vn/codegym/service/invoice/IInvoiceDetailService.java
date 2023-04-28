@@ -10,3 +10,4 @@ public interface IInvoiceDetailService {
     List<InvoiceDetailDTO> findAll();
     void deleteAll();
 }
+

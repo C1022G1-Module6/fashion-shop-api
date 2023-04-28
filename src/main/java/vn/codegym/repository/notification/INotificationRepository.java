@@ -9,11 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.codegym.entity.notification.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 
 public interface INotificationRepository extends JpaRepository<Notification, Integer> {
-    @Query(value = "select *  from notification  " +
-            "where employee_id = 1", nativeQuery = true)
+    @Query(value = "select *  from notification "
+            , nativeQuery = true)
     Page<Notification> getAll(Pageable pageable);
 
     @Transactional
@@ -32,5 +31,13 @@ public interface INotificationRepository extends JpaRepository<Notification, Int
             ":#{#notification.delete}," +
             ":#{#notification.employee.id})", nativeQuery = true)
     void createNotification(@Param("notification") Notification notification);
+
+
+
+
+    @Query(value = "select * from notification where id =:id", nativeQuery = true)
+    Notification findByNotificationId(@Param("id") Integer id);
+
+
 }
 

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IInvoiceRepository extends JpaRepository<Invoice, Integer> {
+
     /**
      * This function applied to add new invoice instance to the db with params below
      * @param bonusPoint

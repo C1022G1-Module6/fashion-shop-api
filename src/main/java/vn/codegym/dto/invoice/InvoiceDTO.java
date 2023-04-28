@@ -1,10 +1,12 @@
 package vn.codegym.dto.invoice;
 
 import vn.codegym.dto.customer.CustomerDTO;
+
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
 
 public class InvoiceDTO {
+
     private Integer id;
 
     private String code;
@@ -45,6 +47,7 @@ public class InvoiceDTO {
     public void setDate(String date) {
         this.date = date;
     }
+
 
     public String getEmployeeName() {
         return employeeName;

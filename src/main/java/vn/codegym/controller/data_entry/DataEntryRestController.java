@@ -48,13 +48,6 @@ public class DataEntryRestController {
     @PutMapping("")
     public ResponseEntity<?> updateEntryProducts(@Valid @RequestBody DataEntryDTO dataEntryDTO,
                                                  BindingResult bindingResult) {
-//        try {
-//            iDataEntryService.update(dataEntryDTO);
-//            dataEntryProductService.resetCount();
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
         if (!bindingResult.hasErrors()) {
             iDataEntryService.update(dataEntryDTO);
             dataEntryProductService.resetCount();
@@ -69,5 +62,11 @@ public class DataEntryRestController {
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> getInvoice() {
+        DataEntryDTO dataEntryDTO = iDataEntryService.getDataEntryDetail();
+        return new ResponseEntity<>(dataEntryDTO, HttpStatus.OK);
     }
 }

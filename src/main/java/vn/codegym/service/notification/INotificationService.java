@@ -5,10 +5,13 @@ import org.springframework.data.domain.Pageable;
 import vn.codegym.dto.notification.NotificationDTO;
 import vn.codegym.entity.notification.Notification;
 
-import java.util.List;
 
 public interface INotificationService {
     Page<NotificationDTO> getAll(Pageable pageable);
 
     void addNotification(Notification notification);
+
+
+
+    NotificationDTO findByIdNotification(Integer id);
 }

@@ -1,4 +1,5 @@
 package vn.codegym.controller.data_entry;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.data_entry.DataEntryProductDTO;
 import vn.codegym.service.data_entry.IDataEntryProductService;
+
 import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -54,11 +56,11 @@ public class DataEntryProductRestController {
      */
     @GetMapping("")
     public ResponseEntity<?> listALl() {
-        try {
-            List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
-            return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
-        } catch (Exception e) {
+        List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
+        if (dataEntryProductDTOList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
         }
     }
 }

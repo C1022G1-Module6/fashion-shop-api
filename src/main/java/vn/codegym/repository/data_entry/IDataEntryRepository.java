@@ -49,4 +49,14 @@ public interface IDataEntryRepository extends JpaRepository<DataEntry, Integer> 
             @Param("date") String date,
             @Param("employeeName") String employeeName,
             @Param("id") Integer id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from data_entry where id = :id", nativeQuery = true)
+    void deleteWithId(@Param("id") Integer id);
+
+    @Query(value = "select count(code) from data_entry", nativeQuery = true)
+    Integer getTotalCodeAmount();
 }
+
+

@@ -23,6 +23,7 @@ public class InvoiceService implements IInvoiceService {
     private Customer getCustomer (String code) {
         return customerRepository.findCustomerWithCode(code);
     }
+
     /**
      * this method is applied to add new invoice instance with invoiceDTO as a param
      * by calling method saveInvoice from repository
@@ -106,4 +107,5 @@ public class InvoiceService implements IInvoiceService {
         }
         return invoiceDTOList;
     }
+
 }
