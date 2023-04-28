@@ -3,12 +3,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import vn.codegym.dto.news.INewsDTO;
+import vn.codegym.dto.news.NewsDTO;
 import vn.codegym.entity.news.News;
 
 import java.util.List;
 
 public interface INewsService {
-    void addNews(News news);
+    void addNews(NewsDTO newsDTO);
 
     Page<INewsDTO> pageNews(Pageable pageable, String tittleSearch);
 
