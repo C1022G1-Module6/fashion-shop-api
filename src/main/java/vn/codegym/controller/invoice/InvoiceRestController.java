@@ -20,7 +20,10 @@ import java.util.Map;
 @CrossOrigin("*")
 
 public class InvoiceRestController {
-
+    @Autowired
+    private IInvoiceService invoiceService;
+    @Autowired
+    private InvoiceDetailService invoiceDetailService;
     /**
      * TuNT
      * this method is applied to send a List of invoice instances and a HttpStatus
