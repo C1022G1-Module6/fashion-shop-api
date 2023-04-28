@@ -46,9 +46,22 @@ public class NotificationRestController {
         }
     }
 
+    /**
+     *
+     * id search function
+     * @param id
+     * if id  is null
+     * @return httpStatusCode = 400
+     * otherwise id
+      * @return httpStatusCode = 200
+     */
     @GetMapping("/detail/{id}")
-    public ResponseEntity<?> delete( @PageableDefault(size = 4) Pageable pageable ,@PathVariable("id") Integer id) {
+    public ResponseEntity<?> findById( @PathVariable("id") Integer id) {
          NotificationDTO notificationDTO= notificationService.findByIdNotification(id);
+         if(notificationDTO == null){
+             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+         }
         return new ResponseEntity<>(notificationDTO, HttpStatus.OK);
 
 

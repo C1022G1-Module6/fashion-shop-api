@@ -4,6 +4,7 @@ import vn.codegym.dto.employee.EmployeeDTO;
 import vn.codegym.entity.employee.Employee;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class NotificationDTO {
@@ -16,10 +17,13 @@ public class NotificationDTO {
 
 
     @NotBlank(message = "Vui lòng nhập nội dung thông báo")
-    @Size(max = 300, message = "Tiêu đề không được vượt quá 300 ký tự")
+    @Size(max = 1000, message = "Tiêu đề không được vượt quá 1000 ký tự")
     @Size(min = 10, message = "Nội dung tối thiểu là 10 ký tự")
     private String content;
+    @NotBlank(message = "Vui lòng chọn hình ảnh thông báo")
     private String img;
+
+    @NotNull(message = "Vui lòng chọn đối tượng thông báo")
     private EmployeeDTO employeeDTO;
 
     private Boolean isDelete = false;
