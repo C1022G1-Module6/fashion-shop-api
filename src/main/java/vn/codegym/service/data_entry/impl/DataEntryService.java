@@ -32,6 +32,8 @@ public class DataEntryService implements IDataEntryService {
     public void entryProduct(DataEntryDTO dataEntryDTO) {
         DataEntry dataEntry = new DataEntry();
         if (dataEntryDTO.getDataEntryProductDTOSet() == null) {
+            dataEntry.setCode(dataEntryDTO.getCode());
+            dataEntry.setDate(dataEntryDTO.getDate());
             iDataEntryRepository.save(dataEntry);
         } else {
             BeanUtils.copyProperties(dataEntryDTO.getDataEntryProductDTOSet(), dataEntry.getDataEntryProductSet());
@@ -87,5 +89,14 @@ public class DataEntryService implements IDataEntryService {
             dataEntryDTOList.add(dataEntryDTO);
         }
         return dataEntryDTOList;
+    }
+
+    @Override
+    public DataEntryDTO getDataEntryDetail() {
+        List<DataEntry> dataEntryList = iDataEntryRepository.listAllDataEntry();
+        DataEntry dataEntry = dataEntryList.get(dataEntryList.size() - 1);
+        DataEntryDTO dataEntryDTO = new DataEntryDTO();
+        BeanUtils.copyProperties(dataEntry, dataEntryDTO);
+        return dataEntryDTO;
     }
 }

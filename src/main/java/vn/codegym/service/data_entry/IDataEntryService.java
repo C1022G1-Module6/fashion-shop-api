@@ -1,6 +1,7 @@
 package vn.codegym.service.data_entry;
 
 import vn.codegym.dto.data_entry.DataEntryDTO;
+import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.entity.data_entry.DataEntry;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface IDataEntryService {
     DataEntry findLastDataEntryInList();
     void update (DataEntryDTO dataEntryDTO);
     List<DataEntryDTO> findAll();
+
+    DataEntryDTO getDataEntryDetail();
 }
