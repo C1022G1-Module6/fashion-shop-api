@@ -2,10 +2,8 @@ package vn.codegym.entity.invoice;
 import vn.codegym.entity.customer.Customer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import vn.codegym.entity.employee.Employee;
 
 import javax.persistence.*;
-
 import java.util.Set;
 
 @Entity
@@ -18,7 +16,6 @@ public class Invoice {
     private String date;
     @Column(name = "employee_name")
     private String employeeName;
-
     private Double total;
     private Double payment;
     @Column(name = "bonus_point")
@@ -37,7 +34,6 @@ public class Invoice {
     public Integer getId() {
         return id;
     }
-
 
     public void setId(Integer id) {
         this.id = id;
