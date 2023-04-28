@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.data_entry.DataEntryDTO;
-import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.service.data_entry.IDataEntryService;
 import vn.codegym.service.data_entry.impl.DataEntryProductServiceImpl;
 
@@ -49,13 +48,6 @@ public class DataEntryRestController {
     @PutMapping("")
     public ResponseEntity<?> updateEntryProducts(@Valid @RequestBody DataEntryDTO dataEntryDTO,
                                                  BindingResult bindingResult) {
-//        try {
-//            iDataEntryService.update(dataEntryDTO);
-//            dataEntryProductService.resetCount();
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
         if (!bindingResult.hasErrors()) {
             iDataEntryService.update(dataEntryDTO);
             dataEntryProductService.resetCount();

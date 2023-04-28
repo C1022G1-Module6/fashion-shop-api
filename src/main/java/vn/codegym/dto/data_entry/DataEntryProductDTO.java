@@ -2,7 +2,6 @@ package vn.codegym.dto.data_entry;
 
 import vn.codegym.dto.product.ProductDTO;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 public class DataEntryProductDTO {
@@ -13,9 +12,6 @@ public class DataEntryProductDTO {
     private DataEntryDTO dataEntryDTO;
     private ProductDTO productDTO;
     private Boolean isDelete = false;
-
-    public DataEntryProductDTO() {
-    }
 
     public Integer getId() {
         return id;
