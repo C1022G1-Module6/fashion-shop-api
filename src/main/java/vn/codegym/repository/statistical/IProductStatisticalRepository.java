@@ -12,7 +12,7 @@ public interface IProductStatisticalRepository extends JpaRepository<Product, In
      * Lấy top 5 hàng hóa bán chạy nhất
      * @return
      */
-    @Query(value = "SELECT p.name, SUM(id.quantity) AS quantity\n" +
+    @Query(value = "SELECT p.name, p.img, SUM(id.quantity) AS quantity\n" +
             "FROM product p\n" +
             "JOIN invoice_detail id ON p.id = id.product_id\n" +
             "GROUP BY p.id\n" +
