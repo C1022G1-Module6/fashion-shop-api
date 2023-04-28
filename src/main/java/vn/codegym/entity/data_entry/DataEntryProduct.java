@@ -38,9 +38,6 @@ public class DataEntryProduct {
         isDelete = delete;
     }
 
-    public DataEntryProduct() {
-    }
-
     public Integer getId() {
         return id;
     }

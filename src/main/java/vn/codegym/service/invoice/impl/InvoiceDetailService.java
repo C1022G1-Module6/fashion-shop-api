@@ -24,6 +24,7 @@ import java.util.Set;
 
 @Service
 public class InvoiceDetailService implements IInvoiceDetailService {
+
     @Autowired
     private IInvoiceDetailRepository invoiceDetailRepository;
     @Autowired
@@ -123,4 +124,5 @@ public class InvoiceDetailService implements IInvoiceDetailService {
             invoiceDetail.setDelete(true);
         }
     }
+
 }

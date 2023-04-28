@@ -14,8 +14,8 @@ public interface IDataEntryProductRepository extends JpaRepository<DataEntryProd
     /**
      * This function applied to add new data entry product instance to the db with params below
      * @param quantity
-     * @param data_entry_id
-     * @param product_id
+     * @param dataEntryId
+     * @param productId
      * @param isDelete
      */
     @Modifying
@@ -23,8 +23,8 @@ public interface IDataEntryProductRepository extends JpaRepository<DataEntryProd
     @Query(value = "insert into data_entry_product (quantity, data_entry_id, product_id, is_delete)" +
             "values (:quantity, :data_entry, :product, :isDelete)", nativeQuery = true)
     void saveDataEntryProduct(@Param("quantity") Integer quantity,
-                              @Param("data_entry") Integer data_entry_id,
-                              @Param("product") Integer product_id,
+                              @Param("data_entry") Integer dataEntryId,
+                              @Param("product") Integer productId,
                               @Param("isDelete") Boolean isDelete);
 
     /**
@@ -39,6 +39,7 @@ public interface IDataEntryProductRepository extends JpaRepository<DataEntryProd
      * This method is used to display the list DataEntryProduct
      * @return
      */
-    @Query(value = "select * from data_entry_product where is_delete = false", nativeQuery = true)
-    List<DataEntryProduct> listAllDataEntryProduct();
+
+    @Query(value = "select  * from data_entry_product where data_entry_id = :id and is_delete = false", nativeQuery = true)
+    List<DataEntryProduct> getAllWithId(@Param("id") Integer id);
 }

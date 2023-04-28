@@ -6,7 +6,6 @@ import java.util.Set;
 
 public class InvoiceDTO {
     private Integer id;
-
     private String code;
     private String date;
     private String employeeName;

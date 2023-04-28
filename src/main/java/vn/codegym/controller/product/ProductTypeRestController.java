@@ -11,8 +11,9 @@ import vn.codegym.entity.product.ProductType;
 import vn.codegym.service.product.IProductTypeService;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("api/user/productType")
+@RestController
 public class ProductTypeRestController {
 
     /**
