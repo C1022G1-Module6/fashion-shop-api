@@ -2,15 +2,30 @@ package vn.codegym.dto.product;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class ProductCreateDTO {
-    private String code;
-    private String name;
+//    @NotBlank(message = "Không được để trống")
+//    @Size(max = 800,message = "Không được vượt quá 800 ký tự")
+//    @Pattern(regexp = "^MH-(\\d{1,3})$", message = "Theo định dạng MH-XXX trong đó XXX từ 0-999")
 
+    private String code;
+//@NotBlank(message = "Không được để trống")
+//@Size(max = 800,message = "Không được vượt quá 800 ký tự" )
+//@Pattern(regexp = "^[A-Z][a-zđàáảãạăắằẵặẳâầấậẫẩêềếểệễéèẻẹëẽíìỉịĩóòỏõọôổốộỗồơờớợỡởùúủụũưừứựữửỳỷỹỵ\\s]*$",message = "Chữ đầu tiên viết hoa và mấy chữ sau có thể viết dấu" +
+//        "ví dụ như Áo ấm, Quần dài")
+    private String name;
+@NotBlank(message = "Không được để trống")
     private String qrImg;
+@NotBlank(message = "Không được để trống")
     private String img;
+
+
     private Double sellingPrice;
+
     private Double entryPrice;
     private ProductTypeDTO productType;
     private Set<ProductSizeDTO> productSizes;

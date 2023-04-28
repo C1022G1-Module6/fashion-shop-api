@@ -4,11 +4,9 @@ package vn.codegym.service.product.impl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import vn.codegym.dto.product.ProductCreateDTO;
-import vn.codegym.dto.product.ProductDTO;
-import vn.codegym.dto.product.ProductDetailDTO;
-import vn.codegym.dto.product.ProductSizeDTO;
+import vn.codegym.dto.product.*;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.repository.product.IProductRepository;
@@ -45,8 +43,18 @@ public class ProductService implements IProductService {
      * @return : Page<Product>
      * function : findAllProduct
      */
-    public Page<Product> findAllProducts(Pageable pageable) {
-        return productRepository.findAllProducts(pageable);
+    public Page<ProductDTO> findAllProducts(Pageable pageable) {
+        Page<Product> products = productRepository.findAllProducts(pageable);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        ProductDTO productDTO;
+        for (Product product: products) {
+            productDTO = new ProductDTO();
+            productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product.getProductType(), productDTO.getProductType());
+            BeanUtils.copyProperties(product, productDTO);
+            productDTOS.add(productDTO);
+        }
+        return new PageImpl<>(productDTOS, pageable, products.getTotalElements());
     }
 
     /**
@@ -78,6 +86,8 @@ public class ProductService implements IProductService {
         Product product = new Product();
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
         BeanUtils.copyProperties(productCreateDTO, product);
+        int id = productRepository.getTotalCodeAmount() + 100000;
+        product.setCode("MH" + id);
         productRepository.addProduct(product.getCode(),
                 product.getName(),
                 product.getImg(),
@@ -92,8 +102,6 @@ public class ProductService implements IProductService {
         for (ProductSizeDTO size : productCreateDTO.getProductSizes()) {
             productRepository.addProductSizeDetail(size.getId(), product1.getId());
         }
-
-
     }
 
     /**

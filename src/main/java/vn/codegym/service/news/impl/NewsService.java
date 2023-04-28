@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.codegym.dto.news.INewsDTO;
+import vn.codegym.dto.news.NewsDTO;
 import vn.codegym.entity.news.News;
 import vn.codegym.repository.news.INewsRepository;
 import vn.codegym.service.news.INewsService;
@@ -26,8 +27,8 @@ public class NewsService implements INewsService {
      * @return no return value
      */
     @Override
-    public void addNews(News newsDTO) {
-        iNewsRepository.addNews(newsDTO.getContent(),newsDTO.getImg(),newsDTO.getTitle(),newsDTO.getEmployee().getId());
+    public void addNews(NewsDTO newsDTO) {
+        iNewsRepository.addNews(newsDTO.getContent(),newsDTO.getImg(),newsDTO.getNameImg(),newsDTO.getTitle(),1);
     }
 
     /**

@@ -22,9 +22,8 @@ public class InvoiceDetailRestController {
     private IInvoiceDetailService invoiceDetailService;
 
     @PostMapping("")
-    public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO,
-                                                 BindingResult bindingResult) {
-        if (invoiceDetailDTO.getProductDTO().getId() == null || invoiceDetailDTO.getInvoiceDTO().getId() == null) {
+    public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO, BindingResult bindingResult) {
+        if (invoiceDetailDTO.getProductDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
@@ -43,12 +42,17 @@ public class InvoiceDetailRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> listAll() {
-        try {
-            List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
-            return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
-        } catch (Exception e) {
+    public ResponseEntity<List<InvoiceDetailDTO>> listAll() {
+        List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
+        return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        invoiceDetailService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -25,8 +25,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select * from product where id = :id", nativeQuery = true)
     Product findWithId(@Param("id") Integer id);
 
-    @Query(value = "select * from product where code = :code", nativeQuery = true)
-    Product findWithCode(@Param("code") String code);
+
     /**
      * Created by : QuanTVA
      * @param id
@@ -120,11 +119,14 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select * from product join product_type pt on product.product_type_id = pt.id where pt.id = coalesce(nullif(:id,0), pt.id) and product.name like CONCAT('%' :name '%')", nativeQuery = true)
     Page<Product> ListProduct(@Param("name") String name, @Param("id") Integer product_type_id, Pageable pageable);
 
-    @Query(value = "select * from product where code = :code", nativeQuery = true)
-    Product findWithCode(@Param("code") String code);
+
 
     @Query(value = "select * from product where qr_img = :qrImg", nativeQuery = true)
     Product findWithQr(@Param("qrImg") String qrImg);
+    @Query(value = "select * from product where code = :code", nativeQuery = true)
+    Product findWithCode(@Param("code") String code);
 
+    @Query(value = "select count(code) from product", nativeQuery = true)
+    Integer getTotalCodeAmount();
 }
 

@@ -6,4 +6,5 @@ public interface INewsDTO {
     String getImg();
     String getTitle();
     Integer getEmployeeId();
+    String getDateTime();
 }

@@ -27,10 +27,6 @@ public class ProductType {
 
     public static ProductType valueOf(Integer productTypeId) {
         return null;
-
-
-    public ProductType() {
-
     }
 
     public Integer getId() {
@@ -49,7 +45,6 @@ public class ProductType {
         this.name = name;
     }
 
-
     public Set<Product> getProducts() {
         return products;
     }
@@ -58,3 +53,6 @@ public class ProductType {
         this.products = products;
     }
 }
+
+
+

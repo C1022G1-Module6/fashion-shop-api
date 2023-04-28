@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IInvoiceDetailService {
     void save(InvoiceDetailDTO invoiceDetailDTO);
-    //    void update(Integer invoiceId);
     void delete(Integer id);
     List<InvoiceDetailDTO> findAll();
+    void deleteAll();
 }
+

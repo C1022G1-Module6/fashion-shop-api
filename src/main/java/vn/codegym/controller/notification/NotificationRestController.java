@@ -3,6 +3,7 @@ package vn.codegym.controller.notification;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -35,12 +36,35 @@ public class NotificationRestController {
      */
     @GetMapping("")
     public ResponseEntity<Page<NotificationDTO>> getAll(@PageableDefault(size = 4) Pageable pageable) {
-        Page<NotificationDTO> notifications = notificationService.getAll(pageable);
+        Pageable sortedPageaBle = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<NotificationDTO> notifications = notificationService.getAll(sortedPageaBle);
         if (notifications.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(notifications, HttpStatus.OK);
         }
+    }
+
+    /**
+     *
+     * id search function
+     * @param id
+     * if id  is null
+     * @return httpStatusCode = 400
+     * otherwise id
+      * @return httpStatusCode = 200
+     */
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<NotificationDTO> findById( @PathVariable("id") Integer id) {
+         NotificationDTO notificationDTO= notificationService.findByIdNotification(id);
+         if(notificationDTO == null){
+             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+         }
+        return new ResponseEntity<>(notificationDTO, HttpStatus.OK);
+
+
     }
 
     /**
@@ -69,7 +93,7 @@ public class NotificationRestController {
 
         notificationService.addNotification(notification);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
 
     }

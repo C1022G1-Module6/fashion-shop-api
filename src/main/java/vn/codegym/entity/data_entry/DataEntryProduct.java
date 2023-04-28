@@ -13,15 +13,29 @@ public class DataEntryProduct {
     private Integer id;
     private Integer quantity;
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    @JsonBackReference
-    private Product product;
-    @ManyToOne
     @JoinColumn(name = "data_entry_id")
     @JsonBackReference
     private DataEntry dataEntry;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private Product product;
+    private Boolean isDelete = false;
 
-    public DataEntryProduct() {
+    public DataEntry getDataEntry() {
+        return dataEntry;
+    }
+
+    public void setDataEntry(DataEntry dataEntry) {
+        this.dataEntry = dataEntry;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 
     public Integer getId() {
@@ -40,19 +54,12 @@ public class DataEntryProduct {
         this.quantity = quantity;
     }
 
+
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public DataEntry getDataEntry() {
-        return dataEntry;
-    }
-
-    public void setDataEntry(DataEntry dataEntry) {
-        this.dataEntry = dataEntry;
     }
 }
