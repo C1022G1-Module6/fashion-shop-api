@@ -48,7 +48,7 @@ public class StatisticalRestController {
     }
 
     /**
-     *Phương thức này để gửi top nhân viên baán hàng tốt nhất
+     *Phương thức này để gửi top nhân viên bán hàng tốt nhất
      * @return nếu không có dữ liệu thì gửi status NO_CONTENT
      * @return nếu có dữ liệu thì gửi status OK và trả về dữ liệu
      */
@@ -79,7 +79,7 @@ public class StatisticalRestController {
 
 
     /**
-     *Phương thức này để tính doanh thu shop
+     *Phương thức này để tính doanh thu shop theo tuần
      *
      * @return nếu có dữ liệu trả về dữ liệu
      */
@@ -87,7 +87,11 @@ public class StatisticalRestController {
     public Double getTotalRevenueWeek() {
         return iStatiscialService.getTotalRevenuesWeek();
 }
-
+    /**
+     *Phương thức này để tính doanh thu shop theo tháng
+     *
+     * @return nếu có dữ liệu trả về dữ liệu
+     */
     @GetMapping("/total-month")
     public Double getTotalRevenueMonth() {
         return iStatiscialService.getTotalRevenuesMonth();
