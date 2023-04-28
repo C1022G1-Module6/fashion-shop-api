@@ -1,9 +1,6 @@
 package vn.codegym.dto.invoice;
 
 import vn.codegym.dto.customer.CustomerDTO;
-
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
 

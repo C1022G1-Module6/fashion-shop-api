@@ -30,7 +30,7 @@ public class InvoiceRestController {
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<?> getAllList() {
+    public ResponseEntity<List<InvoiceDTO>> getAllList() {
         try {
              List<InvoiceDTO> invoiceDTOList = invoiceService.findAll();
             return new ResponseEntity<>(invoiceDTOList ,HttpStatus.OK);
@@ -68,7 +68,7 @@ public class InvoiceRestController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getInvoice() {
+    public ResponseEntity<InvoiceDTO> getInvoice() {
         InvoiceDTO invoiceDTO = invoiceService.getInvoiceDetail();
         return new ResponseEntity<>(invoiceDTO, HttpStatus.OK);
     }

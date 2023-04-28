@@ -19,8 +19,7 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, I
                            @Param("invoice") Integer invoiceId,
                            @Param("product") Integer productId,
                            @Param("isDelete") Boolean isDelete);
-//    @Query(value = "select * from invoice_detail where is_delete = false", nativeQuery = true)
-//    List<InvoiceDetail> listAllInvoiceDetail();
+
     @Query(value = "select * from invoice_detail where id = :id", nativeQuery = true)
     InvoiceDetail findDetailWithId(@Param("id") Integer id);
     @Query(value = "select  * from invoice_detail where invoice_id = :id and is_delete = false", nativeQuery = true)
