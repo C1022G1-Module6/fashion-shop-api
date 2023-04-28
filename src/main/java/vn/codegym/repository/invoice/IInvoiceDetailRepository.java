@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, Integer> {
+
     @Modifying
     @Transactional
     @Query(value = "insert into invoice_detail (quantity, total, invoice_id, product_id, is_delete) " +
@@ -25,4 +26,5 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, I
     InvoiceDetail findDetailWithId(@Param("id") Integer id);
     @Query(value = "select  * from invoice_detail where invoice_id = :id and is_delete = false", nativeQuery = true)
     List<InvoiceDetail> getAllWithId(@Param("id") Integer id);
+
 }

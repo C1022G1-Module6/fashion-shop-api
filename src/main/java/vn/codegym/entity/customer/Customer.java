@@ -1,6 +1,6 @@
 package vn.codegym.entity.customer;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import vn.codegym.entity.invoice.Invoice;
 
 import javax.persistence.*;
@@ -25,19 +25,12 @@ public class Customer {
     private Integer point = 0;
     private Boolean isDelete = false;
 
-    public Boolean getDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(Boolean delete) {
-        isDelete = delete;
-    }
-
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
     @OneToMany(mappedBy = "customer")
-    @JsonBackReference
+//    @JsonManagedReference
+    @JsonIgnore
     private Set<Invoice> invoices;
 
     public Customer() {
@@ -57,14 +50,6 @@ public class Customer {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isGender() {
@@ -131,4 +116,19 @@ public class Customer {
         this.invoices = invoices;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
 }
