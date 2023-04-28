@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.codegym.entity.customer.Customer;
-import vn.codegym.entity.customer.CustomerType;
-import vn.codegym.service.customer.ICustomerTypeService;
-
-import java.util.List;
 import vn.codegym.entity.customer.CustomerType;
 import vn.codegym.service.customer.ICustomerTypeService;
 

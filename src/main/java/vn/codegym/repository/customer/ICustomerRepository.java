@@ -3,14 +3,13 @@ package vn.codegym.repository.customer;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import vn.codegym.entity.customer.Customer;
+
 
 import java.util.List;
 
@@ -25,8 +24,8 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * @param phoneNumber
      * @param isDelete
      * @return function returns page containing customer data information
-     */;
-//    @Query(value = "select * from customer c where code like concat('%', :code, '%') and name like concat('%', :name, '%') and phone_number like concat('%', :phoneNumber, '%') and is_delete = false", nativeQuery = true)
+     */
+
     @Query(value = "SELECT * FROM customer c WHERE c.code LIKE CONCAT('%', :code, '%') AND c.name LIKE CONCAT('%', :name, '%') AND c.phone_number LIKE CONCAT('%', :phoneNumber, '%') AND c.is_delete = false", nativeQuery = true)
     Page<Customer> searchCustomerInfo(Pageable pageable,
                                       @Param("code") String code,

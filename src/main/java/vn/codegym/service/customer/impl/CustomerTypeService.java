@@ -4,13 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.codegym.entity.customer.CustomerType;
 import vn.codegym.repository.customer.ICustomerTypeRepository;
 import vn.codegym.service.customer.ICustomerTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.codegym.entity.customer.CustomerType;
-import vn.codegym.repository.customer.ICustomerTypeRepository;
-import vn.codegym.service.customer.ICustomerTypeService;
-
-import java.util.List;
 
 import java.util.List;
 
