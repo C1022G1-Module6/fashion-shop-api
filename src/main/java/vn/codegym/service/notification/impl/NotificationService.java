@@ -43,14 +43,16 @@ public class NotificationService implements INotificationService {
 
     @Override
     public NotificationDTO findByIdNotification(Integer id) {
-        Notification notification =  notificationRepository.findByNotificationId(id);
+        Notification notification =  notificationRepository.findById(id).get();
         if (notification == null) {
+            // handle the case where the notification is not found
             return null;
         }
         NotificationDTO notificationDTO =new NotificationDTO();
         notificationDTO.setEmployeeDTO(new EmployeeDTO());
         BeanUtils.copyProperties(notification.getEmployee(), notificationDTO.getEmployeeDTO());
         BeanUtils.copyProperties(notification, notificationDTO);
+
 
 
 
