@@ -1,7 +1,6 @@
 package vn.codegym.dto.data_entry;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 public class DataEntryDTO {
@@ -52,8 +51,5 @@ public class DataEntryDTO {
 
     public void setDataEntryProductDTOSet(Set<DataEntryProductDTO> dataEntryProductDTOSet) {
         this.dataEntryProductDTOSet = dataEntryProductDTOSet;
-    }
-
-    public DataEntryDTO() {
     }
 }

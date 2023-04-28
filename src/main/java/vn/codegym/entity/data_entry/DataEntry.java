@@ -20,9 +20,6 @@ public class DataEntry {
     @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;
 
-    public DataEntry() {
-    }
-
     public Integer getId() {
         return id;
     }
