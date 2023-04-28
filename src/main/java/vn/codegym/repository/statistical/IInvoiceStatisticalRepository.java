@@ -12,12 +12,22 @@ import java.util.List;
 @Repository
 public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, Integer> {
     /**
-     * Lấy tổng doanh thu
+     * Lấy tổng doanh thu theo tuần
      *
      */
-    @Query(value = "SELECT SUM(payment) AS total_revenue FROM invoice",nativeQuery = true)
-    Double getTotalRevenue();
+    @Query(value = "SELECT SUM(payment) AS total_payment_week \n" +
+            "FROM invoice \n" +
+            "WHERE date BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE();",nativeQuery = true)
+    Double getTotalRevenueWeek();
 
+    /**
+     * Lấy tổng doanh thu theo tháng
+     *
+     */
+    @Query(value = "SELECT SUM(payment) AS total_payment_month \n" +
+            "FROM invoice \n" +
+            "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());",nativeQuery = true)
+    Double getTotalRevenueMonth();
 
     /**
      * Lấy top 5 nhân viên bán chạy nhất

@@ -20,8 +20,12 @@ public class StatiscialServiceImpl implements IStatiscialService {
     IProductStatisticalRepository iProductStatiscialRepository;
 
     @Override
-    public Double getTotalRevenues() {
-        return iInvoiceStatiscialRepository.getTotalRevenue();
+    public Double getTotalRevenuesWeek() {
+        return iInvoiceStatiscialRepository.getTotalRevenueWeek();
+    }
+    @Override
+    public Double getTotalRevenuesMonth() {
+        return iInvoiceStatiscialRepository.getTotalRevenueMonth();
     }
 
     @Override
