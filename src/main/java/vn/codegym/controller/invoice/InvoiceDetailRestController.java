@@ -45,9 +45,18 @@ public class InvoiceDetailRestController {
     @GetMapping("")
     public ResponseEntity<?> listAll() {
         List<InvoiceDetailDTO> invoiceDetailDTOList = invoiceDetailService.findAll();
-        if (invoiceDetailDTOList.size() == 0) {
+//        if (invoiceDetailDTOList.size() == 0) {
+//            return new ResponseEntity<>(invoiceDetailDTOList, HttpStatus.NO_CONTENT);
+//        }
+        return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(invoiceDetailDTOList ,HttpStatus.OK);
+        invoiceDetailService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

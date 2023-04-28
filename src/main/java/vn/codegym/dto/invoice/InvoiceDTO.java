@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class InvoiceDTO {
     private Integer id;
-    @Pattern(regexp = "^HD\\d{6}$", message = "Mã hóa đơn có định dạng HDXXXXXX (X là số)")
+
     private String code;
     private String date;
     private String employeeName;
@@ -17,7 +17,7 @@ public class InvoiceDTO {
     private Double total;
     @PositiveOrZero(message = "Thành tiền phải là số dương")
     private Double payment;
-    @Positive(message = "Điểm thưởng phải là số nguyên dương")
+
     private Integer bonusPoint;
     private CustomerDTO customerDTO;
     private Set<InvoiceDetailDTO> invoiceDetailDTOS;

@@ -48,7 +48,7 @@ public class InvoiceRestController {
     @PutMapping("")
     public ResponseEntity<?> updateInvoice(@Validated @RequestBody InvoiceDTO invoiceDTO, BindingResult bindingResult) {
         if (invoiceDTO.getBonusPoint() == null || invoiceDTO.getTotal() == null
-                || invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getId() == null) {
+                || invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {

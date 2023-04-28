@@ -79,6 +79,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     public void delete(Integer id) {
         InvoiceDetail invoiceDetail = invoiceDetailRepository.findDetailWithId(id);
         invoiceDetail.setDelete(true);
+        invoiceDetailRepository.save(invoiceDetail);
     }
 
     /**
