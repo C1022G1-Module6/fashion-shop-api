@@ -54,11 +54,11 @@ public class DataEntryProductRestController {
      */
     @GetMapping("")
     public ResponseEntity<?> listALl() {
-        try {
-            List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
+        List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
+//        if(dataEntryProductDTOList.size() == 0){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
             return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//
     }
 }

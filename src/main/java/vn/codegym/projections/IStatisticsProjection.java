@@ -1,5 +1,5 @@
 package vn.codegym.projections;
 public interface IStatisticsProjection {
-    String getDate();
+    String getDay();
     Integer getRevenue();
 }

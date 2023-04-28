@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.data_entry.DataEntryDTO;
+import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.service.data_entry.IDataEntryService;
 import vn.codegym.service.data_entry.impl.DataEntryProductServiceImpl;
 
@@ -69,5 +70,11 @@ public class DataEntryRestController {
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> getInvoice() {
+        DataEntryDTO dataEntryDTO = iDataEntryService.getDataEntryDetail();
+        return new ResponseEntity<>(dataEntryDTO, HttpStatus.OK);
     }
 }
