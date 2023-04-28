@@ -1,33 +1,21 @@
 package vn.codegym.controller.customer;
 
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.entity.customer.Customer;
-import vn.codegym.entity.customer.CustomerType;
 import vn.codegym.service.customer.ICustomerService;
 import vn.codegym.service.customer.ICustomerTypeService;
-
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import vn.codegym.dto.customer.CustomerDTO;
-import vn.codegym.service.customer.ICustomerService;
+
 
 @RestController
 @RequestMapping("/api/customer")
@@ -64,15 +52,7 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerDTOS, HttpStatus.OK);
     }
 
-    /**
-     * Function delete customer
-     * @param id
-     */
-//    @ResponseStatus(HttpStatus.OK)
-//    @DeleteMapping("")
-//    public void delete(@RequestParam(required = false) Integer id) {
-//        customerService.deleteCustomer(id);
-//    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable int id) {
@@ -89,25 +69,13 @@ public class CustomerRestController {
     @PostMapping(value = {"/create"} )
     public ResponseEntity<?> createCustomer(@Validated @RequestBody CustomerDTO customerDTO, BindingResult bindingResult){
         new CustomerDTO().validate(customerDTO,bindingResult);
-//        Map<String,String> check = iCustomerService.checkCreate(customerDTO);
-//        if (check.get("errorCode") != null) {
-//            bindingResult.rejectValue("code", "code", check.get("errorCode"));
-//        }
-//        if (check.get("errorPhone") != null) {
-//            bindingResult.rejectValue("phoneNumber", "phoneNumber", check.get("errorPhone"));
-//        }
-//
-//        if (check.get("errorEmail") != null) {
-//            bindingResult.rejectValue("email", "email", check.get("errorEmail"));
-//        }
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(customerDTO, customer);
 
-        customerService.saveCustomer(customer.getCode(),customer.getName(),customer.isGender(),customer.getDateOfBirth(),
-                customer.getAddress(),customer.getEmail(),customer.getPhoneNumber(),customer.getPoint(),customer.getCustomerType().getId());
+
+        customerService.saveCustomer(customerDTO.getCode(),customerDTO.getName(),customerDTO.isGender(),customerDTO.getDateOfBirth(),
+                customerDTO.getAddress(),customerDTO.getEmail(),customerDTO.getPhoneNumber(),0,2);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -133,16 +101,6 @@ public class CustomerRestController {
     public ResponseEntity<?> updateCustomer(@PathVariable("id") Integer id, @Validated @RequestBody CustomerDTO customerDTO, BindingResult bindingResult) {
         new CustomerDTO().validate(customerDTO, bindingResult);
         customerDTO.setId(id);
-//        Map<String, String> check = iCustomerService.checkUpdate(customerDTO);
-//        if (check.get("errorCode") != null) {
-//            bindingResult.rejectValue("code", "code", check.get("errorCode"));
-//        }
-//        if (check.get("errorPhone") != null) {
-//            bindingResult.rejectValue("phoneNumber", "phoneNumber", check.get("errorPhone"));
-//        }
-//        if (check.get("errorEmail") != null) {
-//            bindingResult.rejectValue("email", "email", check.get("errorEmail"));
-//        }
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }

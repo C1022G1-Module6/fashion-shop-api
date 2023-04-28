@@ -3,12 +3,9 @@ package vn.codegym.service.customer;
 import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.entity.customer.Customer;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import vn.codegym.dto.customer.CustomerDTO;
+
 
 public interface ICustomerService {
     /**
