@@ -86,12 +86,12 @@ public class InvoiceService implements IInvoiceService {
         BeanUtils.copyProperties(invoiceDTO, invoice);
         Customer customer = getCustomer(invoiceDTO.getCustomerDTO().getCode());
         invoice.setCustomer(customer);
-        CustomerType customerType = customer.getCustomerType();
-        customerType.setBonusPoint(invoice.getBonusPoint());
-        customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
-        if (customer.getPoint() >= 1200) {
-            customer.getCustomerType().setId(1);
-        }
+//        CustomerType customerType = customer.getCustomerType();
+//        customerType.setBonusPoint(invoice.getBonusPoint());
+//        customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
+//        if (customer.getPoint() >= 1200) {
+//            customer.getCustomerType().setId(1);
+//        }
         customerRepository.save(customer);
         invoiceRepository.updateInvoice(invoice);
     }
