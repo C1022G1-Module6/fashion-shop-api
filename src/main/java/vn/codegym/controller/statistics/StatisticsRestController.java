@@ -32,6 +32,11 @@ public class StatisticsRestController {
         }
     }
 
+    /**
+     * This method is used to get monthly revenue data with the month parameter passed in
+     * @param month
+     * @return
+     */
     @GetMapping("/month-revenue")
     public ResponseEntity<?> monthRevenue(@RequestParam(required = false, defaultValue = "") Integer month) {
         try {

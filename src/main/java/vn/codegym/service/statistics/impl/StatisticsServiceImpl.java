@@ -17,7 +17,7 @@ public class StatisticsServiceImpl implements IStatisticsService {
     /**
      * This method is used to display the list IStatisticsProjection
      *
-     * @return
+     * @return return a iStatisticsProjectionList
      */
     @Override
     public List<IStatisticsProjection> findAll(Integer month) {
@@ -25,6 +25,11 @@ public class StatisticsServiceImpl implements IStatisticsService {
         return iStatisticsProjectionList;
     }
 
+    /**
+     * This method is used to get a month's revenue data
+     * @param month
+     * @return return a iMonthRevenueProjectionList
+     */
     @Override
     public List<IMonthRevenueProjection> monthRevenue(Integer month) {
         List<IMonthRevenueProjection> iMonthRevenueProjectionList = iStatisticsRepository.totalRevenueMonth(month);
