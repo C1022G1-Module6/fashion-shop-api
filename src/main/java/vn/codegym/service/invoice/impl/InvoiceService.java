@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.entity.customer.Customer;
+import vn.codegym.entity.customer.CustomerType;
 import vn.codegym.entity.invoice.Invoice;
 import vn.codegym.repository.customer.ICustomerRepository;
 import vn.codegym.repository.invoice.IInvoiceRepository;
@@ -85,6 +86,13 @@ public class InvoiceService implements IInvoiceService {
         BeanUtils.copyProperties(invoiceDTO, invoice);
         Customer customer = getCustomer(invoiceDTO.getCustomerDTO().getCode());
         invoice.setCustomer(customer);
+        CustomerType customerType = customer.getCustomerType();
+        customerType.setBonusPoint(invoice.getBonusPoint());
+        customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
+        if (customer.getPoint() >= 1200) {
+            customer.getCustomerType().setId(1);
+        }
+        customerRepository.save(customer);
         invoiceRepository.updateInvoice(invoice);
     }
 
@@ -107,5 +115,4 @@ public class InvoiceService implements IInvoiceService {
         }
         return invoiceDTOList;
     }
-
 }

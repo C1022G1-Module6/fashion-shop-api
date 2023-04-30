@@ -32,7 +32,7 @@ public class InvoiceRestController {
     @GetMapping("")
     public ResponseEntity<List<InvoiceDTO>> getAllList() {
         try {
-             List<InvoiceDTO> invoiceDTOList = invoiceService.findAll();
+            List<InvoiceDTO> invoiceDTOList = invoiceService.findAll();
             return new ResponseEntity<>(invoiceDTOList ,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -71,5 +71,11 @@ public class InvoiceRestController {
     public ResponseEntity<InvoiceDTO> getInvoice() {
         InvoiceDTO invoiceDTO = invoiceService.getInvoiceDetail();
         return new ResponseEntity<>(invoiceDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<Void> cancelInvoice () {
+        invoiceDetailService.resetCount();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
