@@ -61,6 +61,7 @@ public class DataEntryService implements IDataEntryService {
         DataEntry dataEntry = findLastDataEntryInList();
         dataEntryDTO.setId(dataEntry.getId());
         dataEntryDTO.setCode(dataEntry.getCode());
+        dataEntryDTO.setDate(dataEntry.getDate());
         BeanUtils.copyProperties(dataEntryDTO, dataEntry);
         iDataEntryRepository.updateDataEntry(
                 dataEntry.getCode(),

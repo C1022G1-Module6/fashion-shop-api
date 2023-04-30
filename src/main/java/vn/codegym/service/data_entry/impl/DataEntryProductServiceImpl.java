@@ -35,36 +35,37 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
             private IDataEntryRepository iDataEntryRepository;
     Integer count = 0;
 
-    public void saveNewDataEntry() {
-        DataEntryDTO dataEntryDTO = new DataEntryDTO();
-        int id = iDataEntryRepository.getTotalCodeAmount();
-        dataEntryDTO.setCode("MP" + id);
-        dataEntryDTO.setDate(LocalDate.now().toString());
-        iDataEntryService.entryProduct(dataEntryDTO);
+
+    public void saveNewDataEntry(){
+            DataEntryDTO dataEntryDTO = new DataEntryDTO();
+            int id = iDataEntryRepository.getTotalCodeAmount() + 10000;
+            dataEntryDTO.setCode("MP" + id);
+            dataEntryDTO.setDate(LocalDate.now().toString());
+            iDataEntryService.entryProduct(dataEntryDTO);
     }
 
     /**
-     *this method is applied to create new invoice with dataEntryProductDTO as param when this method is request,
+     * this method is applied to create new invoice with dataEntryProductDTO as param when this method is request,
      * it also increases count value and create new data entry instance to db by using save method from
      * iDataEntryService(only create if count = 0)
      * @param dataEntryProductDTO
      */
     @Override
     public void saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
+        Product product = iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode());
         DataEntryProduct dataEntryProduct = new DataEntryProduct();
-        if(count == 0 ){
-            saveNewDataEntry();
-        }
+        if(count == 0 ){ saveNewDataEntry();}
         dataEntryProduct.setDataEntry(iDataEntryService.findLastDataEntryInList());
-        dataEntryProduct.setProduct(iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode()));
+        dataEntryProduct.setProduct(product);
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
+        product.setQuantity(product.getQuantity() + dataEntryProduct.getQuantity());
+        iProductRepository.save(product);
         iDataEntryProductRepository.saveDataEntryProduct(dataEntryProduct.getQuantity(),
                 dataEntryProduct.getDataEntry().getId(),
                 dataEntryProduct.getProduct().getId(),
                 dataEntryProduct.getDelete());
         count++;
     }
-
     public void resetCount() {
         count = 0 ;
     }
@@ -77,6 +78,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
     public void delete(Integer id) {
         DataEntryProduct dataEntryProduct = iDataEntryProductRepository.findEntryProductWithId(id);
         dataEntryProduct.setDelete(true);
+        iDataEntryProductRepository.save(dataEntryProduct);
     }
 
     public void setValueOfProductSize(Product product, ProductDTO productDTO){
