@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.employee.EmployeeMailDTO;
+import vn.codegym.dto.employee.EmployeeOtpDTO;
 import vn.codegym.dto.request.ChangePasswordRequest;
 import vn.codegym.dto.request.ResetPasswordRequest;
 import vn.codegym.dto.request.SignInForm;
@@ -159,7 +160,17 @@ public class AuthRestController {
         }
     }
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> processForgotPassword(@RequestBody EmployeeMailDTO employeeMailDTO) {
+    public ResponseEntity<?> processForgotPassword(@Validated @RequestBody EmployeeMailDTO employeeMailDTO,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> map = new LinkedHashMap<>();
+            List<FieldError> err = bindingResult.getFieldErrors();
+            for (FieldError error : err) {
+                if (!map.containsKey(error.getField())) {
+                    map.put(error.getField(), error.getDefaultMessage());
+                }
+            }
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
         Employee employee = iEmployeeService.findByEmailEmployee(employeeMailDTO.getEmail());
         if (employee == null) {
             return new ResponseEntity<>(new ResponseMessage("Không tìm thấy email"), HttpStatus.BAD_REQUEST);
@@ -170,8 +181,18 @@ public class AuthRestController {
     }
 
     @PutMapping("/check-otp")
-    public ResponseEntity<?> confirmForgotPassword(@RequestBody EmployeeMailDTO employeeMailDTO) {
-        if (iEmailService.validateOtp(employeeMailDTO.getCode(), employeeMailDTO.getEmail())) {
+    public ResponseEntity<?> confirmForgotPassword(@Validated @RequestBody EmployeeOtpDTO employeeOtpDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> map = new LinkedHashMap<>();
+            List<FieldError> err = bindingResult.getFieldErrors();
+            for (FieldError error : err) {
+                if (!map.containsKey(error.getField())) {
+                    map.put(error.getField(), error.getDefaultMessage());
+                }
+            }
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
+        if (iEmailService.validateOtp(employeeOtpDTO.getCode(), employeeOtpDTO.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("Xác thực mã OTP thành công"), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(new ResponseMessage("Mã OTP không chính xác"), HttpStatus.BAD_REQUEST);
