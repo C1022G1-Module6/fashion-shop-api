@@ -32,29 +32,34 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
     private IProductRepository iProductRepository;
 
     @Autowired
-            private IDataEntryRepository iDataEntryRepository;
+    private IDataEntryRepository iDataEntryRepository;
     Integer count = 0;
 
-
-    public void saveNewDataEntry(){
-            DataEntryDTO dataEntryDTO = new DataEntryDTO();
-            int id = iDataEntryRepository.getTotalCodeAmount() + 10000;
-            dataEntryDTO.setCode("MP" + id);
-            dataEntryDTO.setDate(LocalDate.now().toString());
-            iDataEntryService.entryProduct(dataEntryDTO);
+    /**
+     * This method used to create code and date by date current for object dataEntryDTO
+     */
+    public void saveNewDataEntry() {
+        DataEntryDTO dataEntryDTO = new DataEntryDTO();
+        int id = iDataEntryRepository.getTotalCodeAmount() + 10000;
+        dataEntryDTO.setCode("MP" + id);
+        dataEntryDTO.setDate(LocalDate.now().toString());
+        iDataEntryService.entryProduct(dataEntryDTO);
     }
 
     /**
      * this method is applied to create new invoice with dataEntryProductDTO as param when this method is request,
      * it also increases count value and create new data entry instance to db by using save method from
      * iDataEntryService(only create if count = 0)
+     *
      * @param dataEntryProductDTO
      */
     @Override
     public void saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
         Product product = iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode());
         DataEntryProduct dataEntryProduct = new DataEntryProduct();
-        if(count == 0 ){ saveNewDataEntry();}
+        if (count == 0) {
+            saveNewDataEntry();
+        }
         dataEntryProduct.setDataEntry(iDataEntryService.findLastDataEntryInList());
         dataEntryProduct.setProduct(product);
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
@@ -67,8 +72,9 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
                 dataEntryProduct.getDelete());
         count++;
     }
+
     public void resetCount() {
-        count = 0 ;
+        count = 0;
     }
 
     /**
@@ -82,11 +88,16 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         iDataEntryProductRepository.save(dataEntryProduct);
     }
 
-    public void setValueOfProductSize(Product product, ProductDTO productDTO){
+    /**
+     * This method is used to set value for product
+     * @param product
+     * @param productDTO
+     */
+    public void setValueOfProductSize(Product product, ProductDTO productDTO) {
         Set<ProductSize> productSizeSet = product.getProductSizes();
         Set<ProductSizeDTO> productSizeDTOSet = new HashSet<>();
         ProductSizeDTO productSizeDTO;
-        for (ProductSize productSize: productSizeSet){
+        for (ProductSize productSize : productSizeSet) {
             productSizeDTO = new ProductSizeDTO();
             BeanUtils.copyProperties(productSize, productSizeDTO);
             productSizeDTOSet.add(productSizeDTO);
@@ -95,7 +106,8 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
     }
 
     /**
-     *This function get all dataEntryProductDTO instances and return a list of data entry instances
+     * This function get all dataEntryProductDTO instances and return a list of data entry instances
+     *
      * @return
      */
     @Override
@@ -103,7 +115,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         List<DataEntryProduct> dataEntryProductList = iDataEntryProductRepository.getAllWithId(iDataEntryService.findLastDataEntryInList().getId());
         List<DataEntryProductDTO> dataEntryProductDTOList = new ArrayList<>();
         DataEntryProductDTO dataEntryProductDTO;
-        for (DataEntryProduct dataEntryProduct: dataEntryProductList) {
+        for (DataEntryProduct dataEntryProduct : dataEntryProductList) {
             dataEntryProductDTO = new DataEntryProductDTO();
             dataEntryProductDTO.setDataEntryDTO(new DataEntryDTO());
             dataEntryProductDTO.setProductDTO(new ProductDTO());

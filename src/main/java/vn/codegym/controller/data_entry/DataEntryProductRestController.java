@@ -64,6 +64,11 @@ public class DataEntryProductRestController {
         }
     }
 
+    /**
+     * This method is used to delete an object based on the id passed in
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         if (id == null) {

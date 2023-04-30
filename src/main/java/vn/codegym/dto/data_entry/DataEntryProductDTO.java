@@ -8,7 +8,6 @@ public class DataEntryProductDTO {
     private Integer id;
     @Positive(message = "Số lượng là số nguyên dương")
     private Integer quantity;
-
     private DataEntryDTO dataEntryDTO;
     private ProductDTO productDTO;
     private Boolean isDelete = false;

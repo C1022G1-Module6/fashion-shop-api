@@ -73,7 +73,7 @@ public class DataEntryService implements IDataEntryService {
     /**
      *This function get all dataEntryDTO and return a list of data entry instances by transfer the values of list
      * created by using method listAllDataEntry from repository
-     * @return
+     * @return return a dataEntryDTOList
      */
     @Override
     public List<DataEntryDTO> findAll() {
@@ -88,6 +88,10 @@ public class DataEntryService implements IDataEntryService {
         return dataEntryDTOList;
     }
 
+    /**
+     * This method is used to view dataEntry object details
+     * @return return a object
+     */
     @Override
     public DataEntryDTO getDataEntryDetail() {
         List<DataEntry> dataEntryList = iDataEntryRepository.listAllDataEntry();
