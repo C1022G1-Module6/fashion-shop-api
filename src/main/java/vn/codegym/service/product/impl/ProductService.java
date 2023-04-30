@@ -69,13 +69,17 @@ public class ProductService implements IProductService {
      * @return Page<ProductDTO>
      * Function : search
      */
-    public Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable) {
-        List<String> productSizeList = null;
-        if (productSizes != null) {
-            productSizeList = new ArrayList<>();
-            Collections.addAll(productSizeList, productSizes);
+    public Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String code, Pageable pageable) {
+        Page<Product> products = productRepository.search(productName, code, productTypeId, pageable);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        ProductDTO productDTO;
+        for (Product product: products) {
+            productDTO = new ProductDTO();
+            productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product, productDTO);
+            productDTOS.add(productDTO);
         }
-        return productRepository.search(productName, productSizeList, productTypeId, pageable);
+        return new PageImpl<>(productDTOS, pageable, products.getTotalElements());
     }
 
     /**
@@ -86,11 +90,12 @@ public class ProductService implements IProductService {
     public void addProduct(ProductCreateDTO productCreateDTO) {
 
         Product product = new Product();
+        product.setQuantity(0);
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
         BeanUtils.copyProperties(productCreateDTO, product);
         int id = productRepository.getTotalCodeAmount() + 100000;
         product.setCode("MH" + id);
-        String qrImgPath = "E:\\Codegym\\project_reactJS\\fashion-shop-reactjs\\src\\qrCode\\" + product.getCode() + ".png";
+        String qrImgPath = "D:\\module-6\\fashion-shop-reactjs\\src\\qrCode\\" + product.getCode() + ".png";
         try {
             Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
@@ -107,7 +112,8 @@ public class ProductService implements IProductService {
                 product.getEntryPrice(),
                 product.getSellingPrice(),
                 product.getProductType().getId(),
-                product.isDelete());
+                product.isDelete(),
+                product.getQuantity());
 
         Product product1 = productRepository.findWithCode(product.getCode());
 //

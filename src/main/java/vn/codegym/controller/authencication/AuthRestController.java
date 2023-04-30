@@ -34,6 +34,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
+
 public class AuthRestController {
 
     @Autowired

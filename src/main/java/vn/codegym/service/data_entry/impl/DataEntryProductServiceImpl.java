@@ -60,7 +60,8 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
         product.setQuantity(product.getQuantity() + dataEntryProduct.getQuantity());
         iProductRepository.save(product);
-        iDataEntryProductRepository.saveDataEntryProduct(dataEntryProduct.getQuantity(),
+        iDataEntryProductRepository.saveDataEntryProduct(
+                dataEntryProduct.getQuantity(),
                 dataEntryProduct.getDataEntry().getId(),
                 dataEntryProduct.getProduct().getId(),
                 dataEntryProduct.getDelete());
