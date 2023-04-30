@@ -22,13 +22,14 @@ public class EmployeeService implements IEmployeeService {
     @Autowired
     @Lazy
     PasswordEncoder passwordEncoder;
+
     /**
      * QuanNLA
      * Date 24/04/2023
      * Method to find username
+     *
      * @param name
      * @return Employee
-     *
      */
     @Override
     public Optional<Employee> findByUsername(String name) {
@@ -39,21 +40,22 @@ public class EmployeeService implements IEmployeeService {
      * QuanNLA
      * Date 24/04/2023
      * Method to check username exists or not
+     *
      * @param username
-     * @return
-     * If username exists, return true, else false
+     * @return If username exists, return true, else false
      */
     @Override
     public Boolean existsByUsername(String username) {
         return iEmployeeRepository.existsByUserName(username);
     }
+
     /**
      * QuanNLA
      * Date 24/04/2023
      * Method to check email exists or not
+     *
      * @param email
-     * @return
-     * If email exists, return true, else false
+     * @return If email exists, return true, else false
      */
     @Override
     public Boolean existsByEmail(String email) {
@@ -64,19 +66,21 @@ public class EmployeeService implements IEmployeeService {
      * QuanNLA
      * Date 24/04/2023
      * Method to check password exists or not
+     *
      * @param oldPassword
      * @param employee
-     * @return
-     * If password exists, return true, else false
+     * @return If password exists, return true, else false
      */
     @Override
     public Boolean checkIfValidOldPassword(Employee employee, String oldPassword) {
         return passwordEncoder.matches(oldPassword, employee.getPassword());
     }
+
     /**
      * QuanNLA
      * Date 24/04/2023
      * Method to change password
+     *
      * @param employee
      * @param newPassword
      * @return void
@@ -84,13 +88,14 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public void changeUserPassword(Employee employee, String newPassword) {
         employee.setPassword(passwordEncoder.encode(newPassword));
-        iEmployeeRepository.updatePassword(employee.getPassword(),employee.getId());
+        iEmployeeRepository.updatePassword(employee.getPassword(), employee.getId());
     }
+
     @Override
     public List<Employee> getAll() {
         return iEmployeeRepository.getAll();
     }
-}
+
 
     @Override
     public Employee findByEmailEmployee(String email) {
@@ -99,7 +104,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void updateOtp(Employee employee) {
-        iEmployeeRepository.updateOtp(employee.getExpiryTime(),employee.getOtpSecret(),employee.getEmail());
+        iEmployeeRepository.updateOtp(employee.getExpiryTime(), employee.getOtpSecret(), employee.getEmail());
     }
-
+}
 
