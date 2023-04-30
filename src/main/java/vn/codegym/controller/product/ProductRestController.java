@@ -62,9 +62,9 @@ public class ProductRestController {
      * function : findAllProduct
      */
     @GetMapping("/stock")
-    public ResponseEntity<?> getAllProducts(
+    public ResponseEntity<Page<ProductDTO>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ProductDTO> products = productService.findAllProducts(pageable);
@@ -106,7 +106,7 @@ public class ProductRestController {
             @RequestParam(required = false) Integer productTypeId,
             @RequestParam(required = false) String[] productSizes,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ProductDTO> products = productService.searchProducts(productName, productTypeId, productSizes, pageable);

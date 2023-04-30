@@ -1,6 +1,8 @@
 package vn.codegym.service.product.impl;
 
 
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,9 +15,9 @@ import vn.codegym.repository.product.IProductRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
+import static vn.codegym.qr.MyQr.createQR;
 
 
 @Service
@@ -82,13 +84,23 @@ public class ProductService implements IProductService {
      * @param productCreateDTO function : addProduct
      */
     public void addProduct(ProductCreateDTO productCreateDTO) {
-        // Save product
+
         Product product = new Product();
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
         BeanUtils.copyProperties(productCreateDTO, product);
         int id = productRepository.getTotalCodeAmount() + 100000;
         product.setCode("MH" + id);
-        productRepository.addProduct(product.getCode(),
+        String qrImgPath = "E:\\Codegym\\project_reactJS\\fashion-shop-reactjs\\src\\qrCode\\" + product.getCode() + ".png";
+        try {
+            Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+            createQR(product.getCode(), qrImgPath, "UTF-8", hintMap, 200, 200);
+            product.setQrImg(qrImgPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        productRepository.addProduct(
+                product.getCode(),
                 product.getName(),
                 product.getImg(),
                 product.getQrImg(),
@@ -98,10 +110,12 @@ public class ProductService implements IProductService {
                 product.isDelete());
 
         Product product1 = productRepository.findWithCode(product.getCode());
-
+//
         for (ProductSizeDTO size : productCreateDTO.getProductSizes()) {
             productRepository.addProductSizeDetail(size.getId(), product1.getId());
         }
+
+
     }
 
     /**
