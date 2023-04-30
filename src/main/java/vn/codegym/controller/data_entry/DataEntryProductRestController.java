@@ -63,4 +63,13 @@ public class DataEntryProductRestController {
             return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        iDataEntryProductService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

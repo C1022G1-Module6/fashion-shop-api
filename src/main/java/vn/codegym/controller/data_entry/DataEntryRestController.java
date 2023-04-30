@@ -65,8 +65,14 @@ public class DataEntryRestController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getInvoice() {
+    public ResponseEntity<DataEntryDTO> getInvoice() {
         DataEntryDTO dataEntryDTO = iDataEntryService.getDataEntryDetail();
         return new ResponseEntity<>(dataEntryDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> cancelDataEntry () {
+        dataEntryProductService.resetCount();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.codegym.projections.IMonthRevenueProjection;
 import vn.codegym.projections.IStatisticsProjection;
 import vn.codegym.service.statistics.IStatisticsService;
 
@@ -26,6 +27,16 @@ public class StatisticsRestController {
         try {
             List<IStatisticsProjection> statisticsProjectionList = iStatisticsService.findAll(month);
             return new ResponseEntity<>(statisticsProjectionList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/month-revenue")
+    public ResponseEntity<?> monthRevenue(@RequestParam(required = false, defaultValue = "") Integer month) {
+        try {
+            List<IMonthRevenueProjection> iMonthRevenueProjectionList = iStatisticsService.monthRevenue(month);
+            return new ResponseEntity<>(iMonthRevenueProjectionList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
