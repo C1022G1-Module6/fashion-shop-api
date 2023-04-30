@@ -51,14 +51,23 @@ public class InvoiceDetailService implements IInvoiceDetailService {
      */
     @Override
     public void save(InvoiceDetailDTO invoiceDetailDTO) {
+        Product product = productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode());
+        if (invoiceDetailDTO.getQuantity() > product.getQuantity()) {
+            return;
+        }
         InvoiceDetail invoiceDetail = new InvoiceDetail();
         if (count == 0) {
             saveNewInvoice();
         }
         BeanUtils.copyProperties(invoiceDetailDTO, invoiceDetail);
         invoiceDetail.setInvoice(invoiceService.findLastInvoiceInList());
-        invoiceDetail.setProduct(productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode()));
+        invoiceDetail.setProduct(product);
         invoiceDetail.setTotal(invoiceDetail.getProduct().getSellingPrice() * invoiceDetailDTO.getQuantity());
+        if (product.getQuantity() <= 0) {
+            return;
+        }
+        product.setQuantity(product.getQuantity() - invoiceDetail.getQuantity());
+        productRepository.save(product);
         invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
                 invoiceDetail.getTotal(),
                 invoiceDetail.getInvoice().getId(),
