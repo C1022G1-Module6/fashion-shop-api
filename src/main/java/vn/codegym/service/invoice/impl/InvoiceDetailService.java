@@ -124,14 +124,4 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         }
         return invoiceDetailDTOList;
     }
-
-    @Override
-    public void deleteAll() {
-        List<InvoiceDetail> invoiceDetailList = invoiceDetailRepository
-                .getAllWithId(invoiceService.findLastInvoiceInList().getId());
-        for (InvoiceDetail invoiceDetail: invoiceDetailList) {
-            invoiceDetail.setDelete(true);
-        }
-    }
-
 }
