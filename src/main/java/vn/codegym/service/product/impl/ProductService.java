@@ -12,8 +12,10 @@ import vn.codegym.dto.product.*;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.repository.product.IProductRepository;
+import vn.codegym.repository.product.IProductTypeRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
+import vn.codegym.service.product.IProductTypeService;
 
 import java.util.*;
 
@@ -24,7 +26,8 @@ import static vn.codegym.qr.MyQr.createQR;
 public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
-
+    @Autowired
+    private IProductTypeRepository productTypeRepository;
 
     /**
      * Created by : QuanTVA
@@ -64,18 +67,18 @@ public class ProductService implements IProductService {
      *
      * @param productName
      * @param "productSizeList"
-     * @param productTypeId
      * @param pageable
      * @return Page<ProductDTO>
      * Function : search
      */
-    public Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String code, Pageable pageable) {
-        Page<Product> products = productRepository.search(productName, code, productTypeId, pageable);
+    public Page<ProductDTO> searchProducts(String productName, String code, Pageable pageable) {
+        Page<Product> products = productRepository.search(productName, code, pageable);
         List<ProductDTO> productDTOS = new ArrayList<>();
         ProductDTO productDTO;
         for (Product product: products) {
             productDTO = new ProductDTO();
             productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product.getProductType(), productDTO.getProductType());
             BeanUtils.copyProperties(product, productDTO);
             productDTOS.add(productDTO);
         }
@@ -133,6 +136,21 @@ public class ProductService implements IProductService {
     @Override
     public Product findWithId(Integer id) {
         return productRepository.findWithId(id);
+    }
+
+    @Override
+    public Page<ProductDTO> findWithProductType(Integer productTypeId, Pageable pageable) {
+        Page<Product> products = productRepository.searchWithType(productTypeId, pageable);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        ProductDTO productDTO;
+        for (Product product: products) {
+            productDTO = new ProductDTO();
+            productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product.getProductType(), productDTO.getProductType());
+            BeanUtils.copyProperties(product, productDTO);
+            productDTOS.add(productDTO);
+        }
+        return new PageImpl<>(productDTOS, pageable, products.getTotalElements());
     }
 
     @Override

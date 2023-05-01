@@ -54,19 +54,19 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
      *created by : QuanTVA
      * @param productName
      * @param code
-     * @param productTypeId
      * @param pageable
      * @return Page<ProductDTO>
      *     Function : search
      */
-    @Query(value = "SELECT * FROM product WHERE (name LIKE '%' || :productName ||" +
-            " '%' OR code LIKE '%' || :code || '%' OR product_type_id = :productTypeId)" +
+    @Query(value = "SELECT * FROM product WHERE (name LIKE concat ('%' , :productName ," +
+            " '%') OR code LIKE concat ('%' , :code , '%'))" +
             " AND is_delete = false", nativeQuery = true)
     Page<Product> search(@Param("productName") String productName,
-                            @Param("code") String code,
-                            @Param("productTypeId") Integer productTypeId,
-                            Pageable pageable);
+                         @Param("code") String code,
+                         Pageable pageable);
 
+    @Query(value = "select * from product where product_type_id = :customerTypeId", nativeQuery = true)
+    Page<Product> searchWithType(@Param("customerTypeId") Integer customerTypeId, Pageable pageable);
 
     /**
      * created by QuanTVA
@@ -103,7 +103,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "INSERT INTO `fashion_shop`.`product_size_detail`" +
             " (`product_id`, `product_size_id`) VALUES (:idProduct, :idSize);", nativeQuery = true)
     void addProductSizeDetail(@Param("idSize") Integer idSize,
-                                @Param("idProduct")Integer idProduct);
+                              @Param("idProduct")Integer idProduct);
 
     /**
      * Create by: TanTH
