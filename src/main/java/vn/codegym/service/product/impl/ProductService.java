@@ -139,7 +139,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Page<ProductDTO> findWithProductType(Integer productTypeId, Pageable pageable) {
+    public Page<ProductDTO> findWithProductType(String productTypeId, Pageable pageable) {
         Page<Product> products = productRepository.searchWithType(productTypeId, pageable);
         List<ProductDTO> productDTOS = new ArrayList<>();
         ProductDTO productDTO;

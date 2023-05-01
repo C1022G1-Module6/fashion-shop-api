@@ -65,8 +65,8 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
                          @Param("code") String code,
                          Pageable pageable);
 
-    @Query(value = "select * from product where product_type_id = :customerTypeId", nativeQuery = true)
-    Page<Product> searchWithType(@Param("customerTypeId") Integer customerTypeId, Pageable pageable);
+    @Query(value = "select * from product where product_type_id like concat ('%', :customerTypeId, '%')", nativeQuery = true)
+    Page<Product> searchWithType(@Param("customerTypeId") String customerTypeId, Pageable pageable);
 
     /**
      * created by QuanTVA
