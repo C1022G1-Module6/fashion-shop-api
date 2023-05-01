@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class EmployeeOtpDTO {
     private String email;
     @NotBlank(message = "Không được để trống")
-    @Pattern(regexp = "^\\d{5,6}$",message = "Vui lòng nhập đúng định dạng OTP VD:XXXXXX (X là chữ số)")
+    @Pattern(regexp = "^\\d{6}$",message = "Vui lòng nhập đúng định dạng OTP VD:XXXXXX (X là chữ số)")
     private String code;
 
     public EmployeeOtpDTO() {
