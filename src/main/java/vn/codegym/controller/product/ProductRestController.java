@@ -115,7 +115,7 @@ public class ProductRestController {
 
     @GetMapping("/search-type")
     public ResponseEntity<Page<ProductDTO>> searchProductsWithType(
-            @RequestParam(required = false ,defaultValue = "") Integer productTypeId,
+            @RequestParam(required = false ,defaultValue = "") String productTypeId,
             @PageableDefault(size = 10)Pageable pageable
     ) {
 

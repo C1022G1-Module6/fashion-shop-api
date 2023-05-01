@@ -21,7 +21,7 @@ public interface IProductService {
     void addProduct(ProductCreateDTO productCreateDTO);
 
     Product findWithId(Integer id);
-    Page<ProductDTO> findWithProductType(Integer productTypeId, Pageable pageable);
+    Page<ProductDTO> findWithProductType(String productTypeId, Pageable pageable);
 
     /**
      * Create by: TanTH

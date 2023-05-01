@@ -91,10 +91,12 @@ public class ProductService implements IProductService {
      * @param productCreateDTO function : addProduct
      */
     public void addProduct(ProductCreateDTO productCreateDTO) {
-
         Product product = new Product();
         product.setQuantity(0);
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
+        String imgPath = productCreateDTO.getImg();
+        String newImgFilePath = imgPath.replace("C:\\fakepath\\", "img/");
+        productCreateDTO.setImg(newImgFilePath);
         BeanUtils.copyProperties(productCreateDTO, product);
         int id = productRepository.getTotalCodeAmount() + 100000;
         product.setCode("MH" + id);
@@ -139,7 +141,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Page<ProductDTO> findWithProductType(Integer productTypeId, Pageable pageable) {
+    public Page<ProductDTO> findWithProductType(String productTypeId, Pageable pageable) {
         Page<Product> products = productRepository.searchWithType(productTypeId, pageable);
         List<ProductDTO> productDTOS = new ArrayList<>();
         ProductDTO productDTO;
