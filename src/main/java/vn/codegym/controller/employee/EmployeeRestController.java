@@ -6,13 +6,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.employee.EmployeeDetailDTO;
+import vn.codegym.dto.employee.RoleDTO;
 import vn.codegym.dto.response.ResponseMessage;
 import vn.codegym.entity.employee.Employee;
+import vn.codegym.entity.employee.Role;
 import vn.codegym.security.JwtAuthenticationFilter;
 import vn.codegym.security.JwtTokenProvider;
 import vn.codegym.service.employee.IEmployeeService;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -44,7 +48,16 @@ public class EmployeeRestController {
                 }
                 EmployeeDetailDTO employeeDTO = new EmployeeDetailDTO();
                 Optional<Employee> employee = iEmployeeService.findByUsername(username);
+                Set<Role> roleSet = employee.get().getRoles();
+                Set<RoleDTO> roleDTOSet= new HashSet<>();
+                RoleDTO roleDTO;
+                for( Role role : roleSet) {
+                    roleDTO = new RoleDTO();
+                    BeanUtils.copyProperties(role,roleDTO);
+                    roleDTOSet.add(roleDTO);
+                }
                 BeanUtils.copyProperties(employee.get(),employeeDTO);
+                employeeDTO.setRoleDTOSetSet(roleDTOSet);
                 return new ResponseEntity<>(employeeDTO,HttpStatus.OK);
             }else {
                 return new ResponseEntity<>(new ResponseMessage("JWT không tồn tại"),HttpStatus.BAD_REQUEST);
