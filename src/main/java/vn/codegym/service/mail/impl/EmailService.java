@@ -12,6 +12,8 @@ import vn.codegym.service.mail.IEmailService;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class EmailService implements IEmailService {
@@ -31,7 +33,7 @@ public class EmailService implements IEmailService {
                     "<body>" +
                     "<div style=\" font-size:15px;\">"+
                     "Kính gửi Quý khách hàng," + "<br>" + "<br>" +
-                            "<div style =\" font-weight:bold \"> Đây là mã OTP của bạn: [ " + otp +" ] </div>" + "<br>" +
+                            "<div style =\" font-weight:bold \"> Đây là mã OTP của bạn: [" + otp +"] </div>" + "<br>" +
                             "Mã OTP này sẽ hết hạn trong vòng 1 phút kể từ khi bạn nhận được email này. " +
                             "Vui lòng không chia sẻ mã này với bất kỳ ai, " +
                             "vì nó được sử dụng để xác thực tài khoản của bạn." +
@@ -57,12 +59,19 @@ public class EmailService implements IEmailService {
         Employee employee = iEmployeeService.findByEmailEmployee(email);
         GoogleAuthenticator gAuth = new GoogleAuthenticator();
         int code = Integer.parseInt(otpCode);
+        LocalDateTime expiryTime = employee.getExpiryTime();
+        if (expiryTime != null && LocalDateTime.now().isAfter(expiryTime)) {
+            System.out.println("Mã OTP đã hết hạn");
+            return false;
+        }
         String secret = employee.getOtpSecret();
         boolean isValid = gAuth.authorize(secret, code);
-        if (isValid) {
+        if (Boolean.TRUE.equals(isValid)) {
             employee.setOtpSecret(null);
             employee.setExpiryTime(null);
             iEmployeeService.updateOtp(employee);
+        }else {
+            System.out.println("Mã OTP không chính xác");
         }
         return isValid;
     }
@@ -76,8 +85,8 @@ public class EmailService implements IEmailService {
         GoogleAuthenticator gAuth = new GoogleAuthenticator(config);
         GoogleAuthenticatorKey key = gAuth.createCredentials();
         String secret = key.getKey();
-        employee.setOtpSecret(secret);
         employee.setExpiryTime(LocalDateTime.now().plusMinutes(1));
+        employee.setOtpSecret(secret);
         iEmployeeService.updateOtp(employee);
         int code = gAuth.getTotpPassword(secret);
         return Integer.toString(code);
