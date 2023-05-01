@@ -8,6 +8,5 @@ public interface IInvoiceDetailService {
     void save(InvoiceDetailDTO invoiceDetailDTO);
     void delete(Integer id);
     List<InvoiceDetailDTO> findAll();
-    void deleteAll();
 }
 

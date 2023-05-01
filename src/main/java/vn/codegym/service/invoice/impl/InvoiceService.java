@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.entity.customer.Customer;
-import vn.codegym.entity.customer.CustomerType;
 import vn.codegym.entity.invoice.Invoice;
 import vn.codegym.repository.customer.ICustomerRepository;
+import vn.codegym.repository.customer.ICustomerTypeRepository;
 import vn.codegym.repository.invoice.IInvoiceRepository;
 import vn.codegym.service.invoice.IInvoiceService;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,18 @@ public class InvoiceService implements IInvoiceService {
     private IInvoiceRepository invoiceRepository;
     @Autowired
     private ICustomerRepository customerRepository;
+    @Autowired
+    private ICustomerTypeRepository customerTypeRepository;
     private Customer getCustomer (String code) {
         return customerRepository.findCustomerWithCode(code);
     }
-
+    private void setValueOfCustomerType (Customer customer, Invoice invoice) {
+        customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
+        if (customer.getPoint() >= 1200) {
+            customer.setCustomerType(customerTypeRepository.findById(1).get());
+        }
+        customer.getCustomerType().setBonusPoint(invoice.getBonusPoint());
+    }
     /**
      * this method is applied to add new invoice instance with invoiceDTO as a param
      * by calling method saveInvoice from repository
@@ -86,12 +94,8 @@ public class InvoiceService implements IInvoiceService {
         BeanUtils.copyProperties(invoiceDTO, invoice);
         Customer customer = getCustomer(invoiceDTO.getCustomerDTO().getCode());
         invoice.setCustomer(customer);
-//        CustomerType customerType = customer.getCustomerType();
-//        customerType.setBonusPoint(invoice.getBonusPoint());
-//        customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
-//        if (customer.getPoint() >= 1200) {
-//            customer.getCustomerType().setId(1);
-//        }
+        invoice.setBonusPoint((int) (invoice.getPayment() * 10 / invoice.getCustomer().getCustomerType().getCondition()));
+        setValueOfCustomerType(customer, invoice);
         customerRepository.save(customer);
         invoiceRepository.updateInvoice(invoice);
     }
