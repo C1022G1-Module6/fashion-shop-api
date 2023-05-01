@@ -23,7 +23,10 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
      * @return Employee
      *
      */
-    @Query(value = "SELECT * FROM employee WHERE user_name = :username", nativeQuery = true)
+    @Query(value = "select * from employee e \n" +
+            "join roles_employee on employee_id = e.id \n" +
+            "join roles r on r.id = role_id\n" +
+            "where user_name = :username", nativeQuery = true)
     Optional<Employee> findByUsername(@Param("username") String username);
     /**
      * QuanNLA

@@ -1,5 +1,10 @@
 package vn.codegym.dto.employee;
 
+import vn.codegym.entity.employee.Role;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class EmployeeDetailDTO {
     private Integer id;
     private String code;
@@ -11,7 +16,7 @@ public class EmployeeDetailDTO {
     private String phoneNumber;
     private String userName;
     private String avatar;
-
+    private Set<RoleDTO> roleDTOSetSet = new HashSet<>();
     public EmployeeDetailDTO() {
         // TODO document why this constructor is empty
     }
@@ -94,5 +99,13 @@ public class EmployeeDetailDTO {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Set<RoleDTO> getRoleDTOSetSet() {
+        return roleDTOSetSet;
+    }
+
+    public void setRoleDTOSetSet(Set<RoleDTO> roleDTOSetSet) {
+        this.roleDTOSetSet = roleDTOSetSet;
     }
 }

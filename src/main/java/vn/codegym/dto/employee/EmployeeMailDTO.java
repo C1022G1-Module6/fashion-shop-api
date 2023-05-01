@@ -10,7 +10,6 @@ public class EmployeeMailDTO {
     @Email(message = "Vui lòng nhập đúng định dạng Email VD: abc123@codegym.com")
     private String email;
 
-
     public EmployeeMailDTO() {
         // TODO document why this constructor is empty
     }
