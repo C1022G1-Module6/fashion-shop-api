@@ -91,10 +91,12 @@ public class ProductService implements IProductService {
      * @param productCreateDTO function : addProduct
      */
     public void addProduct(ProductCreateDTO productCreateDTO) {
-
         Product product = new Product();
         product.setQuantity(0);
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
+        String imgPath = productCreateDTO.getImg();
+        String newImgFilePath = imgPath.replace("C:\\fakepath\\", "img/");
+        productCreateDTO.setImg(newImgFilePath);
         BeanUtils.copyProperties(productCreateDTO, product);
         int id = productRepository.getTotalCodeAmount() + 100000;
         product.setCode("MH" + id);
