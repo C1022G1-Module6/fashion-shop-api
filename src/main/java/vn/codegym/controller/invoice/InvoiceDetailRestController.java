@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/invoice-detail")
@@ -27,7 +28,10 @@ public class InvoiceDetailRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
-            invoiceDetailService.save(invoiceDetailDTO);
+            String msg = invoiceDetailService.save(invoiceDetailDTO);
+            if (!Objects.equals(msg, "")) {
+                return new ResponseEntity<>(msg,  HttpStatus.BAD_REQUEST);
+            }
         } else {
             Map<String, String> map = new LinkedHashMap<>();
             List<FieldError> errors = bindingResult.getFieldErrors();
