@@ -50,10 +50,13 @@ public class InvoiceDetailService implements IInvoiceDetailService {
      * @param invoiceDetailDTO
      */
     @Override
-    public void save(InvoiceDetailDTO invoiceDetailDTO) {
+    public String save(InvoiceDetailDTO invoiceDetailDTO) {
         Product product = productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode());
+        if (product == null) {
+            return "Không có mặt hàng này trong kho";
+        }
         if (invoiceDetailDTO.getQuantity() > product.getQuantity()) {
-            return;
+            return "Số lượng hàng trong kho không đủ";
         }
         InvoiceDetail invoiceDetail = new InvoiceDetail();
         if (count == 0) {
@@ -63,8 +66,8 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         invoiceDetail.setInvoice(invoiceService.findLastInvoiceInList());
         invoiceDetail.setProduct(product);
         invoiceDetail.setTotal(invoiceDetail.getProduct().getSellingPrice() * invoiceDetailDTO.getQuantity());
-        if (product.getQuantity() <= 0) {
-            return;
+        if (product.getQuantity() - invoiceDetail.getQuantity() < 0) {
+            return "Số lượng hàng trong kho không đủ";
         }
         product.setQuantity(product.getQuantity() - invoiceDetail.getQuantity());
         productRepository.save(product);
@@ -74,6 +77,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
                 invoiceDetail.getProduct().getId(),
                 invoiceDetail.getDelete());
         count++;
+        return "";
     }
 
     public void resetCount() {
