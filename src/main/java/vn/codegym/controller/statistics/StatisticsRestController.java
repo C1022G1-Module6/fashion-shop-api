@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.codegym.projections.IDayCostProjection;
+import vn.codegym.projections.IMonthCostProjection;
 import vn.codegym.projections.IMonthRevenueProjection;
 import vn.codegym.projections.IStatisticsProjection;
 import vn.codegym.service.statistics.IStatisticsService;
@@ -42,6 +44,26 @@ public class StatisticsRestController {
         try {
             List<IMonthRevenueProjection> iMonthRevenueProjectionList = iStatisticsService.monthRevenue(month);
             return new ResponseEntity<>(iMonthRevenueProjectionList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/cost")
+    public ResponseEntity<?> dayCost(@RequestParam(required = false, defaultValue = "") Integer month) {
+        try {
+            List<IDayCostProjection> iDayCostProjectionList = iStatisticsService.dayCost(month);
+            return new ResponseEntity<>(iDayCostProjectionList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/month-cost")
+    public ResponseEntity<?> monthCost(@RequestParam(required = false, defaultValue = "") Integer month) {
+        try {
+            List<IMonthCostProjection> iMonthCostProjectionList = iStatisticsService.monthCost(month);
+            return new ResponseEntity<>(iMonthCostProjectionList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

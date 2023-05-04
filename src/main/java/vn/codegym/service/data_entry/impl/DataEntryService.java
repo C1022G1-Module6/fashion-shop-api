@@ -95,7 +95,7 @@ public class DataEntryService implements IDataEntryService {
     @Override
     public DataEntryDTO getDataEntryDetail() {
         List<DataEntry> dataEntryList = iDataEntryRepository.listAllDataEntry();
-        DataEntry dataEntry = dataEntryList.get(dataEntryList.size() - 1);
+        DataEntry dataEntry = dataEntryList.get(dataEntryList.size()-1);
         DataEntryDTO dataEntryDTO = new DataEntryDTO();
         BeanUtils.copyProperties(dataEntry, dataEntryDTO);
         return dataEntryDTO;
