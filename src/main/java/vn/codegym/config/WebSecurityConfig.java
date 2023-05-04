@@ -57,9 +57,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/login","/reset-password","/forgot-password","/check-otp").permitAll()
-                .and().authorizeRequests().antMatchers("/invoice-detail/**","/invoice/**","/api/user/product/search","/statistics/**").hasRole("SALER")
-                .and().authorizeRequests().antMatchers("/api/user/product/**","/api/product-size","/api/user/productType","/data-entry-product/**","/data-entry/**","/statistics/**").hasRole("WAREHOUSE_MANAGER")
+                .authorizeRequests().antMatchers("/login","/reset-password","/forgot-password"
+                        ,"/check-otp").permitAll()
+                .and().authorizeRequests().antMatchers("/invoice-detail/**","/invoice/**").hasRole("SALER")
+                .and().authorizeRequests().antMatchers("/api/user/product/search"
+                        ,"/api/user/product/search-type"
+                        ,"/api/user/productType","/api/customer/search","/statistics/**")
+                .hasAnyRole("SALER","WAREHOUSE_MANAGER","STORE_MANAGER")
+                .and().authorizeRequests().antMatchers("/api/user/product/**","/api/product-size"
+                        ,"/data-entry-product/**"
+                        ,"/data-entry/**").hasRole("WAREHOUSE_MANAGER")
+                .and().authorizeRequests().antMatchers("/api/customer/**").hasRole("STORE_MANAGER")
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
