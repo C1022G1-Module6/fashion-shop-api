@@ -38,7 +38,7 @@ public class DataEntryProductRestController {
         if (!bindingResult.hasErrors()) {
             String msg = iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
             if (!Objects.equals(msg, "")) {
-                return new ResponseEntity<>(msg,  HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
             }
         } else {
             Map<String, String> map = new LinkedHashMap<>();
@@ -70,6 +70,7 @@ public class DataEntryProductRestController {
 
     /**
      * This method is used to delete an object based on the id passed in
+     *
      * @param id
      * @return
      */
