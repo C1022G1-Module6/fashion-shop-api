@@ -35,7 +35,7 @@ public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, In
      */
     @Query(value = "SELECT i.employee_name as name, SUM(i.payment) payment, SUM(iv.total) AS total\n" +
             "FROM invoice i\n" +
-            "JOIN invoice_detail iv ON iv.id = i.id\n" +
+            "JOIN invoice_detail iv ON iv.invoice_id = i.id\n" +
             "GROUP BY name\n" +
             "ORDER BY payment DESC\n" +
             "LIMIT 5;", nativeQuery = true)
