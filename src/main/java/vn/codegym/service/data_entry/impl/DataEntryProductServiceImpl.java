@@ -57,7 +57,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
     public String saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
         Product product = iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode());
         if (product == null) {
-           return "Không có mặt hàng này trong kho";
+            return "Không có mặt hàng này trong kho";
         }
         DataEntryProduct dataEntryProduct = new DataEntryProduct();
         if (count == 0) {
@@ -82,6 +82,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
 
     /**
      * this methois applied to delete an dataEntryProduct instance by set the isDelete value to true
+     *
      * @param id
      */
     @Override
@@ -93,6 +94,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
 
     /**
      * This method is used to set value for product
+     *
      * @param product
      * @param productDTO
      */
