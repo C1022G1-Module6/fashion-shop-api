@@ -54,8 +54,11 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
      * @param dataEntryProductDTO
      */
     @Override
-    public void saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
+    public String saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
         Product product = iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode());
+        if (product == null) {
+           return "Không có mặt hàng này trong kho";
+        }
         DataEntryProduct dataEntryProduct = new DataEntryProduct();
         if (count == 0) {
             saveNewDataEntry();
@@ -70,6 +73,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
                 dataEntryProduct.getProduct().getId(),
                 dataEntryProduct.getDelete());
         count++;
+        return "";
     }
 
     public void resetCount() {
