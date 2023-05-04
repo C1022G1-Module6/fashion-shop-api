@@ -2,6 +2,8 @@ package vn.codegym.service.statistics.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vn.codegym.projections.IDayCostProjection;
+import vn.codegym.projections.IMonthCostProjection;
 import vn.codegym.projections.IMonthRevenueProjection;
 import vn.codegym.projections.IStatisticsProjection;
 import vn.codegym.repository.statistics.IStatisticsRepository;
@@ -34,5 +36,17 @@ public class StatisticsServiceImpl implements IStatisticsService {
     public List<IMonthRevenueProjection> monthRevenue(Integer month) {
         List<IMonthRevenueProjection> iMonthRevenueProjectionList = iStatisticsRepository.totalRevenueMonth(month);
         return iMonthRevenueProjectionList;
+    }
+
+    @Override
+    public List<IDayCostProjection> dayCost(Integer month) {
+        List<IDayCostProjection> iDayCostProjectionList = iStatisticsRepository.totalCostDay(month);
+        return iDayCostProjectionList;
+    }
+
+    @Override
+    public List<IMonthCostProjection> monthCost(Integer month) {
+        List<IMonthCostProjection> iMonthCostProjectionList = iStatisticsRepository.totalCostMonth(month);
+        return iMonthCostProjectionList;
     }
 }
