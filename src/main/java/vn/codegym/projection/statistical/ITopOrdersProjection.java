@@ -5,4 +5,5 @@ public interface ITopOrdersProjection {
         Integer getQuantity();
         String getImg();
 
+        String getQuarter();
 }

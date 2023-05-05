@@ -29,6 +29,11 @@ public class StatiscialServiceImpl implements IStatiscialService {
     }
 
     @Override
+    public Double getTotalRevenues() {
+        return iInvoiceStatiscialRepository.getTotalRevenue();
+    }
+
+    @Override
     public List<ITopEmployeesProjection> findEmployee() {
         return iInvoiceStatiscialRepository.findTopEmployee();
     }
