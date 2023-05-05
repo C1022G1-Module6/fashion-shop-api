@@ -14,8 +14,7 @@ import java.util.List;
 
 @Service
 public class InvoiceService implements IInvoiceService {
-    @Autowired
-    private IInvoiceRepository invoiceRepository;
+
 
     /**
      * this method is applied to add new invoice instance with invoiceDTO as a param
@@ -106,4 +105,5 @@ public class InvoiceService implements IInvoiceService {
         }
         return invoiceDTOList;
     }
+
 }

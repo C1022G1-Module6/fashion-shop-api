@@ -10,4 +10,6 @@ public interface IDataEntryService {
     DataEntry findLastDataEntryInList();
     void update (DataEntryDTO dataEntryDTO);
     List<DataEntryDTO> findAll();
+
+    DataEntryDTO getDataEntryDetail();
 }

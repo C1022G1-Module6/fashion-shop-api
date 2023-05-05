@@ -18,11 +18,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/invoice")
 @CrossOrigin("*")
+
 public class InvoiceRestController {
-    @Autowired
-    private IInvoiceService invoiceService;
-    @Autowired
-    private InvoiceDetailService invoiceDetailService;
 
     /**
      * TuNT

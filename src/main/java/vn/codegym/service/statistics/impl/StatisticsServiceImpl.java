@@ -11,12 +11,15 @@ import java.util.List;
 public class StatisticsServiceImpl implements IStatisticsService {
     @Autowired
     private IStatisticsRepository iStatisticsRepository;
+
+    @Override
+    public List<IStatisticsProjection> findAll(Integer month) {
+        List<IStatisticsProjection> iStatisticsProjectionList = iStatisticsRepository.listAllStatisticsProjection(month);
+        return iStatisticsProjectionList;
+    }
     /**
      * This method is used to display the list IStatisticsProjection
      * @return
      */
-    @Override
-    public List<IStatisticsProjection> findAll() {
-        return iStatisticsRepository.listAllStatisticsProjection();
-    }
+
 }
