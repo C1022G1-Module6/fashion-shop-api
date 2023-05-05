@@ -16,6 +16,7 @@ public class News {
     private String nameImg; //TanNN thêm vào
     private String content;
     private String dateTime; //TanNN thêm vào
+    private double mb;
     private boolean flagDelete;
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -25,10 +26,11 @@ public class News {
     public News() {
     }
 
-    public News(String title, String img, String nameImg, String content, Employee employee) {
+    public News(String title, String img, String nameImg,double mb ,String content, Employee employee) {
         this.title = title;
         this.img = img;
         this.nameImg = nameImg;
+        this.mb = mb;
         this.content = content;
         this.employee = employee;
     }
@@ -91,6 +93,14 @@ public class News {
 
     public String getDateTime() {
         return dateTime;
+    }
+
+    public double getMb() {
+        return mb;
+    }
+
+    public void setMb(double mb) {
+        this.mb = mb;
     }
 
     public void setDateTime(String dateTime) {
