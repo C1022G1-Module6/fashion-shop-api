@@ -1,5 +1,7 @@
 package vn.codegym.dto.product;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 public class ProductDTO {

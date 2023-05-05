@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import vn.codegym.dto.data_entry.DataEntryProductDTO;
+import vn.codegym.dto.response.ResponseMessage;
 import vn.codegym.service.data_entry.IDataEntryProductService;
 
 import javax.validation.Valid;
@@ -32,8 +33,8 @@ public class DataEntryProductRestController {
     @PostMapping("")
     public ResponseEntity<?> createDataEntryProduct(@Valid @RequestBody DataEntryProductDTO dataEntryProductDTO,
                                                     BindingResult bindingResult) {
-        if (dataEntryProductDTO.getProductDTO().getCode() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(dataEntryProductDTO.getQuantity()==0){
+            return new ResponseEntity<>(new ResponseMessage("Không được bỏ trống"), HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
             String msg = iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
@@ -49,6 +50,9 @@ public class DataEntryProductRestController {
                 }
             }
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
+        if (dataEntryProductDTO.getProductDTO().getCode() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
