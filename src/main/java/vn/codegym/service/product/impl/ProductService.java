@@ -186,8 +186,6 @@ public class ProductService implements IProductService {
     public Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable) {
         return productRepository.ListProduct(name, product_type_id,pageable);
     }
-
-
 }
 
 
