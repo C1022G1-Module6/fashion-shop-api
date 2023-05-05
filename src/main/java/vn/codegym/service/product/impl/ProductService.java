@@ -17,6 +17,7 @@ import vn.codegym.repository.product.IProductSizeDetailRepository;
 import vn.codegym.repository.product.IProductTypeRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
+import vn.codegym.service.product.IProductTypeService;
 
 import java.util.*;
 

@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vn.codegym.entity.employee.Employee;
 import vn.codegym.repository.employee.IEmployeeRepository;
-import vn.codegym.service.employee.impl.EmployeeService;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

@@ -15,19 +15,47 @@ public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, In
      * Lấy tổng doanh thu
      *
      */
-    @Query(value = "SELECT SUM(payment) AS total_revenue FROM invoice",nativeQuery = true)
+    @Query(value = "SELECT SUM(payment) FROM invoice;",nativeQuery = true)
     Double getTotalRevenue();
 
+    /**
+     * Lấy tổng doanh thu theo tuần
+     *
+     */
+    @Query(value = "SELECT SUM(payment) AS total_payment_week \n" +
+            "FROM invoice \n" +
+            "WHERE date BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE();",nativeQuery = true)
+    Double getTotalRevenueWeek();
 
     /**
-     * Lấy top 5 nhân viên bán chạy nhất
+     * Lấy tổng doanh thu theo tháng
+     *
+     */
+    @Query(value = "SELECT SUM(payment) AS total_payment_month \n" +
+            "FROM invoice \n" +
+            "WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE());",nativeQuery = true)
+    Double getTotalRevenueMonth();
+
+    /**
+     * Lấy top 5 nhân viên bán chạy nhất theo quý
      * @return
      */
-    @Query(value = "SELECT i.employee_name as name, SUM(i.payment) payment, SUM(iv.total) AS total\n" +
-            "FROM invoice i\n" +
-            "JOIN invoice_detail iv ON iv.id = i.id\n" +
-            "GROUP BY name\n" +
-            "ORDER BY payment DESC\n" +
+    @Query(value = "SELECT i.employee_name AS name, \n" +
+            "    CONCAT('Quý ', QUARTER(i.date),' năm ',YEAR(i.date)) AS quarter,\n" +
+            "    SUM(i.payment) AS payment,\n" +
+            "    SUM(iv.total) AS total\n" +
+            "FROM \n" +
+            "    invoice i \n" +
+            "JOIN \n" +
+            "    invoice_detail iv \n" +
+            "ON \n" +
+            "    i.id = iv.invoice_id \n" +
+            "WHERE \n" +
+            "    YEAR(i.date) = 2023 \n" +
+            "GROUP BY \n" +
+            "    name, quarter \n" +
+            "ORDER BY \n" +
+            "    quarter, payment DESC \n" +
             "LIMIT 5;", nativeQuery = true)
     List<ITopEmployeesProjection> findTopEmployee();
 

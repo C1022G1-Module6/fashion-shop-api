@@ -104,7 +104,6 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
                     dataEntryProduct.getProductSizeCode(),
                     dataEntryProduct.getDelete());
         }
-
         count++;
         return "";
     }

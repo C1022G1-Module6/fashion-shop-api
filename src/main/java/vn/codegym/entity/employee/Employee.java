@@ -1,9 +1,12 @@
 package vn.codegym.entity.employee;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import vn.codegym.entity.news.News;
 import vn.codegym.entity.notification.Notification;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,16 +20,17 @@ import java.util.Set;
         })
 })
 public class Employee {
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_employee",
             joinColumns = {@JoinColumn(name = "employee_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
+
     Set<Role> roles = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
     private String code;
     private String name;
     private boolean gender;
@@ -39,7 +43,6 @@ public class Employee {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
     @Column(nullable = false)
-
     private String password;
     @Lob
     private String avatar;
@@ -50,6 +53,8 @@ public class Employee {
     @JsonManagedReference
     private Set<Notification> notifications;
 
+    private LocalDateTime expiryTime;
+    private String otpSecret;
     public Employee() {
     }
 
@@ -68,6 +73,22 @@ public class Employee {
         this.roles = roles;
         this.news = news;
         this.notifications = notifications;
+    }
+
+    public LocalDateTime getExpiryTime() {
+        return expiryTime;
+    }
+
+    public void setExpiryTime(LocalDateTime expiryTime) {
+        this.expiryTime = expiryTime;
+    }
+
+    public String getOtpSecret() {
+        return otpSecret;
+    }
+
+    public void setOtpSecret(String otpSecret) {
+        this.otpSecret = otpSecret;
     }
 
     public Employee(int id) {

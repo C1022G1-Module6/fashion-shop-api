@@ -4,7 +4,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.codegym.dto.customer.CustomerDTO;
 import vn.codegym.dto.invoice.InvoiceDTO;
+import vn.codegym.entity.customer.Customer;
 import vn.codegym.entity.invoice.Invoice;
+import vn.codegym.repository.customer.ICustomerRepository;
+import vn.codegym.repository.customer.ICustomerTypeRepository;
 import vn.codegym.repository.invoice.IInvoiceRepository;
 import vn.codegym.service.invoice.IInvoiceService;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,20 @@ import java.util.List;
 public class InvoiceService implements IInvoiceService {
     @Autowired
     private IInvoiceRepository invoiceRepository;
-
+    @Autowired
+    private ICustomerRepository customerRepository;
+    @Autowired
+    private ICustomerTypeRepository customerTypeRepository;
+    private Customer getCustomer (String code) {
+        return customerRepository.findCustomerWithCode(code);
+    }
+    private void setValueOfCustomerType (Customer customer, Invoice invoice) {
+        customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
+        if (customer.getPoint() >= 1200) {
+            customer.setCustomerType(customerTypeRepository.findById(1).get());
+        }
+        customer.getCustomerType().setBonusPoint(invoice.getBonusPoint());
+    }
     /**
      * this method is applied to add new invoice instance with invoiceDTO as a param
      * by calling method saveInvoice from repository
@@ -72,19 +88,16 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public void update(InvoiceDTO invoiceDTO) {
         Invoice invoice = findLastInvoiceInList();
-        invoiceDTO.setId(invoice.getId());;
+        invoiceDTO.setId(invoice.getId());
         invoiceDTO.setCode(invoice.getCode());
         invoiceDTO.setDate(invoice.getDate());
         BeanUtils.copyProperties(invoiceDTO, invoice);
-        invoiceRepository.updateInvoice(
-                invoice.getBonusPoint(),
-                invoice.getCode(),
-                invoice.getDate(),
-                invoice.getEmployeeName(),
-                invoice.getPayment(),
-                invoice.getTotal(),
-                invoiceDTO.getCustomerDTO().getId(),
-                invoice.getId());
+        Customer customer = getCustomer(invoiceDTO.getCustomerDTO().getCode());
+        invoice.setCustomer(customer);
+        invoice.setBonusPoint((int) (invoice.getPayment() * 10 / invoice.getCustomer().getCustomerType().getCondition()));
+        setValueOfCustomerType(customer, invoice);
+        customerRepository.save(customer);
+        invoiceRepository.updateInvoice(invoice);
     }
 
     /**

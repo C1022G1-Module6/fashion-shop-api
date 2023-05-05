@@ -5,6 +5,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 public class InvoiceDetailDTO {
+
     private Integer id;
     @Positive(message = "Số lượng là số nguyên dương")
     private Integer quantity;

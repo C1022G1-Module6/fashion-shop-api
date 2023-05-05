@@ -14,7 +14,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // Hỏi Tân cách làm mã tự động tăng
+
     private String code;
     private String name;
     private Integer quantity;

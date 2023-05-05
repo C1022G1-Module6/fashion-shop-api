@@ -82,15 +82,11 @@ public class NewsRestController {
      */
     @PostMapping("createNews")
     public ResponseEntity<?> createNews(@Validated @RequestBody NewsDTO newsDTO, BindingResult bindingResult) {
-        newsDTO.validate(newsDTO,bindingResult);
-        if (bindingResult.hasErrors()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        newsDTO.validate(newsDTO, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
         }
-        News news = new News();
-        Employee employee = new Employee(1);
-        newsDTO.setEmployee(employee);
-        BeanUtils.copyProperties(newsDTO, news);
-        iNewsService.addNews(news);
+        iNewsService.addNews(newsDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

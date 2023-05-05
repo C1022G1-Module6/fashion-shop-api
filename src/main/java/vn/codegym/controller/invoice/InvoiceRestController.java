@@ -11,6 +11,9 @@ import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.service.invoice.IInvoiceService;
 import vn.codegym.service.invoice.impl.InvoiceDetailService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,21 +21,21 @@ import java.util.Map;
 @RestController
 @RequestMapping("/invoice")
 @CrossOrigin("*")
+
 public class InvoiceRestController {
     @Autowired
     private IInvoiceService invoiceService;
     @Autowired
     private InvoiceDetailService invoiceDetailService;
-
     /**
      * TuNT
      * this method is applied to send a List of invoice instances and a HttpStatus
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<?> getAllList() {
+    public ResponseEntity<List<InvoiceDTO>> getAllList() {
         try {
-             List<InvoiceDTO> invoiceDTOList = invoiceService.findAll();
+            List<InvoiceDTO> invoiceDTOList = invoiceService.findAll();
             return new ResponseEntity<>(invoiceDTOList ,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -47,8 +50,7 @@ public class InvoiceRestController {
      */
     @PutMapping("")
     public ResponseEntity<?> updateInvoice(@Validated @RequestBody InvoiceDTO invoiceDTO, BindingResult bindingResult) {
-        if (invoiceDTO.getBonusPoint() == null || invoiceDTO.getTotal() == null
-                || invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getId() == null) {
+        if (invoiceDTO.getTotal() == null ||invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
@@ -68,8 +70,25 @@ public class InvoiceRestController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getInvoice() {
+    public ResponseEntity<InvoiceDTO> getInvoice() {
         InvoiceDTO invoiceDTO = invoiceService.getInvoiceDetail();
+        SimpleDateFormat initialDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = invoiceDTO.getDate();
+        String dateInNewFormat = "";
+        try {
+            Date newDate = initialDateFormat.parse(date);
+            dateInNewFormat = newDateFormat.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        invoiceDTO.setDate(dateInNewFormat);
         return new ResponseEntity<>(invoiceDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<Void> cancelInvoice () {
+        invoiceDetailService.resetCount();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

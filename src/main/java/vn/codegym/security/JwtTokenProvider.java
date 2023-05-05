@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
-    private String jwtSecret = "anhquan1301";
+    private final String jwtSecret = "anhquan1301";
     private int jwtExpiration = 86400;
 
     /**
@@ -40,6 +40,7 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (SignatureException e){
+
             logger.error("Chữ ký JWT không hợp lệ ->Message: {}", e);
         } catch (MalformedJwtException e){
             logger.error("Token không đúng định dạng ->Message: {}",e);
@@ -61,8 +62,7 @@ public class JwtTokenProvider {
      * @return username is taken from the JWT string
      */
     public String getUserNameFromToken(String token){
-        String userName = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-        return userName;
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
 }

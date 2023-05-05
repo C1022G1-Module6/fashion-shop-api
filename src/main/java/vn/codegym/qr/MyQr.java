@@ -14,6 +14,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import vn.codegym.dto.product.ProductCreateDTO;
 
 public class MyQr {
 
@@ -39,12 +40,13 @@ public class MyQr {
             throws WriterException, IOException,
             NotFoundException
     {
+     ProductCreateDTO productCreateDTO = new ProductCreateDTO();
 
         // The data that the QR code will contain
-        String data = "www.geeksforgeeks.org";
+        String data = productCreateDTO.getCode();
 
         // The path where the image will get saved
-        String path = "E:\\Codegym\\anh_ma_QR\\demo.png";
+        String path = "E:\\Codegym\\anh_ma_QR\\" + data + ".png";
 
         // Encoding charset
         String charset = "UTF-8";

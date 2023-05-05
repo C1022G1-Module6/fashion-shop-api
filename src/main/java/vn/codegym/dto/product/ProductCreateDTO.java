@@ -8,30 +8,38 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class ProductCreateDTO {
-    @NotBlank(message = "Không được để trống")
-    @Size(max = 800,message = "Không được vượt quá 800 ký tự")
-    @Pattern(regexp = "^MH-(\\d{1,3})$", message = "Theo định dạng MH-XXX trong đó XXX từ 0-999")
-
     private String code;
-@NotBlank(message = "Không được để trống")
-@Size(max = 800,message = "Không được vượt quá 800 ký tự" )
-@Pattern(regexp = "^[A-Z][a-zđàáảãạăắằẵặẳâầấậẫẩêềếểệễéèẻẹëẽíìỉịĩóòỏõọôổốộỗồơờớợỡởùúủụũưừứựữửỳỷỹỵ\\s]*$",message = "Chữ đầu tiên viết hoa và mấy chữ sau có thể viết dấu" +
-        "ví dụ như Áo ấm, Quần dài")
+//    @NotBlank(message = "Không được để trống")
+//@Size(max = 800,message = "Không được vượt quá 800 ký tự" )
+//@Pattern(regexp = "^[A-Z][a-zđàáảãạăắằẵặẳâầấậẫẩêềếểệễéèẻẹëẽíìỉịĩóòỏõọôổốộỗồơờớợỡởùúủụũưừứựữửỳỷỹỵ\\s]*$",message = "Chữ đầu tiên viết hoa và mấy chữ sau có thể viết dấu" +
+//        "ví dụ như Áo ấm, Quần dài")
     private String name;
-@NotBlank(message = "Không được để trống")
+
     private String qrImg;
-@NotBlank(message = "Không được để trống")
-    private String img;
-@NotBlank(message = "Không được để trống")
-@Pattern(regexp = "^(?!0(?!\\.00))([1-4]\\d{4}|5000000)(\\.\\d{1,2})?$")
-    private Double sellingPrice;
     @NotBlank(message = "Không được để trống")
-    @Pattern(regexp = "^(?!0(?!\\.00))([1-4]\\d{4}|5000000)(\\.\\d{1,2})?$")
+    private String img;
+
+
+    private Double sellingPrice;
+
     private Double entryPrice;
     private ProductTypeDTO productType;
     private Set<ProductSizeDTO> productSizes;
     private boolean isDelete = false;
+
     public ProductCreateDTO() {
+    }
+
+    public ProductCreateDTO(String code, String name, String qrImg, String img, Double sellingPrice, Double entryPrice, ProductTypeDTO productType, Set<ProductSizeDTO> productSizes, boolean isDelete) {
+        this.code = code;
+        this.name = name;
+        this.qrImg = qrImg;
+        this.img = img;
+        this.sellingPrice = sellingPrice;
+        this.entryPrice = entryPrice;
+        this.productType = productType;
+        this.productSizes = productSizes;
+        this.isDelete = isDelete;
     }
 
     public String getCode() {
