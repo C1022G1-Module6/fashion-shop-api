@@ -1,6 +1,7 @@
 package vn.codegym.entity.customer;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import vn.codegym.entity.invoice.Invoice;
 
 import javax.persistence.*;
@@ -27,7 +28,8 @@ public class Customer {
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
     @OneToMany(mappedBy = "customer")
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     private Set<Invoice> invoices;
     private Boolean isDelete = false;
 

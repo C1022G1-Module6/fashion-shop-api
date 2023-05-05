@@ -20,6 +20,7 @@ public class CustomerRestController {
 
     /**
      * Function search customer
+     *
      * @param pageable
      * @param searchCode
      * @param searchName
@@ -29,9 +30,9 @@ public class CustomerRestController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
     public ResponseEntity<Page<CustomerDTO>> search(@PageableDefault(size = 3) Pageable pageable,
-                                         @RequestParam(required = false, defaultValue = "") String searchCode,
-                                         @RequestParam(required = false, defaultValue = "") String searchName,
-                                         @RequestParam(required = false, defaultValue = "") String searchPhoneNumber) {
+                                                    @RequestParam(required = false, defaultValue = "") String searchCode,
+                                                    @RequestParam(required = false, defaultValue = "") String searchName,
+                                                    @RequestParam(required = false, defaultValue = "") String searchPhoneNumber) {
 
         Pageable sortedPageaBle = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
         Page<CustomerDTO> customerDTOS = this.customerService.searchCustomer(sortedPageaBle, searchCode, searchName, searchPhoneNumber);
@@ -45,15 +46,11 @@ public class CustomerRestController {
 
     /**
      * Function delete customer
+     *
      * @param id
      */
-//    @ResponseStatus(HttpStatus.OK)
-//    @DeleteMapping("")
-//    public void delete(@RequestParam(required = false) Integer id) {
-//        customerService.deleteCustomer(id);
-//    }
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteCustomer(@PathVariable int id) {
         customerService.deleteCustomer(id);
     }

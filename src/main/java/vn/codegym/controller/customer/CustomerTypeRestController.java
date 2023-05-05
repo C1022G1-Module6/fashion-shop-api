@@ -25,6 +25,7 @@ public class CustomerTypeRestController {
      *         if customer type list has value then return customer type list and status OK
      */
     @GetMapping("")
+
     public ResponseEntity<List<CustomerType>> showList() {
         List<CustomerType> customerTypeList = customerTypeService.findAll();
         if (customerTypeList == null) {
