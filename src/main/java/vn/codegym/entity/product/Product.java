@@ -23,17 +23,16 @@ public class Product {
     private Double sellingPrice;
     private Double entryPrice;
 
+
     private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
     private ProductType productType;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "product_size_detail",
-            joinColumns = {@JoinColumn(name = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_size_id")}
-    )
-    private Set<ProductSize> productSizes;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "productSize")
+    private Set<ProductSizeDetail> productSizeDetails;
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<InvoiceDetail> invoiceDetails;
@@ -124,12 +123,13 @@ public class Product {
         this.productType = productType;
     }
 
-    public Set<ProductSize> getProductSizes() {
-        return productSizes;
+
+    public Set<ProductSizeDetail> getProductSizeDetails() {
+        return productSizeDetails;
     }
 
-    public void setProductSizes(Set<ProductSize> productSizes) {
-        this.productSizes = productSizes;
+    public void setProductSizeDetails(Set<ProductSizeDetail> productSizeDetails) {
+        this.productSizeDetails = productSizeDetails;
     }
 
     public Set<InvoiceDetail> getInvoiceDetails() {

@@ -95,17 +95,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
      * This function get all invoiceDetailDTO instances and return a list of invoice instances
      * @return
      */
-    public void setValueOfProductSize(Product product, ProductDTO productDTO) {
-        Set<ProductSize> productSizes = product.getProductSizes();
-        Set<ProductSizeDTO> productSizeDTOS = new HashSet<>();
-        ProductSizeDTO productSizeDTO;
-        for (ProductSize productSize: productSizes) {
-            productSizeDTO = new ProductSizeDTO();
-            BeanUtils.copyProperties(productSize, productSizeDTO);
-            productSizeDTOS.add(productSizeDTO);
-        }
-        productDTO.setProductSizes(productSizeDTOS);
-    }
+
     @Override
     public List<InvoiceDetailDTO> findAll() {
         List<InvoiceDetail> invoiceDetailList = invoiceDetailRepository
@@ -118,7 +108,6 @@ public class InvoiceDetailService implements IInvoiceDetailService {
             invoiceDetailDTO.setProductDTO(new ProductDTO());
             BeanUtils.copyProperties(invoiceDetail.getInvoice(), invoiceDetailDTO.getInvoiceDTO());
             BeanUtils.copyProperties(invoiceDetail.getProduct(), invoiceDetailDTO.getProductDTO());
-            setValueOfProductSize(invoiceDetail.getProduct(),invoiceDetailDTO.getProductDTO());
             BeanUtils.copyProperties(invoiceDetail, invoiceDetailDTO);
             invoiceDetailDTOList.add(invoiceDetailDTO);
         }

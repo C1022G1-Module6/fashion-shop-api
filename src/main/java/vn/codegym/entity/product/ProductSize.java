@@ -14,11 +14,10 @@ public class ProductSize {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
     @JsonBackReference
-    @ManyToMany(mappedBy = "productSizes")
-    private Set<Product> productSet = new HashSet<>();
-
-
+    @OneToMany(mappedBy = "productSize")
+    private Set<ProductSizeDetail> productSizeDetails;
     public ProductSize() {
     }
 
@@ -39,13 +38,11 @@ public class ProductSize {
         this.name = name;
     }
 
-
-    public Set<Product> getProductSet() {
-        return productSet;
+    public Set<ProductSizeDetail> getProductSizeDetails() {
+        return productSizeDetails;
     }
 
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
+    public void setProductSizeDetails(Set<ProductSizeDetail> productSizeDetails) {
+        this.productSizeDetails = productSizeDetails;
     }
-
 }

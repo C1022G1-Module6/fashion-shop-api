@@ -15,6 +15,8 @@ public class ProductDTO {
     private Set<ProductSizeDTO> productSizes;
 
 
+
+
     public ProductDTO() {
     }
 
