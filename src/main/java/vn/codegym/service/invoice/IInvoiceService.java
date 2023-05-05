@@ -9,6 +9,6 @@ public interface IInvoiceService {
     void save(InvoiceDTO invoiceDTO);
     Invoice findLastInvoiceInList();
     InvoiceDTO getInvoiceDetail();
-    void update (InvoiceDTO invoiceDTO);
+    String update (InvoiceDTO invoiceDTO);
     List<InvoiceDTO> findAll();
 }

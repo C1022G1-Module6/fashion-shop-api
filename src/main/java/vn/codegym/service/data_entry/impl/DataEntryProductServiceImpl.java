@@ -99,17 +99,17 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
      * @param product
      * @param productDTO
      */
-    public void setValueOfProductSize(Product product, ProductDTO productDTO) {
-        Set<ProductSize> productSizeSet = product.getProductSizes();
-        Set<ProductSizeDTO> productSizeDTOSet = new HashSet<>();
-        ProductSizeDTO productSizeDTO;
-        for (ProductSize productSize : productSizeSet) {
-            productSizeDTO = new ProductSizeDTO();
-            BeanUtils.copyProperties(productSize, productSizeDTO);
-            productSizeDTOSet.add(productSizeDTO);
-        }
-        productDTO.setProductSizes(productSizeDTOSet);
-    }
+//    public void setValueOfProductSize(Product product, ProductDTO productDTO) {
+//        Set<ProductSize> productSizeSet = product.getProductSizes();
+//        Set<ProductSizeDTO> productSizeDTOSet = new HashSet<>();
+//        ProductSizeDTO productSizeDTO;
+//        for (ProductSize productSize : productSizeSet) {
+//            productSizeDTO = new ProductSizeDTO();
+//            BeanUtils.copyProperties(productSize, productSizeDTO);
+//            productSizeDTOSet.add(productSizeDTO);
+//        }
+//        productDTO.setProductSizes(productSizeDTOSet);
+//    }
 
     /**
      * This function get all dataEntryProductDTO instances and return a list of data entry instances
@@ -127,7 +127,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
             dataEntryProductDTO.setProductDTO(new ProductDTO());
             BeanUtils.copyProperties(dataEntryProduct.getDataEntry(), dataEntryProductDTO.getDataEntryDTO());
             BeanUtils.copyProperties(dataEntryProduct.getProduct(), dataEntryProductDTO.getProductDTO());
-            setValueOfProductSize(dataEntryProduct.getProduct(), dataEntryProductDTO.getProductDTO());
+//            setValueOfProductSize(dataEntryProduct.getProduct(), dataEntryProductDTO.getProductDTO());
             BeanUtils.copyProperties(dataEntryProduct, dataEntryProductDTO);
             dataEntryProductDTOList.add(dataEntryProductDTO);
         }
