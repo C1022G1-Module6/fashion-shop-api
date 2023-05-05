@@ -12,6 +12,13 @@ import java.util.List;
 @Repository
 public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, Integer> {
     /**
+     * Lấy tổng doanh thu
+     *
+     */
+    @Query(value = "SELECT SUM(payment) FROM invoice;",nativeQuery = true)
+    Double getTotalRevenue();
+
+    /**
      * Lấy tổng doanh thu theo tuần
      *
      */
@@ -30,14 +37,25 @@ public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, In
     Double getTotalRevenueMonth();
 
     /**
-     * Lấy top 5 nhân viên bán chạy nhất
+     * Lấy top 5 nhân viên bán chạy nhất theo quý
      * @return
      */
-    @Query(value = "SELECT i.employee_name as name, SUM(i.payment) payment, SUM(iv.total) AS total\n" +
-            "FROM invoice i\n" +
-            "JOIN invoice_detail iv ON iv.id = i.id\n" +
-            "GROUP BY name\n" +
-            "ORDER BY payment DESC\n" +
+    @Query(value = "SELECT i.employee_name AS name, \n" +
+            "    CONCAT('Quý ', QUARTER(i.date),' năm ',YEAR(i.date)) AS quarter,\n" +
+            "    SUM(i.payment) AS payment,\n" +
+            "    SUM(iv.total) AS total\n" +
+            "FROM \n" +
+            "    invoice i \n" +
+            "JOIN \n" +
+            "    invoice_detail iv \n" +
+            "ON \n" +
+            "    i.id = iv.invoice_id \n" +
+            "WHERE \n" +
+            "    YEAR(i.date) = 2023 \n" +
+            "GROUP BY \n" +
+            "    name, quarter \n" +
+            "ORDER BY \n" +
+            "    quarter, payment DESC \n" +
             "LIMIT 5;", nativeQuery = true)
     List<ITopEmployeesProjection> findTopEmployee();
 

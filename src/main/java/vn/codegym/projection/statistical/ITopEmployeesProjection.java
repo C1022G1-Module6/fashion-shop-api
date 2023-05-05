@@ -5,4 +5,6 @@ public interface ITopEmployeesProjection {
         Double getPayment();
 
         Double getTotal();
+
+        String getQuarter();
 }
