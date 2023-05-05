@@ -16,18 +16,12 @@ import vn.codegym.entity.product.Product;
 import vn.codegym.dto.product.ProductCreateDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductDetailDTO;
-import vn.codegym.entity.product.Product;
 import vn.codegym.service.product.IProductService;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-
-
-
-
 
 
 @RestController
@@ -59,73 +53,91 @@ public class ProductRestController {
         }
         return ResponseEntity.ok(products);
     }
+
     /**
      * created by : QuanTVA
+     *
      * @param "pageable"
      * @return : Page<Product>
-     *     function : findAllProduct
+     * function : findAllProduct
      */
-     @GetMapping("/stock")
-    public ResponseEntity<Page<Product>> getAllProducts(
+    @GetMapping("/stock")
+    public ResponseEntity<Page<ProductDTO>> getAllProducts(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Product> products = productService.findAllProducts(pageable);
+        Page<ProductDTO> products = productService.findAllProducts(pageable);
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-     /**
+
+    /**
      * Created by : QuanTVA
+     *
      * @param id
      * @return : List<ProductDetailDTO>
-     *  Function : findAllByIdProduct
+     * Function : findAllByIdProduct
      */
     @GetMapping("/detail")
-    public ResponseEntity<List<ProductDetailDTO>> getProductDetails(@RequestParam(required = false) Integer  id){
+    public ResponseEntity<List<ProductDetailDTO>> getProductDetails(@RequestParam(required = false) Integer id) {
         List<ProductDetailDTO> productDetailDTOList = productService.findAllByProductId(id);
-        if (productDetailDTOList.size() == 0){
+        if (productDetailDTOList.size() == 0) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(productDetailDTOList,HttpStatus.OK);
+        return new ResponseEntity<>(productDetailDTOList, HttpStatus.OK);
     }
- /**
-     *created by : QuanTVA
+
+    /**
+     * created by : QuanTVA
+     *
      * @param productName
      * @param "productSizeList"
-     * @param productTypeId
+    //     * @param productTypeId
      * @param "pageable"
      * @return Page<ProductDTO>
-     *     Function : search
+     * Function : search
      */
     @GetMapping("/search")
     public ResponseEntity<Page<ProductDTO>> searchProducts(
-            @RequestParam(defaultValue = "") String productName,
-            @RequestParam(required = false) Integer productTypeId,
-            @RequestParam(required = false) String[] productSizes,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(required = false ,defaultValue = "") String productName,
+            @RequestParam(required = false ,defaultValue = "") String code,
+            @PageableDefault(size = 10)Pageable pageable
     ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ProductDTO> products = productService.searchProducts(productName, productTypeId, productSizes, pageable);
+        Page<ProductDTO> products = productService.searchProducts(productName, code, pageable);
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-      /**
+
+    @GetMapping("/search-type")
+    public ResponseEntity<Page<ProductDTO>> searchProductsWithType(
+            @RequestParam(required = false ,defaultValue = "") String productTypeId,
+            @PageableDefault(size = 10)Pageable pageable
+    ) {
+
+        Page<ProductDTO> products = productService.findWithProductType(productTypeId, pageable);
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    /**
      * created by QuanTVA
+     *
      * @param productCreateDTO
      * @return ResponseEntity<>(HttpStatus.CREATED)
      * @throws IOException
      */
     @PostMapping("/create-product")
-    public ResponseEntity<?> createProduct(@Validated @RequestBody ProductCreateDTO productCreateDTO, BindingResult bindingResult)  {
-        if (!bindingResult.hasErrors()){
+    public ResponseEntity<?> createProduct(@Validated @RequestBody ProductCreateDTO productCreateDTO, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
             productService.addProduct(productCreateDTO);
-        }else {
+        } else {
             Map<String, String> map = new LinkedHashMap<>();
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {

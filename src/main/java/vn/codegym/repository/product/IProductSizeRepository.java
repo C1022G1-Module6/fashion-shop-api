@@ -27,6 +27,5 @@ public interface IProductSizeRepository extends JpaRepository<ProductSize, Integ
     @Query(value = "SELECT * FROM product_size WHERE LOWER(size_name) LIKE LOWER(CONCAT('%', :sizeName, '%')) AND is_deleted = false", nativeQuery = true)
     Page<ProductSize> search(@Param("sizeName") String sizeName, Pageable pageable);
 
-
-
+    ProductSize findByName(String name);
 }

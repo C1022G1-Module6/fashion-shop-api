@@ -16,11 +16,12 @@ import java.util.Set;
 public interface IProductService {
 
     List<ProductDetailDTO> findAllByProductId(int id);
-    Page<Product> findAllProducts(Pageable pageable);
-    Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable);
+    Page<ProductDTO> findAllProducts(Pageable pageable);
+    Page<ProductDTO> searchProducts(String productName, String code, Pageable pageable);
     void addProduct(ProductCreateDTO productCreateDTO);
 
     Product findWithId(Integer id);
+    Page<ProductDTO> findWithProductType(String productTypeId, Pageable pageable);
 
     /**
      * Create by: TanTH
