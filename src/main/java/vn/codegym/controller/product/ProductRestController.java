@@ -95,7 +95,7 @@ public class ProductRestController {
      *
      * @param productName
      * @param "productSizeList"
-//     * @param productTypeId
+    //     * @param productTypeId
      * @param "pageable"
      * @return Page<ProductDTO>
      * Function : search

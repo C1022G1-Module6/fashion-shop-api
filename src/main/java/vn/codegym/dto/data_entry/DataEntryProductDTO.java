@@ -13,6 +13,25 @@ public class DataEntryProductDTO {
     private Integer quantity;
     private DataEntryDTO dataEntryDTO;
     private ProductDTO productDTO;
+    private String size;
+    private String productSizeCode;
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getProductSizeCode() {
+        return productSizeCode;
+    }
+
+    public void setProductSizeCode(String productSizeCode) {
+        this.productSizeCode = productSizeCode;
+    }
+
     private Boolean isDelete = false;
 
     public Integer getId() {

@@ -20,11 +20,13 @@ public interface IDataEntryProductRepository extends JpaRepository<DataEntryProd
      */
     @Modifying
     @Transactional
-    @Query(value = "insert into data_entry_product (quantity, data_entry_id, product_id, is_delete)" +
-            "values (:quantity, :data_entry, :product, :isDelete)", nativeQuery = true)
+    @Query(value = "insert into data_entry_product (quantity, data_entry_id, product_id, is_delete,  `size`, product_size_code)" +
+            "values (:quantity, :data_entry, :product, :isDelete, :size, :productSizeCode)", nativeQuery = true)
     void saveDataEntryProduct(@Param("quantity") Integer quantity,
                               @Param("data_entry") Integer dataEntryId,
                               @Param("product") Integer productId,
+                              @Param("size") String size,
+                              @Param("productSizeCode") String productSizeCode,
                               @Param("isDelete") Boolean isDelete);
 
     /**
