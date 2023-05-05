@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/data-entry-product")
@@ -35,7 +36,10 @@ public class DataEntryProductRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
-            iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
+            String msg = iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
+            if (!Objects.equals(msg, "")) {
+                return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+            }
         } else {
             Map<String, String> map = new LinkedHashMap<>();
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -55,12 +59,27 @@ public class DataEntryProductRestController {
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<?> listALl() {
+    public ResponseEntity<List<DataEntryProductDTO>> listALl() {
         List<DataEntryProductDTO> dataEntryProductDTOList = iDataEntryProductService.findAll();
         if (dataEntryProductDTOList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(dataEntryProductDTOList, HttpStatus.OK);
         }
+    }
+
+    /**
+     * This method is used to delete an object based on the id passed in
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        iDataEntryProductService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

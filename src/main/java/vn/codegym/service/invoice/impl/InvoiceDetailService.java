@@ -6,7 +6,6 @@ import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.dto.invoice.InvoiceDetailDTO;
 import vn.codegym.dto.product.ProductDTO;
 import vn.codegym.dto.product.ProductSizeDTO;
-import vn.codegym.entity.invoice.Invoice;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
@@ -51,21 +50,34 @@ public class InvoiceDetailService implements IInvoiceDetailService {
      * @param invoiceDetailDTO
      */
     @Override
-    public void save(InvoiceDetailDTO invoiceDetailDTO) {
+    public String save(InvoiceDetailDTO invoiceDetailDTO) {
+        Product product = productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode());
+        if (product == null) {
+            return "Không có mặt hàng này trong kho";
+        }
+        if (invoiceDetailDTO.getQuantity() > product.getQuantity()) {
+            return "Số lượng hàng trong kho không đủ";
+        }
         InvoiceDetail invoiceDetail = new InvoiceDetail();
         if (count == 0) {
             saveNewInvoice();
         }
         BeanUtils.copyProperties(invoiceDetailDTO, invoiceDetail);
         invoiceDetail.setInvoice(invoiceService.findLastInvoiceInList());
-        invoiceDetail.setProduct(productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode()));
+        invoiceDetail.setProduct(product);
         invoiceDetail.setTotal(invoiceDetail.getProduct().getSellingPrice() * invoiceDetailDTO.getQuantity());
+        if (product.getQuantity() - invoiceDetail.getQuantity() < 0) {
+            return "Số lượng hàng trong kho không đủ";
+        }
+        product.setQuantity(product.getQuantity() - invoiceDetail.getQuantity());
+        productRepository.save(product);
         invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
                 invoiceDetail.getTotal(),
                 invoiceDetail.getInvoice().getId(),
                 invoiceDetail.getProduct().getId(),
                 invoiceDetail.getDelete());
         count++;
+        return "";
     }
 
     public void resetCount() {
@@ -80,6 +92,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     public void delete(Integer id) {
         InvoiceDetail invoiceDetail = invoiceDetailRepository.findDetailWithId(id);
         invoiceDetail.setDelete(true);
+        invoiceDetailRepository.save(invoiceDetail);
     }
 
     /**
@@ -115,14 +128,4 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         }
         return invoiceDetailDTOList;
     }
-
-    @Override
-    public void deleteAll() {
-        List<InvoiceDetail> invoiceDetailList = invoiceDetailRepository
-                .getAllWithId(invoiceService.findLastInvoiceInList().getId());
-        for (InvoiceDetail invoiceDetail: invoiceDetailList) {
-            invoiceDetail.setDelete(true);
-        }
-    }
-
 }

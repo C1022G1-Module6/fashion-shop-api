@@ -18,7 +18,6 @@ public class ProductSize {
     @ManyToMany(mappedBy = "productSizes")
     private Set<Product> productSet = new HashSet<>();
 
-
     public ProductSize() {
     }
 

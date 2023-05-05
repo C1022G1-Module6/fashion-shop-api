@@ -18,10 +18,11 @@ public class DataEntryService implements IDataEntryService {
     private IDataEntryRepository iDataEntryRepository;
 
     /**
-     *this method is applied to add new data entry instance with dataEntryDTO as a param
-     *by calling method entryProduct from repository
+     * this method is applied to add new data entry instance with dataEntryDTO as a param
+     * by calling method entryProduct from repository
      * this method also check whether the param is null or not
-     *if null only save new invoice instance with null values
+     * if null only save new invoice instance with null values
+     *
      * @param dataEntryDTO
      */
     @Override
@@ -41,7 +42,8 @@ public class DataEntryService implements IDataEntryService {
     }
 
     /**
-     *this method is applied to find the last created data entry instance
+     * this method is applied to find the last created data entry instance
+     *
      * @return
      */
     @Override
@@ -52,8 +54,9 @@ public class DataEntryService implements IDataEntryService {
     }
 
     /**
-     *this method is applied to update value of data entry with dataEntryDTO as param
-     *by using method updateDataEntryfrom repository
+     * this method is applied to update value of data entry with dataEntryDTO as param
+     * by using method updateDataEntryfrom repository
+     *
      * @param dataEntryDTO
      */
     @Override
@@ -61,6 +64,7 @@ public class DataEntryService implements IDataEntryService {
         DataEntry dataEntry = findLastDataEntryInList();
         dataEntryDTO.setId(dataEntry.getId());
         dataEntryDTO.setCode(dataEntry.getCode());
+        dataEntryDTO.setDate(dataEntry.getDate());
         BeanUtils.copyProperties(dataEntryDTO, dataEntry);
         iDataEntryRepository.updateDataEntry(
                 dataEntry.getCode(),
@@ -70,16 +74,17 @@ public class DataEntryService implements IDataEntryService {
     }
 
     /**
-     *This function get all dataEntryDTO and return a list of data entry instances by transfer the values of list
+     * This function get all dataEntryDTO and return a list of data entry instances by transfer the values of list
      * created by using method listAllDataEntry from repository
-     * @return
+     *
+     * @return return a dataEntryDTOList
      */
     @Override
     public List<DataEntryDTO> findAll() {
         List<DataEntry> dataEntryList = iDataEntryRepository.listAllDataEntry();
         List<DataEntryDTO> dataEntryDTOList = new ArrayList<>();
         DataEntryDTO dataEntryDTO;
-        for (DataEntry dataEntry: dataEntryList) {
+        for (DataEntry dataEntry : dataEntryList) {
             dataEntryDTO = new DataEntryDTO();
             BeanUtils.copyProperties(dataEntry, dataEntryDTO);
             dataEntryDTOList.add(dataEntryDTO);
@@ -87,6 +92,11 @@ public class DataEntryService implements IDataEntryService {
         return dataEntryDTOList;
     }
 
+    /**
+     * This method is used to view dataEntry object details
+     *
+     * @return return a object
+     */
     @Override
     public DataEntryDTO getDataEntryDetail() {
         List<DataEntry> dataEntryList = iDataEntryRepository.listAllDataEntry();

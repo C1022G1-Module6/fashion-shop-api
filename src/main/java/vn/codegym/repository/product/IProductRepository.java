@@ -53,22 +53,20 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     /**
      *created by : QuanTVA
      * @param productName
-     * @param productSizeList
-     * @param productTypeId
+     * @param code
      * @param pageable
      * @return Page<ProductDTO>
      *     Function : search
      */
-    @Query(value = "SELECT p.id, p.code, p.name, ps.size, ps.quantity, p.entry_price, p.entry_price * 3 as selling_price, p.img, p.qr_img "
-            + "FROM `product` p JOIN `product_size` ps ON p.id = ps.product_id "
-            + "WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :productName, '%')) "
-            + "AND (:productSizeList is null or ps.size in :productSizeList) "
-            + "AND p.product_type_id = :productTypeId AND p.is_delete = false", nativeQuery = true)
-    Page<ProductDTO> search(@Param("productName") String productName,
-                            @Param("productSizeList") List<String> productSizeList,
-                            @Param("productTypeId") Integer productTypeId,
-                            Pageable pageable);
+    @Query(value = "SELECT * FROM product WHERE (name LIKE concat ('%' , :productName ," +
+            " '%') OR code LIKE concat ('%' , :code , '%'))" +
+            " AND is_delete = false", nativeQuery = true)
+    Page<Product> search(@Param("productName") String productName,
+                         @Param("code") String code,
+                         Pageable pageable);
 
+    @Query(value = "select * from product where product_type_id like concat ('%', :customerTypeId, '%')", nativeQuery = true)
+    Page<Product> searchWithType(@Param("customerTypeId") String customerTypeId, Pageable pageable);
 
     /**
      * created by QuanTVA
@@ -82,8 +80,8 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
      */
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO product (code,`name`, img,qr_img,entry_price,selling_price, product_type_id,is_delete) " +
-            "VALUES (:code, :name, :img, :qrImg, :entryPrice, :sellingPrice ,:productTypeId, :isDelete)", nativeQuery = true)
+    @Query(value = "INSERT INTO product (code,`name`, img,qr_img,entry_price,selling_price, product_type_id,is_delete, quantity) " +
+            "VALUES (:code, :name, :img, :qrImg, :entryPrice, :sellingPrice ,:productTypeId, :isDelete, :quantity)", nativeQuery = true)
     void addProduct(@Param("code") String code,
                     @Param("name") String name,
                     @Param("img") String img,
@@ -91,7 +89,8 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
                     @Param("entryPrice") Double entryPrice,
                     @Param("sellingPrice") Double sellingPrice,
                     @Param("productTypeId") Integer productTypeId,
-                    @Param("isDelete") boolean isDelete);
+                    @Param("isDelete") boolean isDelete,
+                    @Param("quantity") Integer quantity);
 
     /**
      * create by QuanTVA
@@ -104,7 +103,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "INSERT INTO `fashion_shop`.`product_size_detail`" +
             " (`product_id`, `product_size_id`) VALUES (:idProduct, :idSize);", nativeQuery = true)
     void addProductSizeDetail(@Param("idSize") Integer idSize,
-                                @Param("idProduct")Integer idProduct);
+                              @Param("idProduct")Integer idProduct);
 
     /**
      * Create by: TanTH
@@ -129,4 +128,3 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select count(code) from product", nativeQuery = true)
     Integer getTotalCodeAmount();
 }
-

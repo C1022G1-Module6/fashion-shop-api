@@ -1,6 +1,8 @@
 package vn.codegym.service.product.impl;
 
 
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,19 +12,22 @@ import vn.codegym.dto.product.*;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.repository.product.IProductRepository;
+import vn.codegym.repository.product.IProductTypeRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
+import vn.codegym.service.product.IProductTypeService;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
+import static vn.codegym.qr.MyQr.createQR;
 
 
 @Service
 public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
-
+    @Autowired
+    private IProductTypeRepository productTypeRepository;
 
     /**
      * Created by : QuanTVA
@@ -62,18 +67,22 @@ public class ProductService implements IProductService {
      *
      * @param productName
      * @param "productSizeList"
-     * @param productTypeId
      * @param pageable
      * @return Page<ProductDTO>
      * Function : search
      */
-    public Page<ProductDTO> searchProducts(String productName, Integer productTypeId, String[] productSizes, Pageable pageable) {
-        List<String> productSizeList = null;
-        if (productSizes != null) {
-            productSizeList = new ArrayList<>();
-            Collections.addAll(productSizeList, productSizes);
+    public Page<ProductDTO> searchProducts(String productName, String code, Pageable pageable) {
+        Page<Product> products = productRepository.search(productName, code, pageable);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        ProductDTO productDTO;
+        for (Product product: products) {
+            productDTO = new ProductDTO();
+            productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product.getProductType(), productDTO.getProductType());
+            BeanUtils.copyProperties(product, productDTO);
+            productDTOS.add(productDTO);
         }
-        return productRepository.search(productName, productSizeList, productTypeId, pageable);
+        return new PageImpl<>(productDTOS, pageable, products.getTotalElements());
     }
 
     /**
@@ -82,26 +91,42 @@ public class ProductService implements IProductService {
      * @param productCreateDTO function : addProduct
      */
     public void addProduct(ProductCreateDTO productCreateDTO) {
-        // Save product
         Product product = new Product();
+        product.setQuantity(0);
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
+        String imgPath = productCreateDTO.getImg();
+        String newImgFilePath = imgPath.replace("C:\\fakepath\\", "img/");
+        productCreateDTO.setImg(newImgFilePath);
         BeanUtils.copyProperties(productCreateDTO, product);
         int id = productRepository.getTotalCodeAmount() + 100000;
         product.setCode("MH" + id);
-        productRepository.addProduct(product.getCode(),
+        String qrImgPath = "D:\\module-6\\fashion-shop-reactjs\\src\\qrCode\\" + product.getCode() + ".png";
+        try {
+            Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+            createQR(product.getCode(), qrImgPath, "UTF-8", hintMap, 200, 200);
+            product.setQrImg(qrImgPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        productRepository.addProduct(
+                product.getCode(),
                 product.getName(),
                 product.getImg(),
                 product.getQrImg(),
                 product.getEntryPrice(),
                 product.getSellingPrice(),
                 product.getProductType().getId(),
-                product.isDelete());
+                product.isDelete(),
+                product.getQuantity());
 
         Product product1 = productRepository.findWithCode(product.getCode());
-
+//
         for (ProductSizeDTO size : productCreateDTO.getProductSizes()) {
             productRepository.addProductSizeDetail(size.getId(), product1.getId());
         }
+
+
     }
 
     /**
@@ -113,6 +138,21 @@ public class ProductService implements IProductService {
     @Override
     public Product findWithId(Integer id) {
         return productRepository.findWithId(id);
+    }
+
+    @Override
+    public Page<ProductDTO> findWithProductType(String productTypeId, Pageable pageable) {
+        Page<Product> products = productRepository.searchWithType(productTypeId, pageable);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        ProductDTO productDTO;
+        for (Product product: products) {
+            productDTO = new ProductDTO();
+            productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product.getProductType(), productDTO.getProductType());
+            BeanUtils.copyProperties(product, productDTO);
+            productDTOS.add(productDTO);
+        }
+        return new PageImpl<>(productDTOS, pageable, products.getTotalElements());
     }
 
     @Override

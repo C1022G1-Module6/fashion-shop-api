@@ -11,6 +11,9 @@ import vn.codegym.service.data_entry.IDataEntryService;
 import vn.codegym.service.data_entry.impl.DataEntryProductServiceImpl;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,8 +68,25 @@ public class DataEntryRestController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getInvoice() {
+    public ResponseEntity<DataEntryDTO> getInvoice() {
         DataEntryDTO dataEntryDTO = iDataEntryService.getDataEntryDetail();
+        SimpleDateFormat initialDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = dataEntryDTO.getDate();
+        String dateInNewFormat = "";
+        try {
+            Date newDate = initialDateFormat.parse(date);
+            dateInNewFormat = newDateFormat.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        dataEntryDTO.setDate(dateInNewFormat);
         return new ResponseEntity<>(dataEntryDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> cancelDataEntry() {
+        dataEntryProductService.resetCount();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
