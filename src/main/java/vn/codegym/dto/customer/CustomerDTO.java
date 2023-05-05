@@ -15,7 +15,6 @@ public class CustomerDTO implements Validator {
     private String code;
 
     @NotBlank(message = "Không được để trống!")
-    @Pattern(regexp = "/^[A-Z][a-z]+\\s([A-Z][a-z]+\\s)*[A-Z][a-z]+$/",message = "Vui lòng nhập đúng tên!")
     private String name;
 
     private boolean gender;
