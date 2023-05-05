@@ -4,10 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import vn.codegym.entity.invoice.Invoice;
-import vn.codegym.projections.IDayCostProjection;
-import vn.codegym.projections.IMonthCostProjection;
-import vn.codegym.projections.IMonthRevenueProjection;
-import vn.codegym.projections.IStatisticsProjection;
+import vn.codegym.projections.*;
 
 import java.util.List;
 
@@ -33,4 +30,17 @@ public interface IStatisticsRepository extends JpaRepository<Invoice, Integer> {
             "where month(de.date) = :month \n",
             nativeQuery = true)
     List<IMonthCostProjection> totalCostMonth(@Param("month") Integer month);
+
+    @Query(value = "select format(day(inv.date), '00') as `day`, (sum(inv.payment) - " +
+            "(sum(ind.quantity * pro.selling_price))) as profit \n" +
+            "from invoice_detail ind inner join product pro on ind.product_id = pro.id\n" +
+            "inner join invoice inv on ind.invoice_id = inv.id  where month(inv.date) = :month group by `day`, " +
+            "month(inv.date)", nativeQuery = true)
+    List<IDayProfitProjection> totalProfitDay(@Param("month") Integer month);
+
+    @Query(value = "select month(inv.date) AS `month`, (SUM(inv.payment) - SUM(ind.quantity * pro.selling_price)) " +
+            "AS totalProfit from invoice_detail ind inner join product pro ON ind.product_id = pro.id\n" +
+            "inner join invoice inv ON ind.invoice_id = inv.id where month(inv.date) = :month group by month(inv.date)",
+            nativeQuery = true)
+    List<IMonthProfitProjection> totalProfitMonth(@Param("month") Integer month);
 }

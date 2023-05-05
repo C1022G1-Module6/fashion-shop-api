@@ -9,14 +9,15 @@ import java.util.List;
 
 public interface IProductStatisticalRepository extends JpaRepository<Product, Integer> {
     /**
-     * Lấy top 5 hàng hóa bán chạy nhất
+     * Lấy top 5 hàng hóa bán chạy nhất theo quý
      * @return
      */
-    @Query(value = "SELECT p.name, p.img, SUM(id.quantity) AS quantity\n" +
+    @Query(value = "SELECT p.name, p.img, CONCAT('Quý ', QUARTER(i.date),' năm ',YEAR(i.date)) AS quarter, SUM(id.quantity) AS quantity\n" +
             "FROM product p\n" +
             "JOIN invoice_detail id ON p.id = id.product_id\n" +
-            "GROUP BY p.id\n" +
-            "ORDER BY quantity DESC\n" +
+            "JOIN invoice i ON i.id = id.invoice_id\n" +
+            "GROUP BY p.id, quarter\n" +
+            "ORDER BY quarter ASC, quantity DESC\n" +
             "LIMIT 5;", nativeQuery = true)
     List<ITopOrdersProjection> findTopOrders();
 

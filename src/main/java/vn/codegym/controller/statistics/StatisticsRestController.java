@@ -9,6 +9,7 @@ import vn.codegym.projections.IDayCostProjection;
 import vn.codegym.projections.IMonthCostProjection;
 import vn.codegym.projections.IMonthRevenueProjection;
 import vn.codegym.projections.IStatisticsProjection;
+import vn.codegym.projections.*;
 import vn.codegym.service.statistics.IStatisticsService;
 
 import javax.mail.Message;
@@ -38,7 +39,6 @@ public class StatisticsRestController {
 
     /**
      * This method is used to get monthly revenue data with the month parameter passed in
-     *
      * @param month
      * @return
      */
@@ -67,6 +67,26 @@ public class StatisticsRestController {
         try {
             List<IMonthCostProjection> iMonthCostProjectionList = iStatisticsService.monthCost(month);
             return new ResponseEntity<>(iMonthCostProjectionList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/profit")
+    public ResponseEntity<?> dayProfit(@RequestParam(required = false, defaultValue = "") Integer month) {
+        try {
+            List<IDayProfitProjection> iDayProfitProjectionList = iStatisticsService.dayProfit(month);
+            return new ResponseEntity<>(iDayProfitProjectionList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/month-profit")
+    public ResponseEntity<?> monthProfit(@RequestParam(required = false, defaultValue = "") Integer month) {
+        try {
+            List<IMonthProfitProjection> iMonthProfitProjectionList = iStatisticsService.monthProfit(month);
+            return new ResponseEntity<>(iMonthProfitProjectionList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
