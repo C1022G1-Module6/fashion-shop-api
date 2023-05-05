@@ -30,9 +30,9 @@ public interface INewsRepository extends JpaRepository<News, Integer> {
      */
     @Transactional
     @Modifying
-    @Query(value = "insert into news (content, img, name_img, title, employee_id) values (:content,:img, :nameImg,:title,:employee_id)",
+    @Query(value = "insert into news (content, img, name_img, title, employee_id,mb) values (:content,:img, :nameImg,:title,:employee_id,:mb)",
             nativeQuery = true)
-    void addNews(@Param("content") String content, @Param("img") String img,@Param("nameImg") String nameImg, @Param("title") String title, @Param("employee_id") Integer employeeId);
+    void addNews(@Param("content") String content, @Param("img") String img,@Param("nameImg") String nameImg, @Param("title") String title, @Param("employee_id") Integer employeeId,@Param("mb") Double mb);
 
     /**
      * create by : TanNN ,
@@ -43,8 +43,8 @@ public interface INewsRepository extends JpaRepository<News, Integer> {
      * @param pageable
      * @return Returns a list of information according to the 2 parameters passed
      */
-    @Query(value = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId, n.date_time as dateTime FROM news n where n.title like concat('%',:tittleSearch,'%') and n.flag_delete = 0 order by n.id desc",
-            countQuery = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId, n.date_time as dateTime FROM news n where n.title like concat('%',:tittleSearch,'%') and n.flag_delete = 0 order by n.id desc",
+    @Query(value = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId, DATE_FORMAT(NOW(), '%d-%m-%Y') as dateTime  FROM news n where n.title like concat('%',:tittleSearch,'%') and n.flag_delete = 0 order by n.id desc",
+            countQuery = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId, DATE_FORMAT(NOW(), '%d-%m-%Y') as dateTime  FROM news n where n.title like concat('%',:tittleSearch,'%') and n.flag_delete = 0 order by n.id desc",
             nativeQuery = true)
     Page<INewsDTO> pageNews(Pageable pageable, String tittleSearch);
 
