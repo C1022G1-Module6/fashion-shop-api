@@ -128,4 +128,3 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select count(code) from product", nativeQuery = true)
     Integer getTotalCodeAmount();
 }
-
