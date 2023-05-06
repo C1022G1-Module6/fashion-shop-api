@@ -77,7 +77,7 @@ public class AuthRestController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtTokenProvider.createToken(authentication);
             UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-            return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getUsername(), userPrinciple.getAvatar(), userPrinciple.getAuthorities()));
+            return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getUsername(), userPrinciple.getAvatar(), userPrinciple.getAuthorities(),userPrinciple.getName()));
         }
     }
 

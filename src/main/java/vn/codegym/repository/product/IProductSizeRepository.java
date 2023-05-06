@@ -28,5 +28,4 @@ public interface IProductSizeRepository extends JpaRepository<ProductSize, Integ
     Page<ProductSize> search(@Param("sizeName") String sizeName, Pageable pageable);
 
     ProductSize findByName(String name);
-
 }
