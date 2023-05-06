@@ -30,6 +30,9 @@ public class InvoiceDetailRestController {
         if (invoiceDetailDTO.getQuantity() == null) {
             return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
         }
+        if (Objects.equals(invoiceDetailDTO.getSize(), "")) {
+            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+        }
         if (!bindingResult.hasErrors()) {
             String msg = invoiceDetailService.save(invoiceDetailDTO);
             if (!Objects.equals(msg, "")) {
