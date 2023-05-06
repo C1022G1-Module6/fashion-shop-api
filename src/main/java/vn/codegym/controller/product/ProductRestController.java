@@ -103,10 +103,11 @@ public class ProductRestController {
     @GetMapping("/search")
     public ResponseEntity<Page<ProductDTO>> searchProducts(
             @RequestParam(required = false ,defaultValue = "") String productName,
-            @RequestParam(required = false ,defaultValue = "") String code,
-            @PageableDefault(size = 10)Pageable pageable
+//            @RequestParam(required = false ,defaultValue = "") String code,
+            @RequestParam(required = false ,defaultValue = "") String productTypeId,
+            @PageableDefault(size = 5)Pageable pageable
     ) {
-        Page<ProductDTO> products = productService.searchProducts(productName, code, pageable);
+        Page<ProductDTO> products = productService.searchProducts(productName, productTypeId, pageable);
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

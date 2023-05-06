@@ -86,8 +86,8 @@ public class ProductService implements IProductService {
      * @return Page<ProductDTO>
      * Function : search
      */
-    public Page<ProductDTO> searchProducts(String productName, String code, Pageable pageable) {
-        Page<Product> products = productRepository.search(productName, code, pageable);
+    public Page<ProductDTO> searchProducts(String productName, String productTypeId, Pageable pageable) {
+        Page<Product> products = productRepository.search(productName, productTypeId, pageable);
         List<ProductDTO> productDTOS = new ArrayList<>();
         ProductDTO productDTO;
         for (Product product: products) {

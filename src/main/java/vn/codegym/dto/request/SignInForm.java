@@ -1,7 +1,6 @@
 package vn.codegym.dto.request;
 
 import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 

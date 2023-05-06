@@ -59,10 +59,11 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
      *     Function : search
      */
     @Query(value = "SELECT * FROM product WHERE (name LIKE concat ('%' , :productName ," +
-            " '%') OR code LIKE concat ('%' , :code , '%'))" +
-            " AND is_delete = false", nativeQuery = true)
+            "'%')AND product_type_id LIKE concat ('%' , :productTypeId , '%'))" +
+            "AND is_delete = false", nativeQuery = true)
     Page<Product> search(@Param("productName") String productName,
-                         @Param("code") String code,
+//                         @Param("code") String code,
+                         @Param("productTypeId") String productTypeId,
                          Pageable pageable);
 
     @Query(value = "select * from product where product_type_id like concat ('%', :customerTypeId, '%')", nativeQuery = true)

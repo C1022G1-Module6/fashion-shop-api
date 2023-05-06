@@ -95,19 +95,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
      * Date create : 24/04/2023
      * Function : Edit customers in database
      *
-     * @param code
-     * @param name
-     * @param gender
-     * @param dateOfBirth
-     * @param address
-     * @param email
-     * @param phoneNumber
-     * @param point
-     * @param customerTypeId
      * @param id
      */
 
-    @Query(value = "select * from customer where id like concat('%', :id, '%')", nativeQuery = true)
+    @Query(value = "select * from customer where id = :id", nativeQuery = true)
     Customer findByCustomerId(@Param("id") int id);
     @Query(value = "select * from customer where code like concat('%', :code, '%')", nativeQuery = true)
     Customer findCustomerWithCode(@Param("code") String code);
@@ -139,5 +130,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             @Param("id") Integer id
     );
 
-
+    @Query(value = "select count(code) from customer", nativeQuery = true)
+    Integer getTotalCodeAmount();
 }
