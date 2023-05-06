@@ -12,7 +12,7 @@ public class ProductDTO {
     private Double sellingPrice;
     private Double entryPrice;
     private ProductTypeDTO productType;
-    private Set<ProductSizeDTO> productSizes;
+    private Set<ProductSizeDetailDTO> productSizeDetailDTOS;
 
 
     public ProductDTO() {
@@ -90,11 +90,11 @@ public class ProductDTO {
         this.productType = productType;
     }
 
-    public Set<ProductSizeDTO> getProductSizes() {
-        return productSizes;
+    public Set<ProductSizeDetailDTO> getProductSizeDetailDTOS() {
+        return productSizeDetailDTOS;
     }
 
-    public void setProductSizes(Set<ProductSizeDTO> productSizes) {
-        this.productSizes = productSizes;
+    public void setProductSizeDetailDTOS(Set<ProductSizeDetailDTO> productSizeDetailDTOS) {
+        this.productSizeDetailDTOS = productSizeDetailDTOS;
     }
 }

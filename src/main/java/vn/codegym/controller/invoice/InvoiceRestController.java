@@ -13,10 +13,7 @@ import vn.codegym.service.invoice.impl.InvoiceDetailService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/invoice")
@@ -53,8 +50,14 @@ public class InvoiceRestController {
         if (invoiceDTO.getTotal() == null ||invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if (invoiceDTO.getCustomerDTO().getCode().equals("")) {
+            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+        }
         if (!bindingResult.hasErrors()) {
-            invoiceService.update(invoiceDTO);
+            String msg = invoiceService.update(invoiceDTO);
+            if (!Objects.equals(msg, "")) {
+                return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+            }
             invoiceDetailService.resetCount();
         } else {
             Map<String, String> map = new LinkedHashMap<>();

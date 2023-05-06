@@ -1,6 +1,8 @@
 package vn.codegym.dto.invoice;
 
 import vn.codegym.dto.product.ProductDTO;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -12,8 +14,10 @@ public class InvoiceDetailDTO {
     @PositiveOrZero(message = "Tổng tiền phải là số dương")
     private Double total;
     private Boolean isDelete = false;
+    private String size;
     private ProductDTO productDTO;
     private InvoiceDTO invoiceDTO;
+    private String productSizeCode;
 
     public InvoiceDetailDTO() {
     }
@@ -64,6 +68,22 @@ public class InvoiceDetailDTO {
 
     public void setInvoiceDTO(InvoiceDTO invoiceDTO) {
         this.invoiceDTO = invoiceDTO;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getProductSizeCode() {
+        return productSizeCode;
+    }
+
+    public void setProductSizeCode(String productSizeCode) {
+        this.productSizeCode = productSizeCode;
     }
 }
 

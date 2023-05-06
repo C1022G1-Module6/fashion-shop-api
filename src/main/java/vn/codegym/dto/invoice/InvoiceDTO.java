@@ -1,6 +1,8 @@
 package vn.codegym.dto.invoice;
 
 import vn.codegym.dto.customer.CustomerDTO;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
 
@@ -13,7 +15,6 @@ public class InvoiceDTO {
     private Double total;
     @PositiveOrZero(message = "Thành tiền phải là số dương")
     private Double payment;
-
     private Integer bonusPoint;
     private CustomerDTO customerDTO;
     private Set<InvoiceDetailDTO> invoiceDetailDTOS;

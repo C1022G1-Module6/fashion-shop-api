@@ -2,6 +2,8 @@ package vn.codegym.entity.product;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import vn.codegym.entity.invoice.InvoiceDetail;
+
 import javax.persistence.*;
 
 @Entity

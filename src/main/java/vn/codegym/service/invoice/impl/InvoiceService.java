@@ -86,18 +86,22 @@ public class InvoiceService implements IInvoiceService {
      * @param invoiceDTO
      */
     @Override
-    public void update(InvoiceDTO invoiceDTO) {
+    public String update(InvoiceDTO invoiceDTO) {
         Invoice invoice = findLastInvoiceInList();
         invoiceDTO.setId(invoice.getId());
         invoiceDTO.setCode(invoice.getCode());
         invoiceDTO.setDate(invoice.getDate());
         BeanUtils.copyProperties(invoiceDTO, invoice);
         Customer customer = getCustomer(invoiceDTO.getCustomerDTO().getCode());
+        if (customer == null) {
+            return "Khách hàng này chưa có trong hệ thống";
+        }
         invoice.setCustomer(customer);
         invoice.setBonusPoint((int) (invoice.getPayment() * 10 / invoice.getCustomer().getCustomerType().getCondition()));
         setValueOfCustomerType(customer, invoice);
         customerRepository.save(customer);
         invoiceRepository.updateInvoice(invoice);
+        return "";
     }
 
     /**
