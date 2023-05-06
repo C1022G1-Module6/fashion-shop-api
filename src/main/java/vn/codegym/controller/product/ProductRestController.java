@@ -101,18 +101,22 @@ public class ProductRestController {
      * Function : search
      */
     @GetMapping("/search")
-    public ResponseEntity<Page<ProductDTO>> searchProducts(
-            @RequestParam(required = false ,defaultValue = "") String productName,
-//            @RequestParam(required = false ,defaultValue = "") String code,
-            @RequestParam(required = false ,defaultValue = "") String productTypeId,
-            @PageableDefault(size = 5)Pageable pageable
+    public ResponseEntity<?> searchProducts(
+            @RequestParam(required = false, defaultValue = "") String productName,
+            @RequestParam(required = false, defaultValue = "") String code,
+            @PageableDefault(size = 10) Pageable pageable
     ) {
-        Page<ProductDTO> products = productService.searchProducts(productName, productTypeId, pageable);
+        if (productName.matches("[^a-zA-Z0-9]+")) {
+            return new ResponseEntity<>("Không được nhập ký tự đặc biệt",HttpStatus.BAD_REQUEST);
+        }
+
+        Page<ProductDTO> products = productService.searchProducts(productName, code, pageable);
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
 
     @GetMapping("/search-type")
     public ResponseEntity<Page<ProductDTO>> searchProductsWithType(

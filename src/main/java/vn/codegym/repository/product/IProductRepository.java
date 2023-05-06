@@ -32,7 +32,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
      * @return : List<ProductDetailDTO>
      *  Function : findAllByIdProduct
      */
-    @Query(value = "select p.code as code ,p.name as name ,psd.quantity as quantity,ps.name as size \n" +
+    @Query(value = "select psd.code as code ,p.name as name ,psd.quantity as quantity,ps.name as size \n" +
             "from product p \n" +
             "join product_size_detail psd on p.id = psd.product_id \n" +
             "join product_size ps on psd.product_size_id = ps.id \n" +

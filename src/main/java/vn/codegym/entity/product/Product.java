@@ -26,9 +26,12 @@ public class Product {
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
     private ProductType productType;
-    @OneToMany(mappedBy = "product")
+
+
     @JsonBackReference
-    private Set<ProductSizeDetail>  productSizeDetails;
+    @OneToMany(mappedBy = "productSize")
+    private Set<ProductSizeDetail> productSizeDetails;
+
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;

@@ -1,7 +1,4 @@
 package vn.codegym.dto.product;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -9,10 +6,10 @@ import java.util.Set;
 
 public class ProductCreateDTO {
     private String code;
-//    @NotBlank(message = "Không được để trống")
-//@Size(max = 800,message = "Không được vượt quá 800 ký tự" )
-//@Pattern(regexp = "^[A-Z][a-zđàáảãạăắằẵặẳâầấậẫẩêềếểệễéèẻẹëẽíìỉịĩóòỏõọôổốộỗồơờớợỡởùúủụũưừứựữửỳỷỹỵ\\s]*$",message = "Chữ đầu tiên viết hoa và mấy chữ sau có thể viết dấu" +
-//        "ví dụ như Áo ấm, Quần dài")
+    @NotBlank(message = "Không được để trống")
+@Size(max = 200,message = "Không được vượt quá 200 ký tự" )
+@Pattern(regexp = "^[A-Z][a-zđàáảãạăắằẵặẳâầấậẫẩêềếểệễéèẻẹëẽíìỉịĩóòỏõọôổốộỗồơờớợỡởùúủụũưừứựữửỳỷỹỵ\\s]*$",message = "Chữ đầu tiên viết hoa và mấy chữ sau có thể viết dấu" +
+        "ví dụ như Áo ấm, Quần dài")
     private String name;
 
     private String qrImg;
@@ -24,6 +21,8 @@ public class ProductCreateDTO {
 
     private Double entryPrice;
     private ProductTypeDTO productType;
+
+    private String codeDetail;
     private Set<ProductSizeDTO> productSizes;
     private boolean isDelete = false;
 
@@ -113,5 +112,13 @@ public class ProductCreateDTO {
 
     public void setDelete(boolean delete) {
         isDelete = delete;
+    }
+
+    public String getCodeDetail() {
+        return codeDetail;
+    }
+
+    public void setCodeDetail(String codeDetail) {
+        this.codeDetail = codeDetail;
     }
 }
