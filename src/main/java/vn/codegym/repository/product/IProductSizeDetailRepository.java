@@ -1,6 +1,7 @@
 package vn.codegym.repository.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import vn.codegym.entity.product.ProductSize;
@@ -12,4 +13,5 @@ public interface IProductSizeDetailRepository extends JpaRepository<ProductSizeD
             ,@Param("productId") Integer productId);
     ProductSizeDetail findByCodeContaining(String code);
     ProductSizeDetail findByProductSize(ProductSize productSize);
+
 }

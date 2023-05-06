@@ -1,6 +1,4 @@
 package vn.codegym.service.product.impl;
-
-
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springframework.beans.BeanUtils;
@@ -17,12 +15,8 @@ import vn.codegym.repository.product.IProductSizeDetailRepository;
 import vn.codegym.repository.product.IProductTypeRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
-import vn.codegym.service.product.IProductTypeService;
-
 import java.util.*;
-
 import static vn.codegym.qr.MyQr.createQR;
-
 
 @Service
 public class ProductService implements IProductService {
@@ -32,6 +26,10 @@ public class ProductService implements IProductService {
     private IProductTypeRepository productTypeRepository;
     @Autowired
     private IProductSizeDetailRepository iProductSizeDetailRepository;
+
+    @Autowired
+    private IProductSizeRepository productSizeRepository;
+
 
     public void setValueForProduct(Product product) {
         List<ProductSizeDetail> productSizeDetails = iProductSizeDetailRepository.findAll();
@@ -53,6 +51,17 @@ public class ProductService implements IProductService {
     @Override
     public List<ProductDetailDTO> findAllByProductId(int id) {
         return productRepository.findAllByIdProduct(id);
+    }
+
+    public void setValueForProduct(Product product) {
+        List<ProductSizeDetail> productSizeDetails = iProductSizeDetailRepository.findAll();
+        Integer sum = 0;
+        for (ProductSizeDetail productSizeDetail: productSizeDetails) {
+            if (Objects.equals(productSizeDetail.getProduct().getId(), product.getId())) {
+                sum += productSizeDetail.getQuantity();
+            }
+        }
+        product.setQuantity(sum);
     }
 
     /**
@@ -114,7 +123,7 @@ public class ProductService implements IProductService {
         BeanUtils.copyProperties(productCreateDTO, product);
         int id = productRepository.getTotalCodeAmount() + 100000;
         product.setCode("MH" + id);
-        String qrImgPath = "D:\\module-6\\fashion-shop-reactjs\\src\\qrCode\\" + product.getCode() + ".png";
+        String qrImgPath = "E:\\Codegym\\project_reactJS\\fashion-shop-reactjs\\src\\qrCode" + product.getCode() + ".png";
         try {
             Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
@@ -123,6 +132,7 @@ public class ProductService implements IProductService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         productRepository.addProduct(
                 product.getCode(),
                 product.getName(),
@@ -135,12 +145,15 @@ public class ProductService implements IProductService {
                 product.getQuantity());
 
         Product product1 = productRepository.findWithCode(product.getCode());
-//
         for (ProductSizeDTO size : productCreateDTO.getProductSizes()) {
-            productRepository.addProductSizeDetail(size.getId(), product1.getId());
+            ProductSizeDetail productSizeDetail = new ProductSizeDetail();
+            productSizeDetail.setQuantity(0);
+            productSizeDetail.setProduct(product1);
+            ProductSize productSize = productSizeRepository.findById(size.getId()).get();
+            productSizeDetail.setCode(product.getCode()+ productSize.getName());
+            productSizeDetail.setProductSize(productSize);
+            iProductSizeDetailRepository.save(productSizeDetail);
         }
-
-
     }
 
     /**
@@ -184,7 +197,5 @@ public class ProductService implements IProductService {
     public Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable) {
         return productRepository.ListProduct(name, product_type_id,pageable);
     }
-
 }
-
 

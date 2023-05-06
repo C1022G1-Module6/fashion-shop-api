@@ -134,6 +134,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
      *
      * @return
      */
+
     @Override
     public List<InvoiceDetailDTO> findAll() {
         List<InvoiceDetail> invoiceDetailList = invoiceDetailRepository

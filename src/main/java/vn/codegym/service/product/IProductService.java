@@ -35,4 +35,3 @@ public interface IProductService {
 
     Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable);
 }
-

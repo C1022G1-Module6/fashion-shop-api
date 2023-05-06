@@ -14,12 +14,10 @@ public class ProductSize {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    
+
     @JsonBackReference
     @OneToMany(mappedBy = "productSize")
     private Set<ProductSizeDetail> productSizeDetails;
-
-
     public ProductSize() {
     }
 

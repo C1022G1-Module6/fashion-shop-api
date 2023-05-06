@@ -1,29 +1,26 @@
 package vn.codegym.entity.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import vn.codegym.entity.invoice.InvoiceDetail;
-
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "product_size_detail")
-public class ProductSizeDetail {
+@Table(name = "product_size")
+public class ProductSize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer quantity;
-    private String code;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    @JsonManagedReference
-    private Product product;
-    @ManyToOne
-    @JoinColumn(name = "product_size_id")
-    @JsonManagedReference
-    private ProductSize productSize;
+    private String name;
+    
+    @JsonBackReference
+    @OneToMany(mappedBy = "productSize")
+    private Set<ProductSizeDetail> productSizeDetails;
 
-    public ProductSizeDetail() {
+
+    public ProductSize() {
     }
 
     public Integer getId() {
@@ -34,35 +31,19 @@ public class ProductSizeDetail {
         this.id = id;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getName() {
+        return name;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public Set<ProductSizeDetail> getProductSizeDetails() {
+        return productSizeDetails;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public ProductSize getProductSize() {
-        return productSize;
-    }
-
-    public void setProductSize(ProductSize productSize) {
-        this.productSize = productSize;
+    public void setProductSizeDetails(Set<ProductSizeDetail> productSizeDetails) {
+        this.productSizeDetails = productSizeDetails;
     }
 }
