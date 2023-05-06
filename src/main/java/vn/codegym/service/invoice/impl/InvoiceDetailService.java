@@ -65,11 +65,11 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         ProductSize productSize = productSizeRepository.findById(Integer.parseInt(invoiceDetailDTO.getSize())).get();
         Product product = productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode());
         if (product == null) {
-            return "Không có mặt hàng này trong kho";
+            return "Không có hàng này trong kho";
         }
         ProductSizeDetail productSizeDetail = productSizeDetailRepository.findWithProductSizeAndProduct(productSize.getId(), product.getId());
         if (productSizeDetail == null) {
-            return "Không có mặt hàng này trong kho";
+            return "Không có hàng này trong kho";
         }
         if (invoiceDetailDTO.getQuantity() > productSizeDetail.getQuantity()) {
             return "Số lượng hàng trong kho không đủ";
