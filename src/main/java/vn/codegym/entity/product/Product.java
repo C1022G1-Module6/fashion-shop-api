@@ -14,7 +14,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String code;
     private String name;
     private Integer quantity;
@@ -22,21 +21,14 @@ public class Product {
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
-
     private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
     private ProductType productType;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "product_size_detail",
-            joinColumns = {@JoinColumn(name = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_size_id")}
-    )
-    private Set<ProductSize> productSizes;
     @OneToMany(mappedBy = "product")
-    @JsonManagedReference
-    private Set<InvoiceDetail> invoiceDetails;
+    @JsonBackReference
+    private Set<ProductSizeDetail>  productSizeDetails;
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;
@@ -124,22 +116,13 @@ public class Product {
         this.productType = productType;
     }
 
-    public Set<ProductSize> getProductSizes() {
-        return productSizes;
+    public Set<ProductSizeDetail> getProductSizeDetails() {
+        return productSizeDetails;
     }
 
-    public void setProductSizes(Set<ProductSize> productSizes) {
-        this.productSizes = productSizes;
+    public void setProductSizeDetails(Set<ProductSizeDetail> productSizeDetails) {
+        this.productSizeDetails = productSizeDetails;
     }
-
-    public Set<InvoiceDetail> getInvoiceDetails() {
-        return invoiceDetails;
-    }
-
-    public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
-        this.invoiceDetails = invoiceDetails;
-    }
-
     public boolean isDelete() {
         return isDelete;
     }

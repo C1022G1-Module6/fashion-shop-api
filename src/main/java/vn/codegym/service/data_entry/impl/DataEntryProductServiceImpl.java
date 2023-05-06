@@ -124,7 +124,6 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         iDataEntryProductRepository.save(dataEntryProduct);
     }
 
-
     /**
      * This function get all dataEntryProductDTO instances and return a list of data entry instances
      *

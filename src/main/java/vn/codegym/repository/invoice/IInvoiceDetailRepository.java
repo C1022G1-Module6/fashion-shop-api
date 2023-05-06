@@ -13,12 +13,14 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, I
 
     @Modifying
     @Transactional
-    @Query(value = "insert into invoice_detail (quantity, total, invoice_id, product_id, is_delete) " +
-            "values (:quantity, :total, :invoice, :product, :isDelete)", nativeQuery = true)
+    @Query(value = "insert into invoice_detail (quantity, total, invoice_id, product_id, is_delete, `size`, product_size_code) " +
+            "values (:quantity, :total, :invoice, :product, :isDelete, :size, :productSizeCode)", nativeQuery = true)
     void saveInvoiceDetail(@Param("quantity") Integer quantity,
                            @Param("total") Double total,
                            @Param("invoice") Integer invoiceId,
                            @Param("product") Integer productId,
+                           @Param("size") String size,
+                           @Param("productSizeCode") String productSizeCode,
                            @Param("isDelete") Boolean isDelete);
 
     @Query(value = "select * from invoice_detail where id = :id", nativeQuery = true)
