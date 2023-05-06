@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/invoice-detail")
@@ -24,10 +25,19 @@ public class InvoiceDetailRestController {
     @PostMapping("")
     public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO, BindingResult bindingResult) {
         if (invoiceDetailDTO.getProductDTO().getCode() == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+        }
+        if (invoiceDetailDTO.getQuantity() == null) {
+            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+        }
+        if (Objects.equals(invoiceDetailDTO.getSize(), "")) {
+            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
-            invoiceDetailService.save(invoiceDetailDTO);
+            String msg = invoiceDetailService.save(invoiceDetailDTO);
+            if (!Objects.equals(msg, "")) {
+                return new ResponseEntity<>(msg,  HttpStatus.BAD_REQUEST);
+            }
         } else {
             Map<String, String> map = new LinkedHashMap<>();
             List<FieldError> errors = bindingResult.getFieldErrors();

@@ -22,6 +22,8 @@ public class InvoiceDetail {
     @JsonBackReference
     private Product product;
     private Boolean isDelete = false;
+    private String size;
+    private String productSizeCode;
 
     public InvoiceDetail() {
     }
@@ -72,5 +74,21 @@ public class InvoiceDetail {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getProductSizeCode() {
+        return productSizeCode;
+    }
+
+    public void setProductSizeCode(String productSizeCode) {
+        this.productSizeCode = productSizeCode;
     }
 }

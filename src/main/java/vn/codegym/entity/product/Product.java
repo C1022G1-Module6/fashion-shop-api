@@ -14,7 +14,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String code;
     private String name;
     private Integer quantity;
@@ -22,20 +21,17 @@ public class Product {
     private String img;
     private Double sellingPrice;
     private Double entryPrice;
-
-
     private boolean isDelete = false;
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     @JsonBackReference
     private ProductType productType;
 
+
     @JsonBackReference
     @OneToMany(mappedBy = "productSize")
     private Set<ProductSizeDetail> productSizeDetails;
-    @OneToMany(mappedBy = "product")
-    @JsonManagedReference
-    private Set<InvoiceDetail> invoiceDetails;
+
     @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private Set<DataEntryProduct> dataEntryProductSet;
@@ -123,7 +119,6 @@ public class Product {
         this.productType = productType;
     }
 
-
     public Set<ProductSizeDetail> getProductSizeDetails() {
         return productSizeDetails;
     }
@@ -131,15 +126,6 @@ public class Product {
     public void setProductSizeDetails(Set<ProductSizeDetail> productSizeDetails) {
         this.productSizeDetails = productSizeDetails;
     }
-
-    public Set<InvoiceDetail> getInvoiceDetails() {
-        return invoiceDetails;
-    }
-
-    public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
-        this.invoiceDetails = invoiceDetails;
-    }
-
     public boolean isDelete() {
         return isDelete;
     }

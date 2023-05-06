@@ -8,12 +8,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import vn.codegym.dto.product.*;
 import vn.codegym.entity.product.Product;
-import vn.codegym.entity.product.ProductSize;
 import vn.codegym.entity.product.ProductSizeDetail;
 import vn.codegym.entity.product.ProductType;
 import vn.codegym.repository.product.IProductRepository;
 import vn.codegym.repository.product.IProductSizeDetailRepository;
-import vn.codegym.repository.product.IProductSizeRepository;
 import vn.codegym.repository.product.IProductTypeRepository;
 import vn.codegym.service.product.IProductService;
 import org.springframework.stereotype.Service;
@@ -28,11 +26,24 @@ public class ProductService implements IProductService {
     private IProductTypeRepository productTypeRepository;
     @Autowired
     private IProductSizeDetailRepository iProductSizeDetailRepository;
+
     @Autowired
     private IProductSizeRepository productSizeRepository;
+
+
+    public void setValueForProduct(Product product) {
+        List<ProductSizeDetail> productSizeDetails = iProductSizeDetailRepository.findAll();
+        Integer sum = 0;
+        for (ProductSizeDetail productSizeDetail: productSizeDetails) {
+            if (Objects.equals(productSizeDetail.getProduct().getId(), product.getId())) {
+                sum += productSizeDetail.getQuantity();
+            }
+        }
+        product.setQuantity(sum);
+    }
+
     /**
      * Created by : QuanTVA
-     *
      * @param id
      * @return : List<ProductDetailDTO>
      * Function : findAllByIdProduct

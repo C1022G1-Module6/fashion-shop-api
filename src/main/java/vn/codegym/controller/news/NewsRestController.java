@@ -84,7 +84,7 @@ public class NewsRestController {
     public ResponseEntity<?> createNews(@Validated @RequestBody NewsDTO newsDTO, BindingResult bindingResult) {
         newsDTO.validate(newsDTO, bindingResult);
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
         }
         iNewsService.addNews(newsDTO);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -9,12 +9,16 @@ import vn.codegym.dto.product.ProductSizeDTO;
 import vn.codegym.entity.invoice.InvoiceDetail;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
+import vn.codegym.entity.product.ProductSizeDetail;
 import vn.codegym.repository.invoice.IInvoiceDetailRepository;
 import vn.codegym.repository.invoice.IInvoiceRepository;
 import vn.codegym.repository.product.IProductRepository;
+import vn.codegym.repository.product.IProductSizeDetailRepository;
+import vn.codegym.repository.product.IProductSizeRepository;
 import vn.codegym.service.invoice.IInvoiceDetailService;
 import org.springframework.stereotype.Service;
 import vn.codegym.service.invoice.IInvoiceService;
+import vn.codegym.service.product.impl.ProductService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,6 +37,12 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     private IInvoiceRepository invoiceRepository;
     @Autowired
     private IProductRepository productRepository;
+    @Autowired
+    private IProductSizeDetailRepository productSizeDetailRepository;
+    @Autowired
+    private IProductSizeRepository productSizeRepository;
+    @Autowired
+    private ProductService productService;
     Integer count = 0;
 
     public void saveNewInvoice() {
@@ -47,33 +57,60 @@ public class InvoiceDetailService implements IInvoiceDetailService {
      * this method is applied to create new invoice with invoiceDetailDTO as param
      * when this method is request, it also increases count value and create new invoice instance to db
      * by using save method from invoiceService (only create if count = 0)
+     *
      * @param invoiceDetailDTO
      */
     @Override
-    public void save(InvoiceDetailDTO invoiceDetailDTO) {
+    public String save(InvoiceDetailDTO invoiceDetailDTO) {
+        ProductSize productSize = productSizeRepository.findById(Integer.parseInt(invoiceDetailDTO.getSize())).get();
         Product product = productRepository.findWithCode(invoiceDetailDTO.getProductDTO().getCode());
-        if (invoiceDetailDTO.getQuantity() > product.getQuantity()) {
-            return;
+        if (product == null) {
+            return "Không có hàng này trong kho";
         }
-        InvoiceDetail invoiceDetail = new InvoiceDetail();
+        ProductSizeDetail productSizeDetail = productSizeDetailRepository.findWithProductSizeAndProduct(productSize.getId(), product.getId());
+        if (productSizeDetail == null) {
+            return "Không có hàng này trong kho";
+        }
+        if (invoiceDetailDTO.getQuantity() > productSizeDetail.getQuantity()) {
+            return "Số lượng hàng trong kho không đủ";
+        }
         if (count == 0) {
             saveNewInvoice();
         }
+        InvoiceDetail invoiceDetail = new InvoiceDetail();
+        invoiceDetailDTO.setProductSizeCode(product.getCode() + productSize.getName());
         BeanUtils.copyProperties(invoiceDetailDTO, invoiceDetail);
         invoiceDetail.setInvoice(invoiceService.findLastInvoiceInList());
-        invoiceDetail.setProduct(product);
+        invoiceDetail.setProduct(productSizeDetail.getProduct());
         invoiceDetail.setTotal(invoiceDetail.getProduct().getSellingPrice() * invoiceDetailDTO.getQuantity());
-        if (product.getQuantity() <= 0) {
-            return;
+        if (productSizeDetail.getQuantity() - invoiceDetail.getQuantity() < 0) {
+            return "Số lượng hàng trong kho không đủ";
         }
-        product.setQuantity(product.getQuantity() - invoiceDetail.getQuantity());
-        productRepository.save(product);
-        invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
-                invoiceDetail.getTotal(),
-                invoiceDetail.getInvoice().getId(),
-                invoiceDetail.getProduct().getId(),
-                invoiceDetail.getDelete());
+        productSizeDetail.setQuantity(productSizeDetail.getQuantity() - invoiceDetail.getQuantity());
+        productSizeDetailRepository.save(productSizeDetail);
+        productService.setValueForProduct(product);
+        List<InvoiceDetail> invoiceDetails = invoiceDetailRepository.findAll();
+
+        if (invoiceDetails.isEmpty()) {
+            invoiceDetailRepository.save(invoiceDetail);
+        }
+
+        InvoiceDetail invoiceDetail1 = invoiceDetails.get(invoiceDetails.size() - 1);
+        if (invoiceDetailDTO.getProductSizeCode().equals(invoiceDetail1.getProductSizeCode()) && count != 0) {
+            invoiceDetail1.setQuantity(invoiceDetail1.getQuantity() + invoiceDetailDTO.getQuantity());
+            invoiceDetail1.setTotal(invoiceDetail1.getQuantity() * invoiceDetail1.getProduct().getSellingPrice());
+            invoiceDetailRepository.save(invoiceDetail1);
+        } else {
+            invoiceDetailRepository.saveInvoiceDetail(invoiceDetail.getQuantity(),
+                    invoiceDetail.getTotal(),
+                    invoiceDetail.getInvoice().getId(),
+                    invoiceDetail.getProduct().getId(),
+                    productSize.getName(),
+                    invoiceDetail.getProductSizeCode(),
+                    invoiceDetail.getDelete());
+        }
         count++;
+        return "";
     }
 
     public void resetCount() {
@@ -82,6 +119,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
 
     /**
      * this methois applied to delete an invoiceDetail instance by set the isDelete value to true
+     *
      * @param id
      */
     @Override
@@ -93,6 +131,7 @@ public class InvoiceDetailService implements IInvoiceDetailService {
 
     /**
      * This function get all invoiceDetailDTO instances and return a list of invoice instances
+     *
      * @return
      */
 

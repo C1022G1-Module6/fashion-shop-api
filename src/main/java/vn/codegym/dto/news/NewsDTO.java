@@ -10,6 +10,7 @@ public class NewsDTO implements Validator {
     private String title;
     private String img;
     private String nameImg;
+    private Double mb;
     private String content;
     private String dateTime;
     private Employee employee;
@@ -25,11 +26,12 @@ public class NewsDTO implements Validator {
         this.employee = employee;
     }
 
-    public NewsDTO(Integer id, String title, String img,String nameImg, String content, Employee employee) {
+    public NewsDTO(Integer id, String title, String img, String nameImg, Double mb, String content, Employee employee) {
         this.id = id;
         this.title = title;
         this.img = img;
         this.nameImg = nameImg;
+        this.mb = mb;
         this.content = content;
         this.employee = employee;
     }
@@ -41,12 +43,21 @@ public class NewsDTO implements Validator {
         this.employee = employee;
     }
 
-    public NewsDTO(String title, String img, String nameImg, String content, Employee employee) {
+    public NewsDTO(String title, String img, String nameImg, Double mb, String content, Employee employee) {
         this.title = title;
         this.img = img;
         this.nameImg = nameImg;
+        this.mb = mb;
         this.content = content;
         this.employee = employee;
+    }
+
+    public double getMb() {
+        return mb;
+    }
+
+    public void setMb(double mb) {
+        this.mb = mb;
     }
 
     public String getNameImg() {
@@ -114,27 +125,35 @@ public class NewsDTO implements Validator {
     public void validate(Object target, Errors errors) {
         NewsDTO newsDTO = (NewsDTO) target;
         if (newsDTO.getTitle().equals("")) {
-            errors.rejectValue("title", "title", "Nhập tiêu đề");
+            errors.rejectValue("title", "title", "Nhập tiêu đề.");
         } else {
             int titleMinLength = newsDTO.getTitle().length();
             int titleMaxLength = newsDTO.getTitle().length();
-            if (!(titleMinLength >= 10 && titleMaxLength <=200)) {
-                errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 200 kí tự");
+            if (!(titleMinLength >= 10 && titleMaxLength <= 200)) {
+                errors.rejectValue("title", "title", "Tiêu đề từ 10 đến 200 kí tự.");
             }
         }
-//        if (newsDTO.getImg().equals("")){
-//            errors.rejectValue("img", "img", "Vui lòng chọn ảnh");
-//        }else if (!(newsDTO.getNameImg().matches("\\.(png|jpg)$"))) {
-//            errors.rejectValue("img", "img", "Ảnh sai định dạng");
-//        }
-        if (newsDTO.getContent().equals("")){
-            errors.rejectValue("content", "content", "Nhập nội dung");
+        if (newsDTO.getNameImg().equals("")) {
+            errors.rejectValue("nameImg", "nameImg", "Vui lòng chọn ảnh.");
+        } else if (!(newsDTO.getNameImg().endsWith(".jpg") || newsDTO.getNameImg().endsWith(".png"))) {
+            errors.rejectValue("nameImg", "nameImg", "Ảnh sai định dạng.");
+        } else {
+            if (newsDTO.getMb()>3){
+                errors.rejectValue("nameImg", "nameImg", "Vui lòng chọn ảnh không quá 3 MB.");
+            }
+        }
+        if (newsDTO.getContent().equals("")) {
+            errors.rejectValue("content", "content", "Nhập nội dung.");
+        } else {
+            int minLengthContent = newsDTO.getContent().length();
+            int maxLengthContent = newsDTO.getContent().length();
+            if (!(minLengthContent >= 100 && maxLengthContent <= 5000)) {
+                errors.rejectValue("content", "content", "Nội dung từ 100 đến 5000 kí tự.");
+            }
         }
 
-        int minLengthContent = newsDTO.getContent().length();
-        int maxLengthContent = newsDTO.getContent().length();
-        if (!(minLengthContent >= 100 && maxLengthContent <= 5000)) {
-            errors.rejectValue("content", "content", "Nội dung từ 100 đến 5000 kí tự");
-        }
+
+
+
     }
 }

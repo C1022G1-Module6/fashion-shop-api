@@ -10,11 +10,15 @@ import vn.codegym.dto.product.ProductSizeDTO;
 import vn.codegym.entity.data_entry.DataEntryProduct;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
+import vn.codegym.entity.product.ProductSizeDetail;
 import vn.codegym.repository.data_entry.IDataEntryProductRepository;
 import vn.codegym.repository.data_entry.IDataEntryRepository;
 import vn.codegym.repository.product.IProductRepository;
+import vn.codegym.repository.product.IProductSizeDetailRepository;
+import vn.codegym.repository.product.IProductSizeRepository;
 import vn.codegym.service.data_entry.IDataEntryProductService;
 import vn.codegym.service.data_entry.IDataEntryService;
+import vn.codegym.service.product.impl.ProductService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,6 +37,13 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
 
     @Autowired
     private IDataEntryRepository iDataEntryRepository;
+
+    @Autowired
+    private IProductSizeDetailRepository productSizeDetailRepository;
+    @Autowired
+    private IProductSizeRepository productSizeRepository;
+    @Autowired
+    private ProductService productService;
     Integer count = 0;
 
     /**
@@ -40,7 +51,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
      */
     public void saveNewDataEntry() {
         DataEntryDTO dataEntryDTO = new DataEntryDTO();
-        int id = iDataEntryRepository.getTotalCodeAmount() + 10000;
+        int id = iDataEntryRepository.getTotalCodeAmount() + 100000;
         dataEntryDTO.setCode("MP" + id);
         dataEntryDTO.setDate(LocalDate.now().toString());
         iDataEntryService.entryProduct(dataEntryDTO);
@@ -54,23 +65,47 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
      * @param dataEntryProductDTO
      */
     @Override
-    public void saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
+    public String saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
+        ProductSize productSize = productSizeRepository.findById(Integer.parseInt(dataEntryProductDTO.getSize())).get();
         Product product = iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode());
-        DataEntryProduct dataEntryProduct = new DataEntryProduct();
+        if (product == null) {
+            return "Không có mặt hàng này trong kho";
+        }
+        ProductSizeDetail productSizeDetail = productSizeDetailRepository.findWithProductSizeAndProduct(productSize.getId(), product.getId());
+        if (productSizeDetail == null) {
+            return "Không có mặt hàng này trong kho";
+        }
         if (count == 0) {
             saveNewDataEntry();
         }
-        dataEntryProduct.setDataEntry(iDataEntryService.findLastDataEntryInList());
-        dataEntryProduct.setProduct(product);
+        DataEntryProduct dataEntryProduct = new DataEntryProduct();
+        dataEntryProductDTO.setProductSizeCode(product.getCode() + productSize.getName());
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
-        product.setQuantity(product.getQuantity() + dataEntryProduct.getQuantity());
-        iProductRepository.save(product);
-        iDataEntryProductRepository.saveDataEntryProduct(
-                dataEntryProduct.getQuantity(),
-                dataEntryProduct.getDataEntry().getId(),
-                dataEntryProduct.getProduct().getId(),
-                dataEntryProduct.getDelete());
+        dataEntryProduct.setDataEntry(iDataEntryService.findLastDataEntryInList());
+        dataEntryProduct.setProduct(productSizeDetail.getProduct());
+        productSizeDetail.setQuantity(productSizeDetail.getQuantity() + dataEntryProduct.getQuantity());
+        productSizeDetailRepository.save(productSizeDetail);
+        productService.setValueForProduct(product);
+        List<DataEntryProduct> dataEntryProducts = iDataEntryProductRepository.findAll();
+
+        if (dataEntryProducts.isEmpty()) {
+            iDataEntryProductRepository.save(dataEntryProduct);
+        }
+
+        DataEntryProduct dataEntryProduct1 = dataEntryProducts.get(dataEntryProducts.size() - 1);
+        if (dataEntryProductDTO.getProductSizeCode().equals(dataEntryProduct1.getProductSizeCode()) && count != 0) {
+            dataEntryProduct1.setQuantity(dataEntryProduct1.getQuantity() + dataEntryProductDTO.getQuantity());
+            iDataEntryProductRepository.save(dataEntryProduct1);
+        } else {
+            iDataEntryProductRepository.saveDataEntryProduct(dataEntryProduct.getQuantity(),
+                    dataEntryProduct.getDataEntry().getId(),
+                    dataEntryProduct.getProduct().getId(),
+                    productSize.getName(),
+                    dataEntryProduct.getProductSizeCode(),
+                    dataEntryProduct.getDelete());
+        }
         count++;
+        return "";
     }
 
     public void resetCount() {
@@ -79,6 +114,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
 
     /**
      * this methois applied to delete an dataEntryProduct instance by set the isDelete value to true
+     *
      * @param id
      */
     @Override
@@ -89,20 +125,14 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
     }
 
     /**
-     * This method is used to set value for product
-     * @param product
-     * @param productDTO
-     */
-
-
-    /**
      * This function get all dataEntryProductDTO instances and return a list of data entry instances
      *
      * @return
      */
     @Override
     public List<DataEntryProductDTO> findAll() {
-        List<DataEntryProduct> dataEntryProductList = iDataEntryProductRepository.getAllWithId(iDataEntryService.findLastDataEntryInList().getId());
+        List<DataEntryProduct> dataEntryProductList = iDataEntryProductRepository
+                .getAllWithId(iDataEntryService.findLastDataEntryInList().getId());
         List<DataEntryProductDTO> dataEntryProductDTOList = new ArrayList<>();
         DataEntryProductDTO dataEntryProductDTO;
         for (DataEntryProduct dataEntryProduct : dataEntryProductList) {

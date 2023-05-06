@@ -96,4 +96,15 @@ public class StatisticalRestController {
     public Double getTotalRevenueMonth() {
         return iStatiscialService.getTotalRevenuesMonth();
     }
+
+
+    /**
+     *Phương thức này để tính doanh thu của shop
+     *
+     * @return nếu có dữ liệu trả về dữ liệu
+     */
+    @GetMapping("/total")
+    public Double getTotalRevenue() {
+        return iStatiscialService.getTotalRevenues();
+    }
 }

@@ -11,9 +11,9 @@ import vn.codegym.dto.invoice.InvoiceDTO;
 import vn.codegym.service.invoice.IInvoiceService;
 import vn.codegym.service.invoice.impl.InvoiceDetailService;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/invoice")
@@ -50,8 +50,14 @@ public class InvoiceRestController {
         if (invoiceDTO.getTotal() == null ||invoiceDTO.getPayment() == null || invoiceDTO.getCustomerDTO().getCode() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        if (invoiceDTO.getCustomerDTO().getCode().equals("")) {
+            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+        }
         if (!bindingResult.hasErrors()) {
-            invoiceService.update(invoiceDTO);
+            String msg = invoiceService.update(invoiceDTO);
+            if (!Objects.equals(msg, "")) {
+                return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+            }
             invoiceDetailService.resetCount();
         } else {
             Map<String, String> map = new LinkedHashMap<>();
@@ -69,6 +75,17 @@ public class InvoiceRestController {
     @GetMapping("/detail")
     public ResponseEntity<InvoiceDTO> getInvoice() {
         InvoiceDTO invoiceDTO = invoiceService.getInvoiceDetail();
+        SimpleDateFormat initialDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = invoiceDTO.getDate();
+        String dateInNewFormat = "";
+        try {
+            Date newDate = initialDateFormat.parse(date);
+            dateInNewFormat = newDateFormat.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        invoiceDTO.setDate(dateInNewFormat);
         return new ResponseEntity<>(invoiceDTO, HttpStatus.OK);
     }
 
