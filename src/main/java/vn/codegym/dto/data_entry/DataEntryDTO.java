@@ -7,9 +7,7 @@ import java.util.Set;
 
 public class DataEntryDTO {
     private Integer id;
-    @Pattern(regexp = "^MH\\d{6}$", message = "Nhập đúng định dạng mã MHXXXXXX với X là số từ 0-9")
     private String code;
-
     private String date;
     private String employeeName;
     private Set<DataEntryProductDTO> dataEntryProductDTOSet;

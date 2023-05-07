@@ -17,7 +17,7 @@ public interface IProductService {
 
     List<ProductDetailDTO> findAllByProductId(int id);
     Page<ProductDTO> findAllProducts(Pageable pageable);
-    Page<ProductDTO> searchProducts(String productName, String code, Pageable pageable);
+    Page<ProductDTO> searchProducts(String productName, String productTypeId, Pageable pageable);
     void addProduct(ProductCreateDTO productCreateDTO);
 
     Product findWithId(Integer id);

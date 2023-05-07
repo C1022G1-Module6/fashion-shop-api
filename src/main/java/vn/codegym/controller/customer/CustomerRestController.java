@@ -2,6 +2,7 @@ package vn.codegym.controller.customer;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -37,13 +38,13 @@ public class CustomerRestController {
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
-    public ResponseEntity<Page<CustomerDTO>> search(@PageableDefault(size = 3) Pageable pageable,
+    public ResponseEntity<Page<CustomerDTO>> search(@PageableDefault(sort = {"id"},direction = Sort.Direction.DESC, size = 5) Pageable pageable,
                                          @RequestParam(required = false, defaultValue = "") String searchCode,
                                          @RequestParam(required = false, defaultValue = "") String searchName,
                                          @RequestParam(required = false, defaultValue = "") String searchPhoneNumber) {
 
-        Pageable sortedPageaBle = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-        Page<CustomerDTO> customerDTOS = this.customerService.searchCustomer(sortedPageaBle, searchCode, searchName, searchPhoneNumber);
+//        Pageable sortedPageaBle = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        Page<CustomerDTO> customerDTOS = this.customerService.searchCustomer(pageable, searchCode, searchName, searchPhoneNumber);
 
         if (customerDTOS.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

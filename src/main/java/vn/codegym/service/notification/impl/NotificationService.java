@@ -27,8 +27,6 @@ public class NotificationService implements INotificationService {
         NotificationDTO notificationDTO;
         for (Notification notification: notifications ){
             notificationDTO = new NotificationDTO();
-            notificationDTO.setEmployeeDTO(new EmployeeDTO());
-            BeanUtils.copyProperties(notification.getEmployee(), notificationDTO.getEmployeeDTO());
             BeanUtils.copyProperties(notification, notificationDTO);
             notificationDTOS.add(notificationDTO);
         }
@@ -49,15 +47,7 @@ public class NotificationService implements INotificationService {
             return null;
         }
         NotificationDTO notificationDTO =new NotificationDTO();
-        notificationDTO.setEmployeeDTO(new EmployeeDTO());
-        BeanUtils.copyProperties(notification.getEmployee(), notificationDTO.getEmployeeDTO());
         BeanUtils.copyProperties(notification, notificationDTO);
-
-
-
-
-
-
         return notificationDTO ;
     }
 }

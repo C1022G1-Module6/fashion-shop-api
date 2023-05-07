@@ -26,7 +26,6 @@ public class Employee {
             joinColumns = {@JoinColumn(name = "employee_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
-
     Set<Role> roles = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,10 +48,6 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     @JsonManagedReference
     private Set<News> news;
-    @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
-    private Set<Notification> notifications;
-
     private LocalDateTime expiryTime;
     private String otpSecret;
     public Employee() {
@@ -72,7 +67,6 @@ public class Employee {
         this.avatar = avatar;
         this.roles = roles;
         this.news = news;
-        this.notifications = notifications;
     }
 
     public LocalDateTime getExpiryTime() {
@@ -197,13 +191,5 @@ public class Employee {
 
     public void setNews(Set<News> news) {
         this.news = news;
-    }
-
-    public Set<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(Set<Notification> notifications) {
-        this.notifications = notifications;
     }
 }

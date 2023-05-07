@@ -3,6 +3,9 @@ package vn.codegym.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,6 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import vn.codegym.security.CustomUserDetailsService;
 import vn.codegym.security.JwtAuthenticationEntryPoint;
 import vn.codegym.security.JwtAuthenticationFilter;
+
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -57,7 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/**").permitAll()
+                                .authorizeRequests().antMatchers(
+                        "/**").permitAll()
 //                .authorizeRequests().antMatchers(
 //                        "/login"
 //                        ,"/reset-password"
@@ -82,11 +89,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        ,"/api/product-size"
 //                        ,"/data-entry-product/**"
 //                        ,"/data-entry/**").hasRole("WAREHOUSE_MANAGER")
-                .and().authorizeRequests().antMatchers("/api/customer/**").hasRole("STORE_MANAGER")
+//                .and().authorizeRequests().antMatchers("/api/customer/**").hasRole("STORE_MANAGER")
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 }

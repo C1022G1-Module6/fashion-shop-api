@@ -2,6 +2,9 @@ package vn.codegym.dto.data_entry;
 
 import vn.codegym.dto.product.ProductDTO;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 public class DataEntryProductDTO {

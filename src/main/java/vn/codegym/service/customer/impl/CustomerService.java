@@ -72,8 +72,11 @@ public class CustomerService implements ICustomerService {
      * @param point
      */
     @Override
-    public void saveCustomer(String code, String name, boolean gender, String dateOfBirth, String address, String email, String phoneNumber, Integer point,Integer customerId) {
-        customerRepository.saveCustomer(code, name, gender, dateOfBirth, address, email, phoneNumber, point,customerId);
+    public void saveCustomer(String code, String name, boolean gender, String dateOfBirth, String address,
+                             String email, String phoneNumber, Integer point,Integer customerId) {
+        int id = customerRepository.getTotalCodeAmount();
+        String newCode = "KH-" + 0 + id;
+        customerRepository.saveCustomer(newCode, name, gender, dateOfBirth, address, email, phoneNumber, point,customerId);
     }
 
     /**

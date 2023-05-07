@@ -1,5 +1,6 @@
 package vn.codegym.dto.product;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -7,19 +8,19 @@ import java.util.Set;
 public class ProductCreateDTO {
     private String code;
     @NotBlank(message = "Không được để trống")
-@Size(max = 200,message = "Không được vượt quá 200 ký tự" )
-@Pattern(regexp = "^[A-Z][a-zđàáảãạăắằẵặẳâầấậẫẩêềếểệễéèẻẹëẽíìỉịĩóòỏõọôổốộỗồơờớợỡởùúủụũưừứựữửỳỷỹỵ\\s]*$",message = "Chữ đầu tiên viết hoa và mấy chữ sau có thể viết dấu" +
-        "ví dụ như Áo ấm, Quần dài")
+    @Size(max = 200,message = "Không được vượt quá 200 ký tự" )
+    @Pattern(regexp = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s|_]+$",message = "Tên sản phẩm phải đúng định dạng VD: Áo dài Việt Nam")
     private String name;
 
     private String qrImg;
     @NotBlank(message = "Không được để trống")
     private String img;
 
-
+    @NotNull(message = "Không được để trống")
     private Double sellingPrice;
-
+    @NotNull(message = "Không được để trống")
     private Double entryPrice;
+
     private ProductTypeDTO productType;
 
     private String codeDetail;

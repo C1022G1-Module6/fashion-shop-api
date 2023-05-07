@@ -84,17 +84,9 @@ public class NotificationRestController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_ACCEPTABLE );
         }
-
         Notification notification = new Notification();
         BeanUtils.copyProperties(notificationDTO, notification);
-        Employee employee = new Employee();
-        employee.setId(notificationDTO.getEmployeeDTO().getId());
-        notification.setEmployee(employee);
-
         notificationService.addNotification(notification);
-
         return new ResponseEntity<>(HttpStatus.CREATED);
-
-
     }
 }
