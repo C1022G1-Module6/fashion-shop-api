@@ -21,6 +21,7 @@ public class ProductSize {
     public ProductSize() {
     }
 
+
     public Integer getId() {
         return id;
     }

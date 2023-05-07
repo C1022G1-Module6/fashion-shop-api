@@ -13,43 +13,40 @@ public class NewsDTO implements Validator {
     private Double mb;
     private String content;
     private String dateTime;
-    private Employee employee;
 
     public NewsDTO() {
     }
 
-    public NewsDTO(Integer id, String title, String img, String content, Employee employee) {
+    public NewsDTO(Integer id, String title, String img, String content) {
         this.id = id;
         this.title = title;
         this.img = img;
         this.content = content;
-        this.employee = employee;
     }
 
-    public NewsDTO(Integer id, String title, String img, String nameImg, Double mb, String content, Employee employee) {
+    public NewsDTO(Integer id, String title, String img, String nameImg, Double mb, String content) {
         this.id = id;
         this.title = title;
         this.img = img;
         this.nameImg = nameImg;
         this.mb = mb;
         this.content = content;
-        this.employee = employee;
     }
 
-    public NewsDTO(String title, String img, String content, Employee employee) {
+    public NewsDTO(String title, String img, String content) {
         this.title = title;
         this.img = img;
         this.content = content;
-        this.employee = employee;
+
     }
 
-    public NewsDTO(String title, String img, String nameImg, Double mb, String content, Employee employee) {
+    public NewsDTO(String title, String img, String nameImg, Double mb, String content) {
         this.title = title;
         this.img = img;
         this.nameImg = nameImg;
         this.mb = mb;
         this.content = content;
-        this.employee = employee;
+
     }
 
     public double getMb() {
@@ -106,14 +103,6 @@ public class NewsDTO implements Validator {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     @Override
