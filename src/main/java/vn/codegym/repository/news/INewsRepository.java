@@ -68,8 +68,8 @@ public interface INewsRepository extends JpaRepository<News, Integer> {
      *
      * @return get list randomly returns 3 news records in the database
      */
-    @Query(value = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n order by  RAND() limit 3",
-            countQuery = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n order by desc RAND() limit 3",
+    @Query(value = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n order by  RAND() limit 6",
+            countQuery = "select n.id,n.content, n.img, n.title,n.employee_id as employeeId FROM news n order by desc RAND() limit 6",
             nativeQuery = true)
     List<INewsDTO> listRelatedNews();
 }
