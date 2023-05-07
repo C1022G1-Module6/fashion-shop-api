@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -103,14 +104,14 @@ public class ProductRestController {
     @GetMapping("/search")
     public ResponseEntity<?> searchProducts(
             @RequestParam(required = false, defaultValue = "") String productName,
-            @RequestParam(required = false, defaultValue = "") String code,
-            @PageableDefault(size = 10) Pageable pageable
+            @RequestParam(required = false, defaultValue = "") String productTypeId,
+            @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC,size = 5) Pageable pageable
     ) {
         if (productName.matches("[^a-zA-Z0-9]+")) {
             return new ResponseEntity<>("Không được nhập ký tự đặc biệt",HttpStatus.BAD_REQUEST);
         }
 
-        Page<ProductDTO> products = productService.searchProducts(productName, code, pageable);
+        Page<ProductDTO> products = productService.searchProducts(productName, productTypeId, pageable);
         if (products.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

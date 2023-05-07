@@ -22,9 +22,9 @@ public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, In
      * Lấy tổng doanh thu theo tuần
      *
      */
-    @Query(value = "SELECT SUM(payment) AS total_payment_week \n" +
-            "FROM invoice \n" +
-            "WHERE date BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE();",nativeQuery = true)
+    @Query(value = "SELECT SUM(payment) AS total_payment_week\n" +
+            "FROM invoice\n" +
+            "WHERE YEARWEEK(date, 1) = YEARWEEK(CURDATE(), 1);",nativeQuery = true)
     Double getTotalRevenueWeek();
 
     /**
@@ -40,23 +40,12 @@ public interface IInvoiceStatisticalRepository extends JpaRepository<Invoice, In
      * Lấy top 5 nhân viên bán chạy nhất theo quý
      * @return
      */
-    @Query(value = "SELECT i.employee_name AS name, \n" +
-            "    CONCAT('Quý ', QUARTER(i.date),' năm ',YEAR(i.date)) AS quarter,\n" +
-            "    SUM(i.payment) AS payment,\n" +
-            "    SUM(iv.total) AS total\n" +
-            "FROM \n" +
-            "    invoice i \n" +
-            "JOIN \n" +
-            "    invoice_detail iv \n" +
-            "ON \n" +
-            "    i.id = iv.invoice_id \n" +
-            "WHERE \n" +
-            "    YEAR(i.date) = 2023 \n" +
-            "GROUP BY \n" +
-            "    name, quarter \n" +
-            "ORDER BY \n" +
-            "    quarter, payment DESC \n" +
-            "LIMIT 5;", nativeQuery = true)
+    @Query(value = "SELECT i.employee_name AS name,\n" +
+            "CONCAT('Quý ', QUARTER(i.date),' năm ',\n" +
+            "YEAR(i.date)) AS quarter,SUM(i.payment) AS payment,\n" +
+            "SUM(iv.quantity) AS total FROM invoice i JOIN invoice_detail iv ON i.id = iv.invoice_id \n" +
+            "WHERE YEAR(i.date) = 2023 and QUARTER(i.date) =1 GROUP BY name, quarter ORDER BY quarter, \n" +
+            "payment DESC LIMIT 5;", nativeQuery = true)
     List<ITopEmployeesProjection> findTopEmployee();
 
 

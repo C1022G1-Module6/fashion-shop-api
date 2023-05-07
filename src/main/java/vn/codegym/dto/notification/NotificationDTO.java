@@ -1,5 +1,6 @@
 package vn.codegym.dto.notification;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import vn.codegym.dto.employee.EmployeeDTO;
 
 import javax.validation.constraints.NotBlank;
@@ -19,24 +20,21 @@ public class NotificationDTO {
     @Size(max = 1000, message = "Tiêu đề không được vượt quá 1000 ký tự")
     @Size(min = 20, message = "Nội dung tối thiểu là 20 ký tự")
     private String content;
-    @NotBlank(message = "Vui lòng chọn hình ảnh thông báo")
+
     private String img;
-
-    @NotNull(message = "Vui lòng chọn đối tượng thông báo")
-    private EmployeeDTO employeeDTO;
-
+    private String role;
     private Boolean isDelete = false;
 
 
     public NotificationDTO() {
     }
 
-    public NotificationDTO(Integer id, String title, String content, String img, EmployeeDTO employeeDTO, Boolean isDelete) {
+    public NotificationDTO(Integer id, String title, String content, String img, Boolean isDelete) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.img = img;
-        this.employeeDTO = employeeDTO;
+
         this.isDelete = isDelete;
     }
 
@@ -80,12 +78,16 @@ public class NotificationDTO {
         this.img = img;
     }
 
-    public EmployeeDTO getEmployeeDTO() {
-        return employeeDTO;
+
+
+    public String getRole() {
+        return role;
     }
 
-    public void setEmployeeDTO(EmployeeDTO employeeDTO) {
-        this.employeeDTO = employeeDTO;
+    public void setRole(String role) {
+        this.role = role;
     }
+
+
 }
 

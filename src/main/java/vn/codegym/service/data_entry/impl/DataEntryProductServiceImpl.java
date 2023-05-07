@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import vn.codegym.dto.data_entry.DataEntryDTO;
 import vn.codegym.dto.data_entry.DataEntryProductDTO;
 import vn.codegym.dto.product.ProductDTO;
-import vn.codegym.dto.product.ProductSizeDTO;
 import vn.codegym.entity.data_entry.DataEntryProduct;
 import vn.codegym.entity.product.Product;
 import vn.codegym.entity.product.ProductSize;
@@ -22,9 +21,7 @@ import vn.codegym.service.product.impl.ProductService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class DataEntryProductServiceImpl implements IDataEntryProductService {
@@ -73,7 +70,7 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         }
         ProductSizeDetail productSizeDetail = productSizeDetailRepository.findWithProductSizeAndProduct(productSize.getId(), product.getId());
         if (productSizeDetail == null) {
-            return "Không có mặt hàng này trong kho";
+            return "Không có size này trong kho";
         }
         if (count == 0) {
             saveNewDataEntry();

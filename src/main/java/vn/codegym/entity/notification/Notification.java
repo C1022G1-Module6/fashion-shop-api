@@ -1,5 +1,6 @@
 package vn.codegym.entity.notification;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import vn.codegym.entity.employee.Employee;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -12,11 +13,12 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+    @Lob
     private String content;
     private String img;
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+
+
+    private String role;
     private Boolean isDelete = false;
 
 
@@ -25,6 +27,14 @@ public class Notification {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setId(Integer id) {
@@ -55,13 +65,6 @@ public class Notification {
         this.img = img;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 
     public Boolean getDelete() {
         return isDelete;
