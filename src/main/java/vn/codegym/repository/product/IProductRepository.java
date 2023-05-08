@@ -116,7 +116,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
      * @return
      */
 
-    @Query(value = "select * from product join product_type pt on product.product_type_id = pt.id where pt.id = coalesce(nullif(:id,0), pt.id) and product.name like CONCAT('%' :name '%')", nativeQuery = true)
+    @Query(value = "select * from product join product_type pt on product.product_type_id = pt.id where pt.id = coalesce(nullif(:id,0), pt.id) and product.name like CONCAT('%' :name '%') and is_delete = false ORDER BY product.id desc ", nativeQuery = true)
     Page<Product> ListProduct(@Param("name") String name, @Param("id") Integer product_type_id, Pageable pageable);
 
 
@@ -128,4 +128,7 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "select count(code) from product", nativeQuery = true)
     Integer getTotalCodeAmount();
+
+    @Query(value = "select * from product where name like concat('%',:name,'%') and is_delete = false", nativeQuery = true)
+    Page<Product> findWithNameContaining(@Param("name")String name, Pageable pageable);
 }

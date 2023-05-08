@@ -28,7 +28,7 @@ public class InvoiceService implements IInvoiceService {
     }
     private void setValueOfCustomerType (Customer customer, Invoice invoice) {
         customer.setPoint(customer.getPoint() + invoice.getBonusPoint());
-        if (customer.getPoint() >= 1200) {
+        if (customer.getPoint() >= 100000) {
             customer.setCustomerType(customerTypeRepository.findById(1).get());
         }
         customer.getCustomerType().setBonusPoint(invoice.getBonusPoint());

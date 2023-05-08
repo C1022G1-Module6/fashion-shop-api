@@ -36,6 +36,7 @@ public class DataEntryProductRestController {
         if(dataEntryProductDTO.getQuantity()==0){
             return new ResponseEntity<>(new ResponseMessage("Không được bỏ trống"), HttpStatus.BAD_REQUEST);
         }
+
         if (!bindingResult.hasErrors()) {
             String msg = iDataEntryProductService.saveEntryProduct(dataEntryProductDTO);
             if (!Objects.equals(msg, "")) {

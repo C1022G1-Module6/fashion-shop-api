@@ -65,6 +65,9 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
     public String saveEntryProduct(DataEntryProductDTO dataEntryProductDTO) {
         ProductSize productSize = productSizeRepository.findById(Integer.parseInt(dataEntryProductDTO.getSize())).get();
         Product product = iProductRepository.findWithCode(dataEntryProductDTO.getProductDTO().getCode());
+        if(dataEntryProductDTO.getProductDTO().getCode().equals("")){
+            return "Không được để trống";
+        }
         if (product == null) {
             return "Không có mặt hàng này trong kho";
         }
@@ -80,7 +83,9 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         BeanUtils.copyProperties(dataEntryProductDTO, dataEntryProduct);
         dataEntryProduct.setDataEntry(iDataEntryService.findLastDataEntryInList());
         dataEntryProduct.setProduct(productSizeDetail.getProduct());
+
         productSizeDetail.setQuantity(productSizeDetail.getQuantity() + dataEntryProduct.getQuantity());
+
         productSizeDetailRepository.save(productSizeDetail);
         productService.setValueForProduct(product);
         List<DataEntryProduct> dataEntryProducts = iDataEntryProductRepository.findAll();
@@ -119,6 +124,12 @@ public class DataEntryProductServiceImpl implements IDataEntryProductService {
         DataEntryProduct dataEntryProduct = iDataEntryProductRepository.findEntryProductWithId(id);
         dataEntryProduct.setDelete(true);
         iDataEntryProductRepository.save(dataEntryProduct);
+        ProductSizeDetail productSizeDetail = productSizeDetailRepository.findByCodeContaining(dataEntryProduct.getProductSizeCode());
+        Product product = iProductRepository.findWithCode(dataEntryProduct.getProduct().getCode());
+        product.setQuantity(product.getQuantity() - productSizeDetail.getQuantity());
+        iProductRepository.save(product);
+        productSizeDetail.setQuantity(0);
+        productSizeDetailRepository.save(productSizeDetail);
     }
 
     /**

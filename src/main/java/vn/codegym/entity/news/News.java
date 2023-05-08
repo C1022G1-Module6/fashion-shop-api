@@ -12,7 +12,9 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+    @Lob
     private String img;
+
     private String nameImg; //TanNN thêm vào
     private String content;
     private String dateTime; //TanNN thêm vào

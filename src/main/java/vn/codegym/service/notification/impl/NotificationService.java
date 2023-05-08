@@ -50,4 +50,29 @@ public class NotificationService implements INotificationService {
         BeanUtils.copyProperties(notification, notificationDTO);
         return notificationDTO ;
     }
+
+    @Override
+    public Page<NotificationDTO> findByRoleSaler(Pageable sortedPageaBle) {
+        List<NotificationDTO> notificationDTOS = new ArrayList<>() ;
+        Page<Notification> notifications =  notificationRepository.findByRoleSaler(sortedPageaBle);
+        NotificationDTO notificationDTO;
+        for (Notification notification: notifications ){
+            notificationDTO = new NotificationDTO();
+            BeanUtils.copyProperties(notification, notificationDTO);
+            notificationDTOS.add(notificationDTO);
+        }
+        return new PageImpl<>(notificationDTOS,sortedPageaBle , notifications.getTotalElements());
+    }
+
+    @Override
+    public Page<NotificationDTO> findByRoleWareHouse(Pageable sortedPageaBle) {
+        List<NotificationDTO> notificationDTOS = new ArrayList<>() ;
+        Page<Notification> notifications =  notificationRepository.findByRoleWareHouse(sortedPageaBle);
+        NotificationDTO notificationDTO;
+        for (Notification notification: notifications ){
+            notificationDTO = new NotificationDTO();
+            BeanUtils.copyProperties(notification, notificationDTO);
+            notificationDTOS.add(notificationDTO);
+        }
+        return new PageImpl<>(notificationDTOS,sortedPageaBle , notifications.getTotalElements());    }
 }

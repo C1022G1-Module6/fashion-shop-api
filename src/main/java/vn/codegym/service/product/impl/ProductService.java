@@ -109,12 +109,10 @@ public class ProductService implements IProductService {
         product.setQuantity(0);
         product.setProductType(new ProductType(productCreateDTO.getProductType().getId()));
         String imgPath = productCreateDTO.getImg();
-        String newImgFilePath = imgPath.replace("C:\\fakepath\\", "img/");
-        productCreateDTO.setImg(newImgFilePath);
         BeanUtils.copyProperties(productCreateDTO, product);
-        int id = productRepository.getTotalCodeAmount() + 100000;
+        int id = productRepository.getTotalCodeAmount() + 10000;
         product.setCode("MH" + id);
-        String qrImgPath = "E:\\Codegym\\project_reactJS\\fashion-shop-reactjs\\src\\qrCode" + product.getCode() + ".png";
+        String qrImgPath = "E:\\fashion-shop-reactjs\\src\\qrCode\\" + product.getCode() + ".png";
         try {
             Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
@@ -187,6 +185,21 @@ public class ProductService implements IProductService {
 
     public Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable) {
         return productRepository.ListProduct(name, product_type_id,pageable);
+    }
+
+    @Override
+    public Page<ProductDTO> findByName(String name, Pageable pageable) {
+        Page<Product> products = productRepository.findWithNameContaining(name, pageable);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        ProductDTO productDTO;
+        for (Product product: products) {
+            productDTO = new ProductDTO();
+            productDTO.setProductType(new ProductTypeDTO());
+            BeanUtils.copyProperties(product.getProductType(), productDTO.getProductType());
+            BeanUtils.copyProperties(product, productDTO);
+            productDTOS.add(productDTO);
+        }
+        return new PageImpl<>(productDTOS, pageable, products.getTotalElements());
     }
 }
 
