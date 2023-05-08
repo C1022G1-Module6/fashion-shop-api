@@ -20,6 +20,7 @@ import vn.codegym.dto.product.ProductDetailDTO;
 import vn.codegym.service.product.IProductService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,15 +45,15 @@ public class ProductRestController {
     private IProductService productService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<Product>> listProducts(
+    public ResponseEntity<?> listProducts(
             @RequestParam(name = "name", defaultValue = "") String name,
             @RequestParam(name = "product_type_id", defaultValue = "0") Integer product_type_id,
-            @PageableDefault(size = 5) Pageable pageable) {
+            @PageableDefault(size = 20) Pageable pageable) {
         Page<Product> products = productService.ListProduct(name, product_type_id, pageable);
         if (products.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(new ArrayList<>() ,HttpStatus.OK);
         }
-        return ResponseEntity.ok(products);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     /**
@@ -84,8 +85,12 @@ public class ProductRestController {
      */
     @GetMapping("/detail")
     public ResponseEntity<List<ProductDetailDTO>> getProductDetails(@RequestParam(required = false) Integer id) {
+        List<ProductDetailDTO> productDetailDTOs = new ArrayList<>();
+        if (id == null) {
+            return new ResponseEntity<>(productDetailDTOs ,HttpStatus.BAD_REQUEST);
+        }
         List<ProductDetailDTO> productDetailDTOList = productService.findAllByProductId(id);
-        if (productDetailDTOList.size() == 0) {
+        if (productDetailDTOList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(productDetailDTOList, HttpStatus.OK);
@@ -154,6 +159,21 @@ public class ProductRestController {
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
+    @GetMapping("")
+    public ResponseEntity<?> searchProductsByName(
+            @RequestParam(required = false, defaultValue = "") String productName,
+            @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC,size = 5) Pageable pageable
+    ) {
+        if (productName.matches("[^a-zA-Z0-9]+")) {
+            return new ResponseEntity<>("Không được nhập ký tự đặc biệt",HttpStatus.BAD_REQUEST);
+        }
+
+        Page<ProductDTO> products = productService.findByName(productName, pageable);
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 }

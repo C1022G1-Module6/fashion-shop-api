@@ -90,7 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        ,"/data-entry-product/**"
 //                        ,"/data-entry/**").hasRole("WAREHOUSE_MANAGER")
 //                .and().authorizeRequests().antMatchers("/api/customer/**").hasRole("STORE_MANAGER")
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

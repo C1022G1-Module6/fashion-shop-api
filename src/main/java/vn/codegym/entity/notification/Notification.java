@@ -16,8 +16,6 @@ public class Notification {
     @Lob
     private String content;
     private String img;
-
-
     private String role;
     private Boolean isDelete = false;
 

@@ -34,4 +34,5 @@ public interface IProductService {
      */
 
     Page<Product> ListProduct(String name, Integer product_type_id, Pageable pageable);
+    Page<ProductDTO> findByName(String name, Pageable pageable);
 }

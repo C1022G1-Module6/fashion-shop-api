@@ -24,14 +24,11 @@ public class InvoiceDetailRestController {
 
     @PostMapping("")
     public ResponseEntity<?> createInvoiceDetail(@Valid @RequestBody InvoiceDetailDTO invoiceDetailDTO, BindingResult bindingResult) {
-        if (invoiceDetailDTO.getProductDTO().getCode() == null) {
-            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+        if (invoiceDetailDTO.getProductDTO().getCode().equals("")) {
+            return new ResponseEntity<>("Mã hàng không được bỏ trống",HttpStatus.BAD_REQUEST);
         }
         if (invoiceDetailDTO.getQuantity() == null) {
-            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
-        }
-        if (Objects.equals(invoiceDetailDTO.getSize(), "")) {
-            return new ResponseEntity<>("Không được bỏ trống",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Số lượng Không được bỏ trống",HttpStatus.BAD_REQUEST);
         }
         if (!bindingResult.hasErrors()) {
             String msg = invoiceDetailService.save(invoiceDetailDTO);

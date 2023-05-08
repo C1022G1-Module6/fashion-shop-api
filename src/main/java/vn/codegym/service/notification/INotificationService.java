@@ -14,4 +14,8 @@ public interface INotificationService {
 
 
     NotificationDTO findByIdNotification(Integer id);
+
+    Page<NotificationDTO> findByRoleSaler(Pageable sortedPageaBle);
+
+    Page<NotificationDTO> findByRoleWareHouse(Pageable sortedPageaBle);
 }

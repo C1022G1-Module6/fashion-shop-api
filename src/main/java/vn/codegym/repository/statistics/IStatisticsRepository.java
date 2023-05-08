@@ -22,7 +22,7 @@ public interface IStatisticsRepository extends JpaRepository<Invoice, Integer> {
             "            data_entry_product inner join product on data_entry_product.product_id = product.id \n" +
             "            inner join data_entry \n" +
             "            on data_entry_product.data_entry_id = data_entry.id\n" +
-            "            where month(data_entry.date) = :month group by `day`, month(data_entry.date)", nativeQuery = true)
+            "            where month(data_entry.date) = :month group by data_entry.date, month(data_entry.date) order by data_entry.date", nativeQuery = true)
     List<IDayCostProjection> totalCostDay(@Param("month") Integer month);
 
     @Query(value = "select sum(dep.quantity * pro.entry_price) as totalCost from data_entry_product dep inner join " +
@@ -34,8 +34,8 @@ public interface IStatisticsRepository extends JpaRepository<Invoice, Integer> {
     @Query(value = "select format(day(inv.date), '00') as `day`, (sum(inv.payment) - " +
             "(sum(ind.quantity * pro.selling_price))) as profit \n" +
             "from invoice_detail ind inner join product pro on ind.product_id = pro.id\n" +
-            "inner join invoice inv on ind.invoice_id = inv.id  where month(inv.date) = :month group by `day`, " +
-            "month(inv.date)", nativeQuery = true)
+            "inner join invoice inv on ind.invoice_id = inv.id  where month(inv.date) = :month group by inv.date, " +
+            "month(inv.date) order by inv.date", nativeQuery = true)
     List<IDayProfitProjection> totalProfitDay(@Param("month") Integer month);
 
     @Query(value = "select month(inv.date) AS `month`, (SUM(inv.payment) - SUM(ind.quantity * pro.selling_price)) " +

@@ -14,6 +14,7 @@ public class InvoiceDetailDTO {
     @PositiveOrZero(message = "Tổng tiền phải là số dương")
     private Double total;
     private Boolean isDelete = false;
+    @NotBlank(message = "Không được để trống")
     private String size;
     private ProductDTO productDTO;
     private InvoiceDTO invoiceDTO;

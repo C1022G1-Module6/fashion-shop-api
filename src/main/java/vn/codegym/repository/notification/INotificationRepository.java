@@ -35,6 +35,12 @@ public interface INotificationRepository extends JpaRepository<Notification, Int
     @Query(value = "select * from notification where id =:id", nativeQuery = true)
     Notification findByNotificationId(@Param("id") Integer id);
 
+    @Query(value = "select * from notification where role = 'ROLE_SALER' order by id desc   "
+            , nativeQuery = true)
+    Page<Notification>  findByRoleSaler(Pageable pageable);
 
+    @Query(value = "select * from notification where role = 'ROLE_WAREHOUSE_MANAGER' order by id desc  "
+            , nativeQuery = true)
+    Page<Notification>  findByRoleWareHouse(Pageable pageable);
 }
 
